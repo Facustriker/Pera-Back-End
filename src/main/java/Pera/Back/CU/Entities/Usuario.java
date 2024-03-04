@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "Usuario")
-public class Usuario extends EntidadBase {
+public class Usuario extends BaseEntity {
 
     @NotNull
     @Column(name = "fhaUsuario", nullable = false)

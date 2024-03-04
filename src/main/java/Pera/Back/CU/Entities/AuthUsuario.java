@@ -1,7 +1,5 @@
 package Pera.Back.CU.Entities;
 
-import Pera.Back.CU.Entities.EntidadBase;
-import Pera.Back.CU.Entities.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -13,7 +11,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class AuthUsuario extends EntidadBase {
+public class AuthUsuario extends BaseEntity {
 
     @NotNull
     @Column(name = "password", nullable = false)
