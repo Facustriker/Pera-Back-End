@@ -1,15 +1,12 @@
-package Pera.Back.Auth;
+package Pera.Back.CU.RegistrarUsuario;
 
-import Pera.Back.CU.Entities.AuthUsuario;
-import Pera.Back.CU.Entities.Rol;
-import Pera.Back.CU.Entities.Usuario;
-import Pera.Back.CU.Repositories.AuthUsuarioRepository;
-import Pera.Back.CU.Repositories.UsuarioRepository;
+import Pera.Back.Entities.AuthUsuario;
+import Pera.Back.Entities.Rol;
+import Pera.Back.Entities.Usuario;
 import Pera.Back.JWT.JwtService;
+import Pera.Back.Repositories.AuthUsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,24 +14,14 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class ExpertoRegistrarUsuarioImpl implements ExpertoRegistrarUsuario {
 
-    private final UsuarioRepository usuarioRepository;
     private final AuthUsuarioRepository authUsuarioRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        UserDetails user = usuarioRepository.findByMail(request.getEmail()).orElseThrow();
-        String token = jwtService.getToken(user);
-        return AuthResponse.builder()
-                .token(token)
-                .build();
-    }
-
-    public AuthResponse register(RegisterRequest request) {
+    public DTOAuthResponse register(DTORegisterRequest request) {
 
         long timeNow = System.currentTimeMillis();
 
@@ -48,7 +35,7 @@ public class AuthService {
                 .fhaUsuario(new Date(timeNow))
                 .build();
 
-        usuario.AgregarRol(rol);
+        usuario.setRol(rol);
 
         AuthUsuario authUsuario = AuthUsuario.builder()
                 .username(request.getEmail())
@@ -59,23 +46,23 @@ public class AuthService {
 
         if("admin@gmail.com".equals(usuario.getMail())){
             Rol rolAdmin = Rol.builder()
-                            .nombreRol("ADMIN")
-                            .build();
-            usuario.AgregarRol(rolAdmin);
+                    .nombreRol("ADMIN")
+                    .build();
+            usuario.setRol(rolAdmin);
         }else{
             Rol rolUser = Rol.builder()
                     .nombreRol("USER")
                     .build();
-            usuario.AgregarRol(rolUser);
+            usuario.setRol(rolUser);
         }
 
         authUsuarioRepository.save(authUsuario);
 
-        return AuthResponse.builder()
-                .token(jwtService.getToken(usuario))
+        return DTOAuthResponse.builder()
+                .token(jwtService.getToken(authUsuario))
                 .build();
 
 
     }
-}
 
+}

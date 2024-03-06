@@ -1,4 +1,4 @@
-package Pera.Back.CU.Entities;
+package Pera.Back.Entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package Pera.Back.Auth;
+package Pera.Back.CU.RegistrarUsuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthResponse {
+public class DTOAuthResponse {
 
     String token;
 }

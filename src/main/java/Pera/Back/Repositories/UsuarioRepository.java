@@ -1,6 +1,6 @@
-package Pera.Back.CU.Repositories;
+package Pera.Back.Repositories;
 
-import Pera.Back.CU.Entities.Usuario;
+import Pera.Back.Entities.Usuario;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -8,5 +8,4 @@ import java.util.Optional;
 @Repository
 public interface UsuarioRepository extends BaseRepository<Usuario, Long> {
 
-    Optional<Usuario> findByMail(String email);
 }

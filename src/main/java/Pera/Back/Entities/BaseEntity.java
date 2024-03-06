@@ -1,4 +1,4 @@
-package Pera.Back.CU.Entities;
+package Pera.Back.Entities;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

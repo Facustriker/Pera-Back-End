@@ -1,9 +1,9 @@
 package Pera.Back;
 
-import Pera.Back.CU.Entities.AuthUsuario;
-import Pera.Back.CU.Entities.Rol;
-import Pera.Back.CU.Entities.Usuario;
-import Pera.Back.CU.Repositories.AuthUsuarioRepository;
+import Pera.Back.Entities.AuthUsuario;
+import Pera.Back.Entities.Rol;
+import Pera.Back.Entities.Usuario;
+import Pera.Back.Repositories.AuthUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,7 +28,7 @@ public class BackApplication {
 	public CommandLineRunner init() {
 		return args -> {
 
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+            /*SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm:ss");
             String fechaString = "2023-03-03";
             String horaString = "21:03:05";
@@ -55,7 +55,7 @@ public class BackApplication {
                     .usuario(usuario)
                     .build();
 
-            authUsuarioRepository.save(authUsuario);
+            authUsuarioRepository.save(authUsuario);*/
 
 		};
 	}

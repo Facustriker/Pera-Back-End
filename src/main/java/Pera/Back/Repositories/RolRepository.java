@@ -1,6 +1,6 @@
-package Pera.Back.CU.Repositories;
+package Pera.Back.Repositories;
 
-import Pera.Back.CU.Entities.Rol;
+import Pera.Back.Entities.Rol;
 import org.springframework.stereotype.Repository;
 
 @Repository
