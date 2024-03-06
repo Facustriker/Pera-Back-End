@@ -29,11 +29,11 @@ public class Usuario extends BaseEntity implements UserDetails{
     private Date fhbUsuario;
 
     @NotNull
-    @Column(name = "mail", nullable = false)
+    @Column(name = "mail", nullable = false, unique = true)
     private String mail;
 
     @NotNull
-    @Column(name = "nombreUsuario", nullable = false)
+    @Column(name = "nombreUsuario", nullable = false, unique = true)
     private String nombreUsuario;
 
     /*

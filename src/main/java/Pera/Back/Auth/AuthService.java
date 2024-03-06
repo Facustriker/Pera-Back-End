@@ -3,6 +3,7 @@ package Pera.Back.Auth;
 import Pera.Back.CU.Entities.AuthUsuario;
 import Pera.Back.CU.Entities.Rol;
 import Pera.Back.CU.Entities.Usuario;
+import Pera.Back.CU.Repositories.AuthUsuarioRepository;
 import Pera.Back.CU.Repositories.UsuarioRepository;
 import Pera.Back.JWT.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.Date;
 public class AuthService {
 
     private final UsuarioRepository usuarioRepository;
+    private final AuthUsuarioRepository authUsuarioRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
@@ -37,7 +39,7 @@ public class AuthService {
         long timeNow = System.currentTimeMillis();
 
         Rol rol = Rol.builder()
-                .nombreRol("user")
+                .nombreRol("USER")
                 .build();
 
         Usuario usuario = Usuario.builder()
@@ -46,13 +48,13 @@ public class AuthService {
                 .fhaUsuario(new Date(timeNow))
                 .build();
 
+        usuario.AgregarRol(rol);
+
         AuthUsuario authUsuario = AuthUsuario.builder()
                 .username(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .usuario(usuario)
                 .build();
-
-        usuario.AgregarRol(rol);
-        authUsuario.setUsuario(usuario);
 
 
         if("admin@gmail.com".equals(usuario.getMail())){
@@ -67,7 +69,7 @@ public class AuthService {
             usuario.AgregarRol(rolUser);
         }
 
-        usuarioRepository.save(usuario);
+        authUsuarioRepository.save(authUsuario);
 
         return AuthResponse.builder()
                 .token(jwtService.getToken(usuario))
