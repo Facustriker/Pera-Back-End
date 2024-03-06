@@ -3,6 +3,8 @@ package Pera.Back;
 import Pera.Back.CU.Entities.AuthUsuario;
 import Pera.Back.CU.Entities.Rol;
 import Pera.Back.CU.Entities.Usuario;
+import Pera.Back.CU.Repositories.AuthUsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,9 +16,12 @@ import java.util.Date;
 @SpringBootApplication
 public class BackApplication {
 
+    @Autowired
+    private AuthUsuarioRepository authUsuarioRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BackApplication.class, args);
-        System.out.println("La aplicación se ha iniciado correctamente");
+        System.out.println("La aplicacion se ha iniciado correctamente");
 	}
 
 	@Bean
@@ -50,6 +55,7 @@ public class BackApplication {
                     .usuario(usuario)
                     .build();
 
+            authUsuarioRepository.save(authUsuario);
 
 		};
 	}

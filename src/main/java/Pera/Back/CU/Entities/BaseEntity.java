@@ -23,16 +23,4 @@ public abstract class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    public abstract Collection<? extends GrantedAuthority> getAuthorities();
-
-    public abstract String getUsername();
-
-    public abstract boolean isAccountNonExpired();
-
-    public abstract boolean isAccountNonLocked();
-
-    public abstract boolean isCredentialsNonExpired();
-
-    public abstract boolean isEnabled();
 }

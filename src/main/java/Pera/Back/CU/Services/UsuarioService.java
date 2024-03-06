@@ -4,5 +4,5 @@ import Pera.Back.CU.Entities.Usuario;
 
 public interface UsuarioService extends BaseService<Usuario, Long>{
 
-    Usuario getByEmail(String email) throws Exception;
+    Usuario getByMail(String email) throws Exception;
 }
