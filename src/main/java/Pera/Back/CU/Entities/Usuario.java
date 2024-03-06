@@ -3,8 +3,12 @@ package Pera.Back.CU.Entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +19,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "Usuario")
-public class Usuario extends BaseEntity {
+public class Usuario extends BaseEntity implements UserDetails{
 
     @NotNull
     @Column(name = "fhaUsuario", nullable = false)
@@ -32,9 +36,11 @@ public class Usuario extends BaseEntity {
     @Column(name = "nombreUsuario", nullable = false)
     private String nombreUsuario;
 
+    /*
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "authUsuario_id")
     private AuthUsuario authUsuario;
+    */
 
     @OneToMany(cascade = CascadeType.ALL)
     @Builder.Default
@@ -43,6 +49,45 @@ public class Usuario extends BaseEntity {
 
     public void AgregarRol(Rol r){
         roles.add(r);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority((roles.get(0).getNombreRol())));
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return mail;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public UserDetails orElseThrow() {
+        return null;
     }
 
 }

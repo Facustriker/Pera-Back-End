@@ -23,4 +23,15 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario, Long> implement
     }
 
 
+    @Override
+    public Usuario getByEmail(String email) throws Exception {
+        try {
+            Usuario u = usuarioRepository.findByEmail(email).get();
+            return u;
+        }catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+
 }
