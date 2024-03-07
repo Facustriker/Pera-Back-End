@@ -6,23 +6,46 @@ import Pera.Back.Entities.Usuario;
 import Pera.Back.JWT.JwtService;
 import Pera.Back.Repositories.AuthUsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-public class ExpertoRegistrarUsuarioImpl implements ExpertoRegistrarUsuario {
+@Scope("session")
+public class ExpertoRegistrarUsuarioImpl {
 
     private final AuthUsuarioRepository authUsuarioRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    public DTOAuthResponse register(DTORegisterRequest request) {
+    DTORegisterRequest request;
+    Integer codigo;
 
+    public String register(DTORegisterRequest request) throws Exception {
+
+        if (authUsuarioRepository.findByUsername(request.getEmail()).isPresent()){
+            throw new Exception("El mail ya está registrado a nombre de otro usuario");
+        }
+
+        request = this.request;
+        codigo = 123456;    //Generar código random y enviar por mail
+        return "";
+
+    }
+
+    public DTOAuthResponse ingresarCodigo(int codigo) throws Exception {
+        if (request == null) {
+            throw new Exception("Error de entrada de datos");
+        }
+        if (this.codigo != codigo) {
+            throw new Exception("El código no coincide");
+        }
         long timeNow = System.currentTimeMillis();
 
         Rol rol = Rol.builder()
@@ -61,8 +84,6 @@ public class ExpertoRegistrarUsuarioImpl implements ExpertoRegistrarUsuario {
         return DTOAuthResponse.builder()
                 .token(jwtService.getToken(authUsuario))
                 .build();
-
-
     }
 
 }
