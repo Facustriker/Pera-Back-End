@@ -33,7 +33,7 @@ public class Usuario extends BaseEntity {
     private String mail;
 
     @NotNull
-    @Column(name = "nombreUsuario", nullable = false, unique = true)
+    @Column(name = "nombreUsuario", nullable = false)
     private String nombreUsuario;
 
     /*

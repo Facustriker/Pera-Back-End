@@ -30,6 +30,14 @@ public class AuthUsuario extends BaseEntity implements UserDetails {
     @OneToOne(cascade = CascadeType.ALL)
     private Usuario usuario;
 
+    @NotNull
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled;
+
+    @NotNull
+    @Column(name = "verificationCode", nullable = false)
+    private int verificationCode;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(usuario.getRol().getNombreRol()));
@@ -37,21 +45,16 @@ public class AuthUsuario extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

@@ -15,6 +15,12 @@ public class ControladorLoguearUsuario {
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/login")
     public ResponseEntity<DTOAuthResponse> login(@RequestBody DTOLoginRequest request){
-        return ResponseEntity.ok(experto.login(request));
+        try {
+            return ResponseEntity.ok(experto.login(request));
+        } catch (Exception e) {
+            DTOAuthResponse dto = new DTOAuthResponse();
+            dto.setError(e.getMessage());
+            return ResponseEntity.badRequest().body(dto);
+        }
     }
 }
