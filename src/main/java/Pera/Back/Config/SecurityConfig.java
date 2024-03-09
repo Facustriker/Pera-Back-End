@@ -39,10 +39,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests( auth -> auth
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/auth/register")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/auth/login")).hasAnyAuthority("ADMIN")
-                        .requestMatchers(new AntPathRequestMatcher("/usuario")).hasAnyAuthority("ADMIN")
+                        .requestMatchers(new AntPathRequestMatcher("/RegistrarUsuario/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/LoguearUsuario/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/Usuario/**")).hasAnyAuthority("ADMIN_DATOS_PROPIOS")
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                 )
                 .cors(withDefaults())
