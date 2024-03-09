@@ -1,4 +1,4 @@
-package Pera.Back.CU.RegistrarUsuario;
+package Pera.Back.CU.CU22_RegistrarUsuario;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

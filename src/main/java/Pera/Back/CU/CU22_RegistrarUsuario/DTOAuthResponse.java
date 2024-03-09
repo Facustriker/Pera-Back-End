@@ -1,4 +1,4 @@
-package Pera.Back.CU.RegistrarUsuario;
+package Pera.Back.CU.CU22_RegistrarUsuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,10 +1,11 @@
-package Pera.Back.CU.RegistrarUsuario;
+package Pera.Back.CU.CU22_RegistrarUsuario;
 
 import Pera.Back.Entities.AuthUsuario;
 import Pera.Back.Entities.Rol;
 import Pera.Back.Entities.Usuario;
 import Pera.Back.JWT.JwtService;
 import Pera.Back.Repositories.AuthUsuarioRepository;
+import Pera.Back.Repositories.RolRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class ExpertoRegistrarUsuario {
 
     private final AuthUsuarioRepository authUsuarioRepository;
+    private final RolRepository rolRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
@@ -52,13 +54,9 @@ public class ExpertoRegistrarUsuario {
 
         Rol rol;
         if("admin@gmail.com".equals(usuario.getMail())){
-            rol = Rol.builder()
-                    .nombreRol("ADMIN")
-                    .build();
+            rol = rolRepository.findByNombreRol("ADMIN");
         }else{
-            rol = Rol.builder()
-                    .nombreRol("USER")
-                    .build();
+            rol = rolRepository.findByNombreRol("USUARIO");
         }
         usuario.setRol(rol);
 

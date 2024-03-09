@@ -1,14 +1,16 @@
 package Pera.Back.Entities;
 
+import Pera.Back.Repositories.ConfiguracionRolRepository;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name = "AuthUsuario")
@@ -38,9 +40,22 @@ public class AuthUsuario extends BaseEntity implements UserDetails {
     @Column(name = "verificationCode", nullable = false)
     private int verificationCode;
 
+    @Autowired
+    transient ConfiguracionRolRepository configuracionRolRepository;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(usuario.getRol().getNombreRol()));
+        ArrayList<GrantedAuthority> ret = new ArrayList<>();
+
+        Rol rol = usuario.getRol();
+
+        Collection<Permiso> permisos = configuracionRolRepository.getPermisos(rol);
+
+        for (Permiso permiso : permisos) {
+            ret.add(new SimpleGrantedAuthority(permiso.getNombrePermiso()));
+        }
+
+        return ret;
     }
 
     @Override

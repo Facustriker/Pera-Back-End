@@ -1,9 +1,8 @@
 package Pera.Back;
 
-import Pera.Back.Entities.AuthUsuario;
-import Pera.Back.Entities.Rol;
-import Pera.Back.Entities.Usuario;
+import Pera.Back.Entities.*;
 import Pera.Back.Repositories.AuthUsuarioRepository;
+import Pera.Back.Repositories.ConfiguracionRolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,13 +10,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 @SpringBootApplication
 public class BackApplication {
 
     @Autowired
-    private AuthUsuarioRepository authUsuarioRepository;
+    private ConfiguracionRolRepository configuracionRolRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackApplication.class, args);
@@ -28,35 +28,51 @@ public class BackApplication {
 	public CommandLineRunner init() {
 		return args -> {
 
-            /*SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm:ss");
-            String fechaString = "2023-03-03";
-            String horaString = "21:03:05";
+			SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm:ss");
+			String fechaString = "2023-03-03";
+			String horaString = "21:03:05";
 
-            Date fecha = formatoFecha.parse(fechaString); //2023-03-03
-            Date hora = formatoHora.parse(horaString); //21:03:05
+			Date fecha = formatoFecha.parse(fechaString); //2023-03-03
+			Date hora = formatoHora.parse(horaString); //21:03:05
+
+			Rol admin = Rol.builder()
+					.nombreRol("ADMIN")
+					.build();
+
+			ArrayList<Permiso> permisosAdmin = new ArrayList<>();
+
+			permisosAdmin.add(Permiso.builder().nombrePermiso("ADMIN_PARAMETROS").build());
+			permisosAdmin.add(Permiso.builder().nombrePermiso("ADMIN_USUARIOS").build());
+			permisosAdmin.add(Permiso.builder().nombrePermiso("ADMIN_BANCOS").build());
+			permisosAdmin.add(Permiso.builder().nombrePermiso("VER_REPORTES").build());
+
+			ConfiguracionRol crAdmin = ConfiguracionRol.builder()
+					.fhaCR(fecha)
+					.rol(admin)
+					.permisos(permisosAdmin)
+					.build();
+
+			configuracionRolRepository.save(crAdmin);
 
 
-            Rol rol = Rol.builder()
-                    .nombreRol("ADMIN")
-                    .build();
+			Rol usuario = Rol.builder()
+					.nombreRol("USUARIO")
+					.build();
 
-            Usuario usuario = Usuario.builder()
-                    .fhaUsuario(fecha)
-                    .mail("pera@gmail.com")
-                    .nombreUsuario("Facustriker")
-                    .build();
+			ArrayList<Permiso> permisosUsuario = new ArrayList<>();
 
-            usuario.AgregarRol(rol);
+			permisosUsuario.add(Permiso.builder().nombrePermiso("ADMIN_DATOS_PROPIOS").build());
+			permisosUsuario.add(Permiso.builder().nombrePermiso("ADMIN_BANCOS_PROPIOS").build());
+			permisosUsuario.add(Permiso.builder().nombrePermiso("ADMIN_CUENTAS_BANCARIAS_PROPIAS").build());
 
-            AuthUsuario authUsuario = AuthUsuario.builder()
-                    .password("123")
-                    .username("Facustriker")
-                    .usuario(usuario)
-                    .build();
+			ConfiguracionRol crUsuario = ConfiguracionRol.builder()
+					.fhaCR(fecha)
+					.rol(usuario)
+					.permisos(permisosUsuario)
+					.build();
 
-            authUsuarioRepository.save(authUsuario);*/
-
+			configuracionRolRepository.save(crUsuario);
 		};
 	}
 }

@@ -1,4 +1,4 @@
-package Pera.Back.CU.RegistrarUsuario;
+package Pera.Back.CU.CU21_LoguearUsuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTORegisterRequest {
+public class DTOLoginRequest {
 
-    String nombre;
     String email;
     String password;
-
 }
-

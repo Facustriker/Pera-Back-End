@@ -1,6 +1,6 @@
-package Pera.Back.CU.LoguearUsuario;
+package Pera.Back.CU.CU21_LoguearUsuario;
 
-import Pera.Back.CU.RegistrarUsuario.DTOAuthResponse;
+import Pera.Back.CU.CU22_RegistrarUsuario.DTOAuthResponse;
 import Pera.Back.JWT.JwtService;
 import Pera.Back.Repositories.AuthUsuarioRepository;
 import lombok.RequiredArgsConstructor;
