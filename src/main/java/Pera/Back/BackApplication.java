@@ -54,8 +54,9 @@ public class BackApplication {
 			crAdmin.addPermiso(Permiso.builder().nombrePermiso("ADMIN_USUARIOS").build());
 			crAdmin.addPermiso(Permiso.builder().nombrePermiso("ADMIN_BANCOS").build());
 			crAdmin.addPermiso(Permiso.builder().nombrePermiso("VER_REPORTES").build());
+			crAdmin.addPermiso(Permiso.builder().nombrePermiso("ADMIN_DATOS_PROPIOS").build());
 
-			configuracionRolRepository.save(crAdmin);
+			crAdmin = configuracionRolRepository.save(crAdmin);
 
 
 
@@ -70,13 +71,18 @@ public class BackApplication {
 					.rol(usuario)
 					.build();
 
-			crUsuario.addPermiso(Permiso.builder().nombrePermiso("ADMIN_DATOS_PROPIOS").build());
 			crUsuario.addPermiso(Permiso.builder().nombrePermiso("ADMIN_BANCOS_PROPIOS").build());
 			crUsuario.addPermiso(Permiso.builder().nombrePermiso("ADMIN_CUENTAS_BANCARIAS_PROPIAS").build());
 
 			crUsuario = configuracionRolRepository.save(crUsuario);
 
+			for (Permiso permiso : crAdmin.getPermisos()) {
+				if(permiso.getNombrePermiso() == "ADMIN_DATOS_PROPIOS") {
+					crUsuario.addPermiso(permiso);
+				}
+			}
 
+			crUsuario = configuracionRolRepository.save(crUsuario);
 
 
 			Rol premium = Rol.builder()

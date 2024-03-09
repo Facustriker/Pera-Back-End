@@ -16,7 +16,6 @@ public class ExpertoLoguearUsuario {
 
     private final AuthUsuarioRepository authUsuarioRepository;
     private final JwtService jwtService;
-    private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
     public DTOAuthResponse login(DTOLoginRequest request) {

@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,14 +26,14 @@ public class ExpertoUsuario {
 
         Collection<String> permisos = new ArrayList<>();
 
-        for (Permiso permiso : configuracionRolRepository.getPermisos(usuario.getRol())) {
+        for (Permiso permiso : configuracionRolRepository.getPermisos(usuario.getRolActual())) {
             permisos.add(permiso.getNombrePermiso());
         }
 
         UsuarioRol usuarioRol = usuarioRolRepository.getActualByUsuario(usuario);
 
         DTODatosUsuarioRol dtoRol = DTODatosUsuarioRol.builder()
-                .nombre(usuario.getRol().getNombreRol())
+                .nombre(usuario.getRolActual().getNombreRol())
                 .permisos(permisos)
                 .vencimiento(usuarioRol.getFhbUsuarioRol())
                 .build();

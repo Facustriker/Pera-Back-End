@@ -1,10 +1,8 @@
 package Pera.Back.Entities;
 
-import Pera.Back.Repositories.ConfiguracionRolRepository;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,7 +42,7 @@ public class AuthUsuario extends BaseEntity implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<GrantedAuthority> ret = new ArrayList<>();
 
-        Rol rol = usuario.getRol();
+        Rol rol = usuario.getRolActual();
 
         Collection<ConfiguracionRol> configuraciones = rol.getConfiguracionesVigentes();
 

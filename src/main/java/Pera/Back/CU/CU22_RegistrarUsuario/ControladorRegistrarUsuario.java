@@ -13,10 +13,9 @@ public class ControladorRegistrarUsuario {
     protected ExpertoRegistrarUsuario experto;
 
     @PostMapping(value = "/register")
-    public ResponseEntity<String> register(@RequestBody DTORegisterRequest request, HttpSession session) {
+    public ResponseEntity<String> register(@RequestBody DTORegisterRequest request) {
         try {
             String ret = experto.register(request);
-            session.setAttribute("expertoRegistrarUsuario", experto);
             return ResponseEntity.ok(ret);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -24,7 +23,7 @@ public class ControladorRegistrarUsuario {
     }
 
     @PostMapping(value = "/ingresarCodigo")
-    public ResponseEntity<DTOAuthResponse> ingresarCodigo(@RequestParam String mail, @RequestParam int codigo, HttpSession session){
+    public ResponseEntity<DTOAuthResponse> ingresarCodigo(@RequestParam String mail, @RequestParam int codigo){
         try {
             return ResponseEntity.ok(experto.ingresarCodigo(mail, codigo));
         } catch (Exception e) {

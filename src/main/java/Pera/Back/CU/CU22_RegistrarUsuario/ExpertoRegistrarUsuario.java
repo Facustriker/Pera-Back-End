@@ -9,7 +9,6 @@ import Pera.Back.Repositories.AuthUsuarioRepository;
 import Pera.Back.Repositories.RolRepository;
 import Pera.Back.Repositories.UsuarioRolRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +59,7 @@ public class ExpertoRegistrarUsuario {
         }else{
             rol = rolRepository.findByNombreRol("No Premium");
         }
-        usuario.setRol(rol);
+        usuario.setRolActual(rol);
 
         authUsuarioRepository.save(authUsuario);
 
