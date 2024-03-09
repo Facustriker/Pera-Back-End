@@ -16,7 +16,8 @@ public interface ConfiguracionRolRepository extends BaseRepository<Configuracion
             "FROM ConfiguracionRol cr " +
             "INNER JOIN cr.permisos p " +
             "WHERE cr.rol = :rol " +
-            "AND CURRENT_DATE BETWEEN cr.fhaCR AND cr.fhbCR")
+            "AND CURRENT_TIMESTAMP >= cr.fhaCR " +
+            "AND (CURRENT_TIMESTAMP < cr.fhbCR OR cr.fhbCR IS NULL)")
     Collection<Permiso> getPermisos(@Param("rol") Rol rol);
 
 }

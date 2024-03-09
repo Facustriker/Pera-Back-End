@@ -3,12 +3,14 @@ package Pera.Back;
 import Pera.Back.Entities.*;
 import Pera.Back.Repositories.AuthUsuarioRepository;
 import Pera.Back.Repositories.ConfiguracionRolRepository;
+import Pera.Back.Repositories.PermisoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +20,9 @@ public class BackApplication {
 
     @Autowired
     private ConfiguracionRolRepository configuracionRolRepository;
+
+	@Autowired
+	private PermisoRepository permisoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackApplication.class, args);
@@ -37,42 +42,66 @@ public class BackApplication {
 			Date hora = formatoHora.parse(horaString); //21:03:05
 
 			Rol admin = Rol.builder()
-					.nombreRol("ADMIN")
+					.nombreRol("Administrador del Sistema")
 					.build();
-
-			ArrayList<Permiso> permisosAdmin = new ArrayList<>();
-
-			permisosAdmin.add(Permiso.builder().nombrePermiso("ADMIN_PARAMETROS").build());
-			permisosAdmin.add(Permiso.builder().nombrePermiso("ADMIN_USUARIOS").build());
-			permisosAdmin.add(Permiso.builder().nombrePermiso("ADMIN_BANCOS").build());
-			permisosAdmin.add(Permiso.builder().nombrePermiso("VER_REPORTES").build());
 
 			ConfiguracionRol crAdmin = ConfiguracionRol.builder()
 					.fhaCR(fecha)
 					.rol(admin)
-					.permisos(permisosAdmin)
 					.build();
+
+			crAdmin.addPermiso(Permiso.builder().nombrePermiso("ADMIN_PARAMETROS").build());
+			crAdmin.addPermiso(Permiso.builder().nombrePermiso("ADMIN_USUARIOS").build());
+			crAdmin.addPermiso(Permiso.builder().nombrePermiso("ADMIN_BANCOS").build());
+			crAdmin.addPermiso(Permiso.builder().nombrePermiso("VER_REPORTES").build());
 
 			configuracionRolRepository.save(crAdmin);
 
 
+
+
 			Rol usuario = Rol.builder()
-					.nombreRol("USUARIO")
+					.nombreRol("No Premium")
 					.build();
 
-			ArrayList<Permiso> permisosUsuario = new ArrayList<>();
-
-			permisosUsuario.add(Permiso.builder().nombrePermiso("ADMIN_DATOS_PROPIOS").build());
-			permisosUsuario.add(Permiso.builder().nombrePermiso("ADMIN_BANCOS_PROPIOS").build());
-			permisosUsuario.add(Permiso.builder().nombrePermiso("ADMIN_CUENTAS_BANCARIAS_PROPIAS").build());
 
 			ConfiguracionRol crUsuario = ConfiguracionRol.builder()
 					.fhaCR(fecha)
 					.rol(usuario)
-					.permisos(permisosUsuario)
 					.build();
 
-			configuracionRolRepository.save(crUsuario);
+			crUsuario.addPermiso(Permiso.builder().nombrePermiso("ADMIN_DATOS_PROPIOS").build());
+			crUsuario.addPermiso(Permiso.builder().nombrePermiso("ADMIN_BANCOS_PROPIOS").build());
+			crUsuario.addPermiso(Permiso.builder().nombrePermiso("ADMIN_CUENTAS_BANCARIAS_PROPIAS").build());
+
+			crUsuario = configuracionRolRepository.save(crUsuario);
+
+
+
+
+			Rol premium = Rol.builder()
+					.nombreRol("Premium")
+					.build();
+
+			ConfiguracionRol crPremium = ConfiguracionRol.builder()
+					.fhaCR(fecha)
+					.rol(premium)
+					.build();
+
+			crPremium.addPermiso(Permiso.builder().nombrePermiso("CANTIDAD_BANCOS_DUENO_ILIMITADA").build());
+			crPremium.addPermiso(Permiso.builder().nombrePermiso("CANTIDAD_CUENTAS_BANCO_PROPIO_ILIMITADA").build());
+			crPremium.addPermiso(Permiso.builder().nombrePermiso("CANTIDAD_CUENTAS_PROPIAS_ILIMITADA").build());
+			crPremium.addPermiso(Permiso.builder().nombrePermiso("ELEGIR_SIMBOLO_MONEDA").build());
+
+
+			crPremium = configuracionRolRepository.save(crPremium);
+
+			for (Permiso permiso : crUsuario.getPermisos()) {
+				crPremium.addPermiso(permiso);
+			}
+
+			configuracionRolRepository.save(crPremium);
+
 		};
 	}
 }

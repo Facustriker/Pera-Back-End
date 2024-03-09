@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -26,10 +27,15 @@ public class ConfiguracionRol extends BaseEntity {
     private Rol rol;
 
     @JoinTable(name = "ConfiguracionRolPermiso",
-    joinColumns = @JoinColumn(name = "permiso"),
-    inverseJoinColumns = @JoinColumn(name = "configuracionRol"))
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Collection<Permiso> permisos;
+    joinColumns = @JoinColumn(name = "configuracionRol"),
+    inverseJoinColumns = @JoinColumn(name = "permiso"))
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @Builder.Default
+    private Collection<Permiso> permisos = new ArrayList<>();
+
+    public void addPermiso(Permiso permiso) {
+        permisos.add(permiso);
+    }
 
     public Long getNroCR() {
         return getId();

@@ -40,16 +40,22 @@ public class AuthUsuario extends BaseEntity implements UserDetails {
     @Column(name = "verificationCode", nullable = false)
     private int verificationCode;
 
-    @Autowired
-    transient ConfiguracionRolRepository configuracionRolRepository;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<GrantedAuthority> ret = new ArrayList<>();
 
         Rol rol = usuario.getRol();
 
-        Collection<Permiso> permisos = configuracionRolRepository.getPermisos(rol);
+        Collection<ConfiguracionRol> configuraciones = rol.getConfiguracionesVigentes();
+
+        Collection<Permiso> permisos = new ArrayList<>();
+
+        for (ConfiguracionRol configuracion : configuraciones) {
+            Collection<Permiso> permisosConf = configuracion.getPermisos();
+            for (Permiso permiso : permisosConf) {
+                permisos.add(permiso);
+            }
+        }
 
         for (Permiso permiso : permisos) {
             ret.add(new SimpleGrantedAuthority(permiso.getNombrePermiso()));
