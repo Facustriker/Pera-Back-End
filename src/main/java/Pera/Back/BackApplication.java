@@ -1,9 +1,7 @@
 package Pera.Back;
 
 import Pera.Back.Entities.*;
-import Pera.Back.Repositories.AuthUsuarioRepository;
-import Pera.Back.Repositories.ConfiguracionRolRepository;
-import Pera.Back.Repositories.PermisoRepository;
+import Pera.Back.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,6 +21,12 @@ public class BackApplication {
 
 	@Autowired
 	private PermisoRepository permisoRepository;
+
+	@Autowired
+	private MedioDePagoRepository medioDePagoRepository;
+
+	@Autowired
+	private ConfiguracionPrecioPremiumRepository configuracionPrecioPremiumRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackApplication.class, args);
@@ -107,6 +111,46 @@ public class BackApplication {
 			}
 
 			configuracionRolRepository.save(crPremium);
+
+
+
+			MedioDePago mdpMercadoPago = MedioDePago.builder()
+					.nombreMDP("MercadoPago")
+					.build();
+			medioDePagoRepository.save(mdpMercadoPago);
+
+			PrecioPremium ppMensual = PrecioPremium.builder()
+					.nombrePP("Mensual")
+					.descripcion("Disfrute de las ventajas de Premium por 30 días")
+					.diasDuracion(30)
+					.precio(2999.99)
+					.build();
+
+			PrecioPremium ppTrimestral = PrecioPremium.builder()
+					.nombrePP("Trimestral")
+					.descripcion("Aproveche los beneficios por un precio inferior durante tres meses")
+					.diasDuracion(90)
+					.precio(7999.50)
+					.build();
+
+			PrecioPremium ppAnual = PrecioPremium.builder()
+					.nombrePP("Anual")
+					.descripcion("Olvídese de renovar la suscripción por un año")
+					.diasDuracion(365)
+					.precio(29999.00)
+					.build();
+
+			ConfiguracionPrecioPremium cpp = ConfiguracionPrecioPremium.builder()
+					.fhaCPP(fecha)
+					.build();
+
+			cpp.addPrecio(ppMensual);
+			cpp.addPrecio(ppTrimestral);
+			cpp.addPrecio(ppAnual);
+
+			configuracionPrecioPremiumRepository.save(cpp);
+
+
 
 		};
 	}
