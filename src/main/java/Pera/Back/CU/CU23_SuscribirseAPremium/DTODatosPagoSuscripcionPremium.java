@@ -1,6 +1,6 @@
 package Pera.Back.CU.CU23_SuscribirseAPremium;
 
-import Pera.Back.Dtos.DTODatosPago;
+import Pera.Back.Functionalities.RealizarPagos.DTODatosPago;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

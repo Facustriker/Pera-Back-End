@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class DTOMedioDePago {
 
     String nombreMDP;
+    Long idMDP;
 }

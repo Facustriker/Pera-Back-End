@@ -1,4 +1,4 @@
-package Pera.Back.Singletons;
+package Pera.Back.Functionalities.ObtenerUsuarioActual;
 
 import Pera.Back.Entities.AuthUsuario;
 import Pera.Back.Entities.Usuario;
@@ -8,9 +8,7 @@ public class SingletonObtenerUsuarioActual {
     private static SingletonObtenerUsuarioActual instancia;
 
     public static SingletonObtenerUsuarioActual getInstancia() {
-        if (instancia == null) {
-            instancia = new SingletonObtenerUsuarioActual();
-        }
+        if (instancia == null) instancia = new SingletonObtenerUsuarioActual();
         return instancia;
     }
 

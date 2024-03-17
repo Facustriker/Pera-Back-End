@@ -1,4 +1,4 @@
-package Pera.Back.Dtos;
+package Pera.Back.Functionalities.RealizarPagos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
