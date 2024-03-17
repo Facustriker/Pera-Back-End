@@ -31,7 +31,11 @@ public class ExpertoSuscribirseAPremium {
     private RolRepository rolRepository;
 
     @Autowired
-    UsuarioRolRepository usuarioRolRepository;
+    private UsuarioRolRepository usuarioRolRepository;
+
+    @Autowired
+    private ConfiguracionRolRepository configuracionRolRepository;
+
 
     private PrecioPremium plan;
 
@@ -98,16 +102,23 @@ public class ExpertoSuscribirseAPremium {
         c.setTime(new Date());
         c.add(Calendar.DATE, plan.getDiasDuracion());
 
-        DTORespuestaSuscripcionPremium dtoRespuestaSuscripcionPremium = DTORespuestaSuscripcionPremium.builder()
-                .exito(retAdaptador == 0)
-                .mensaje(mensaje)
-                .fechaFin(c.getTime())
-                .build();
-
         Rol rolPremium = rolRepository.obtenerRolPorNombre("Premium");
 
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
         Usuario usuario = singletonObtenerUsuarioActual.obtenerUsuarioActual();
+
+        Collection<String> permisos = new ArrayList<>();
+
+        for (Permiso permiso : configuracionRolRepository.getPermisos(rolPremium)) {
+            permisos.add(permiso.getNombrePermiso());
+        }
+
+        DTORespuestaSuscripcionPremium dtoRespuestaSuscripcionPremium = DTORespuestaSuscripcionPremium.builder()
+                .exito(retAdaptador == 0)
+                .mensaje(mensaje)
+                .fechaFin(c.getTime())
+                .permisos(permisos)
+                .build();
 
         usuario.setRolActual(rolPremium);
 
@@ -121,6 +132,10 @@ public class ExpertoSuscribirseAPremium {
 
         SingletonCortarSuperpuestas singletonCortarSuperpuestas = SingletonCortarSuperpuestas.getInstancia();
         singletonCortarSuperpuestas.cortar(usuarioRolRepository, new Date(), c.getTime(), usuario.getId());
+
+        usuarioRol = usuarioRolRepository.save(usuarioRol);
+
+        usuarioRol.getUsuario().setRolActual(rolPremium);
 
         usuarioRolRepository.save(usuarioRol);
 

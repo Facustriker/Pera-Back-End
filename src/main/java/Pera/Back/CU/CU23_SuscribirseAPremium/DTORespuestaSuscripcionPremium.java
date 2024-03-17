@@ -17,4 +17,5 @@ public class DTORespuestaSuscripcionPremium {
     boolean exito;
     Date fechaFin;
     String mensaje;
+    Collection<String> permisos;
 }
