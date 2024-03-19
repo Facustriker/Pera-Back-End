@@ -1,19 +1,11 @@
 package Pera.Back.CU.CU19_CrearBanco;
 
-import Pera.Back.Entities.AuthUsuario;
 import Pera.Back.Entities.Banco;
-import Pera.Back.Entities.Usuario;
 import Pera.Back.Repositories.BancoRepository;
-import Pera.Back.Repositories.UsuarioRepository;
-import Pera.Back.Singletons.SingletonObtenerUsuarioActual;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @RequiredArgsConstructor
