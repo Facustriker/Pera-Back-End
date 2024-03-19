@@ -23,10 +23,13 @@ public class UsuarioRol extends BaseEntity {
     @Column(name = "fhbUsuarioRol")
     private Date fhbUsuarioRol;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Rol rol;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Usuario usuario;
+
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    private PrecioPremium plan;
 
 }

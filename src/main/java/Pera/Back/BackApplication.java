@@ -115,7 +115,7 @@ public class BackApplication {
 
 
 			MedioDePago mdpMercadoPago = MedioDePago.builder()
-					.nombreMDP("MercadoPago")
+					.nombreMDP("Mercado Pago")
 					.build();
 			medioDePagoRepository.save(mdpMercadoPago);
 

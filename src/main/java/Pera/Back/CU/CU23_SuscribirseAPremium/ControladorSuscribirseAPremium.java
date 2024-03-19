@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@CrossOrigin(origins = "*")
+import org.springframework.stereotype.Controller;
+
+@Controller
 @RequestMapping(path = "/SuscribirseAPremium")
 public class ControladorSuscribirseAPremium {
     @Autowired
     protected ExpertoSuscribirseAPremium experto;
 
-    @CrossOrigin(origins = "*")
     @GetMapping(value = "/obtenerPlanes")
     public ResponseEntity<?> obtenerPlanes(){
         try {
@@ -21,7 +21,6 @@ public class ControladorSuscribirseAPremium {
         }
     }
 
-    @CrossOrigin(origins = "*")
     @GetMapping(value = "/obtenerMediosDePago/{idPlan}")
     public ResponseEntity<?> obtenerMediosDePago(@PathVariable Long idPlan){
         try {
@@ -31,7 +30,6 @@ public class ControladorSuscribirseAPremium {
         }
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping(value = "/realizarPago")
     public ResponseEntity<?> realizarPago(@RequestBody DTODatosPagoSuscripcionPremium dto){
         try {

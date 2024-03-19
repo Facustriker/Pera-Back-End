@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Data
@@ -17,5 +18,11 @@ public class DTOOpcionesPago {
     String nombrePP;
     String descripPP;
     Double precioPP;
-    Collection<DTOMedioDePago> mediosDePago;
+
+    @Builder.Default
+    Collection<DTOMedioDePago> mediosDePago = new ArrayList<>();
+
+    public void addMedioDePago(DTOMedioDePago dtoMedioDePago) {
+        mediosDePago.add(dtoMedioDePago);
+    }
 }

@@ -1,17 +1,17 @@
 package Pera.Back.CU.CU22_RegistrarUsuario;
 
-import Pera.Back.Entities.AuthUsuario;
-import Pera.Back.Entities.Rol;
-import Pera.Back.Entities.Usuario;
-import Pera.Back.Entities.UsuarioRol;
+import Pera.Back.Entities.*;
 import Pera.Back.JWT.JwtService;
 import Pera.Back.Repositories.AuthUsuarioRepository;
+import Pera.Back.Repositories.ConfiguracionRolRepository;
 import Pera.Back.Repositories.RolRepository;
 import Pera.Back.Repositories.UsuarioRolRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 
@@ -21,6 +21,7 @@ public class ExpertoRegistrarUsuario {
 
     private final AuthUsuarioRepository authUsuarioRepository;
     private final UsuarioRolRepository usuarioRolRepository;
+    private final ConfiguracionRolRepository configuracionRolRepository;
     private final RolRepository rolRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
@@ -90,8 +91,15 @@ public class ExpertoRegistrarUsuario {
 
         authUsuarioRepository.save(authUsuario);
 
+        Collection<String> permisos = new ArrayList<>();
+
+        for (Permiso permiso : configuracionRolRepository.getPermisos(authUsuario.getUsuario().getRolActual())) {
+            permisos.add(permiso.getNombrePermiso());
+        }
+
         return DTOAuthResponse.builder()
                 .token(jwtService.getToken(authUsuario))
+                .permisos(permisos)
                 .build();
     }
 

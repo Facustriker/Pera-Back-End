@@ -5,7 +5,7 @@ import Pera.Back.Entities.Usuario;
 import Pera.Back.Entities.UsuarioRol;
 import Pera.Back.Repositories.ConfiguracionRolRepository;
 import Pera.Back.Repositories.UsuarioRolRepository;
-import Pera.Back.Singletons.SingletonObtenerUsuarioActual;
+import Pera.Back.Functionalities.ObtenerUsuarioActual.SingletonObtenerUsuarioActual;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +33,7 @@ public class ExpertoUsuario {
         UsuarioRol usuarioRol = usuarioRolRepository.getActualByUsuario(usuario);
 
         DTODatosUsuarioRol dtoRol = DTODatosUsuarioRol.builder()
-                .nombre(usuario.getRolActual().getNombreRol())
+                .nombre(usuarioRol.getRol().getNombreRol())
                 .permisos(permisos)
                 .vencimiento(usuarioRol.getFhbUsuarioRol())
                 .build();
