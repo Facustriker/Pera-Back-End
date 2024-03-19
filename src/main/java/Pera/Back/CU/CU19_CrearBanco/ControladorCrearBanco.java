@@ -6,15 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "*")
-@RequestMapping(path = "/Banco")
+@RequestMapping(path = "/CrearBanco")
 public class ControladorCrearBanco {
 
     @Autowired
     protected ExpertoCrearBanco experto;
 
-    @PostMapping(value = "/crearBanco")
-    public ResponseEntity<String> register(@RequestBody DTOCrearBanco request) {
+    @PostMapping(value = "/crear")
+    public ResponseEntity<String> crear(@RequestBody DTOCrearBanco request) {
         try {
             String ret = experto.crear(request);
             return ResponseEntity.ok(ret);

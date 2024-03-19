@@ -2,6 +2,7 @@ package Pera.Back.CU.CU23_SuscribirseAPremium;
 
 import Pera.Back.Entities.PrecioPremium;
 import Pera.Back.Repositories.ConfiguracionPrecioPremiumRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,20 +24,24 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Service
-@SessionScope
 @RequiredArgsConstructor
 class ExpertoSuscribirseAPremium implements Serializable {
 
+    @Autowired
     private ConfiguracionPrecioPremiumRepository configuracionPrecioPremiumRepository;
-
+    @Autowired
     private PrecioPremiumRepository precioPremiumRepository;
 
+    @Autowired
     private MedioDePagoRepository medioDePagoRepository;
 
+    @Autowired
     private RolRepository rolRepository;
 
+    @Autowired
     private UsuarioRolRepository usuarioRolRepository;
 
+    @Autowired
     private ConfiguracionRolRepository configuracionRolRepository;
 
 

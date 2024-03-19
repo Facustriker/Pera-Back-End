@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/RegistrarUsuario/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/LoguearUsuario/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/Banco/**")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/CrearBanco/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/SuscribirseAPremium/**")).hasAnyAuthority("ADMIN_DATOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/Usuario/**")).hasAnyAuthority("ADMIN_DATOS_PROPIOS")
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
