@@ -1,17 +1,19 @@
 package Pera.Back.CU.CU23_SuscribirseAPremium;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.context.request.RequestContextHolder;
 
-@RestController
-@CrossOrigin(origins = "*")
+@Controller
 @RequestMapping(path = "/SuscribirseAPremium")
 public class ControladorSuscribirseAPremium {
     @Autowired
     protected ExpertoSuscribirseAPremium experto;
 
-    @CrossOrigin(origins = "*")
     @GetMapping(value = "/obtenerPlanes")
     public ResponseEntity<?> obtenerPlanes(){
         try {
@@ -21,7 +23,6 @@ public class ControladorSuscribirseAPremium {
         }
     }
 
-    @CrossOrigin(origins = "*")
     @GetMapping(value = "/obtenerMediosDePago/{idPlan}")
     public ResponseEntity<?> obtenerMediosDePago(@PathVariable Long idPlan){
         try {
@@ -31,7 +32,6 @@ public class ControladorSuscribirseAPremium {
         }
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping(value = "/realizarPago")
     public ResponseEntity<?> realizarPago(@RequestBody DTODatosPagoSuscripcionPremium dto){
         try {

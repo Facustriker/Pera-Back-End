@@ -7,37 +7,41 @@ import Pera.Back.Functionalities.RealizarPagos.AdaptadorRealizarPago;
 import Pera.Back.Functionalities.RealizarPagos.DTODatosPago;
 import Pera.Back.Functionalities.RealizarPagos.FactoriaARP;
 import Pera.Back.Repositories.*;
+import jakarta.persistence.Transient;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.context.request.RequestContextHolder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
 @Service
-public class ExpertoSuscribirseAPremium {
+@SessionScope
+@RequiredArgsConstructor
+class ExpertoSuscribirseAPremium implements Serializable {
 
-    @Autowired
     private ConfiguracionPrecioPremiumRepository configuracionPrecioPremiumRepository;
 
-    @Autowired
     private PrecioPremiumRepository precioPremiumRepository;
 
-    @Autowired
     private MedioDePagoRepository medioDePagoRepository;
 
-    @Autowired
     private RolRepository rolRepository;
 
-    @Autowired
     private UsuarioRolRepository usuarioRolRepository;
 
-    @Autowired
     private ConfiguracionRolRepository configuracionRolRepository;
 
 
-    private PrecioPremium plan;
+    private PrecioPremium plan = null;
 
     public Collection<DTOPlanPremium> obtenerPlanes() {
         ArrayList<DTOPlanPremium> ret = new ArrayList<>();
@@ -58,6 +62,7 @@ public class ExpertoSuscribirseAPremium {
     }
 
     public DTOOpcionesPago obtenerMediosDePago(Long idPlan) {
+
         plan = precioPremiumRepository.obtenerPorId(idPlan);
 
         DTOOpcionesPago dtoOpcionesPago = DTOOpcionesPago.builder()
@@ -83,6 +88,7 @@ public class ExpertoSuscribirseAPremium {
     }
 
     public DTORespuestaSuscripcionPremium realizarPago(DTODatosPagoSuscripcionPremium dto) throws Exception {
+
         if(plan == null) {
             throw new Exception("Seleccione el plan");
         }
