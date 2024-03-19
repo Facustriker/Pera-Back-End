@@ -55,9 +55,9 @@ public class ExpertoRegistrarUsuario {
 
         Rol rol;
         if("admin@gmail.com".equals(usuario.getMail())){
-            rol = rolRepository.findByNombreRol("Administrador del Sistema");
+            rol = rolRepository.obtenerRolPorNombre("Administrador del Sistema");
         }else{
-            rol = rolRepository.findByNombreRol("No Premium");
+            rol = rolRepository.obtenerRolPorNombre("No Premium");
         }
         usuario.setRolActual(rol);
 
