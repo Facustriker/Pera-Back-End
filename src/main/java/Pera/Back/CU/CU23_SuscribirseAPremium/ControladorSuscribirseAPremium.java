@@ -1,12 +1,10 @@
 package Pera.Back.CU.CU23_SuscribirseAPremium;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.SessionScope;
-import org.springframework.web.context.request.RequestContextHolder;
+
+import org.springframework.stereotype.Controller;
 
 @Controller
 @RequestMapping(path = "/SuscribirseAPremium")

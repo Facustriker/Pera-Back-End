@@ -18,6 +18,7 @@ public class DTOOpcionesPago {
     String nombrePP;
     String descripPP;
     Double precioPP;
+
     @Builder.Default
     Collection<DTOMedioDePago> mediosDePago = new ArrayList<>();
 
