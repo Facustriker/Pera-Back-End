@@ -45,7 +45,8 @@ class ExpertoSuscribirseAPremium implements Serializable {
     private ConfiguracionRolRepository configuracionRolRepository;
 
 
-    private PrecioPremium plan = null;
+    @Autowired
+    private MemoriaSuscribirseAPremium memoria;
 
     public Collection<DTOPlanPremium> obtenerPlanes() {
         ArrayList<DTOPlanPremium> ret = new ArrayList<>();
@@ -67,7 +68,9 @@ class ExpertoSuscribirseAPremium implements Serializable {
 
     public DTOOpcionesPago obtenerMediosDePago(Long idPlan) {
 
-        plan = precioPremiumRepository.obtenerPorId(idPlan);
+        memoria.setPlan(precioPremiumRepository.obtenerPorId(idPlan));
+
+        PrecioPremium plan = memoria.getPlan();
 
         DTOOpcionesPago dtoOpcionesPago = DTOOpcionesPago.builder()
                 .idPP(plan.getId())
@@ -92,6 +95,8 @@ class ExpertoSuscribirseAPremium implements Serializable {
     }
 
     public DTORespuestaSuscripcionPremium realizarPago(DTODatosPagoSuscripcionPremium dto) throws Exception {
+
+        PrecioPremium plan = memoria.getPlan();
 
         if(plan == null) {
             throw new Exception("Seleccione el plan");
