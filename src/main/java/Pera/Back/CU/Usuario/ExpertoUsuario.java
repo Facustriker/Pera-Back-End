@@ -4,6 +4,7 @@ import Pera.Back.Entities.Permiso;
 import Pera.Back.Entities.Usuario;
 import Pera.Back.Entities.UsuarioRol;
 import Pera.Back.Repositories.ConfiguracionRolRepository;
+import Pera.Back.Repositories.UsuarioRepository;
 import Pera.Back.Repositories.UsuarioRolRepository;
 import Pera.Back.Functionalities.ObtenerUsuarioActual.SingletonObtenerUsuarioActual;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +19,13 @@ public class ExpertoUsuario {
 
     private final ConfiguracionRolRepository configuracionRolRepository;
     private final UsuarioRolRepository usuarioRolRepository;
+    private final UsuarioRepository usuarioRepository;
 
     public DTODatosUsuario getDatos() throws Exception {
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
 
         Usuario usuario = singletonObtenerUsuarioActual.obtenerUsuarioActual();
+        usuario = usuarioRepository.findById(usuario.getId()).get();
 
         Collection<String> permisos = new ArrayList<>();
 

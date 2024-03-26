@@ -77,6 +77,7 @@ public class BackApplication {
 
 			crUsuario.addPermiso(Permiso.builder().nombrePermiso("ADMIN_BANCOS_PROPIOS").build());
 			crUsuario.addPermiso(Permiso.builder().nombrePermiso("ADMIN_CUENTAS_BANCARIAS_PROPIAS").build());
+			crUsuario.addPermiso(Permiso.builder().nombrePermiso("SUSCRIPCION_PREMIUM").build());
 
 			crUsuario = configuracionRolRepository.save(crUsuario);
 
@@ -107,7 +108,8 @@ public class BackApplication {
 			crPremium = configuracionRolRepository.save(crPremium);
 
 			for (Permiso permiso : crUsuario.getPermisos()) {
-				crPremium.addPermiso(permiso);
+				if (permiso.getNombrePermiso() != "SUSCRIPCION_PREMIUM")
+					crPremium.addPermiso(permiso);
 			}
 
 			configuracionRolRepository.save(crPremium);
