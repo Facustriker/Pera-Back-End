@@ -28,6 +28,15 @@ public class BackApplication {
 	@Autowired
 	private ConfiguracionPrecioPremiumRepository configuracionPrecioPremiumRepository;
 
+    @Autowired
+    private CantMaxBancosNoPremiumRepository cantMaxBancosNoPremiumRepository;
+
+    @Autowired
+    private CantMaxCuentasBancoPropioRepository cantMaxCuentasBancoPropioRepository;
+
+    @Autowired
+    private CantMaxCuentasOtrosBancosRepository cantMaxCuentasOtrosBancosRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BackApplication.class, args);
         System.out.println("La aplicacion se ha iniciado correctamente");
@@ -77,7 +86,6 @@ public class BackApplication {
 
 			crUsuario.addPermiso(Permiso.builder().nombrePermiso("ADMIN_BANCOS_PROPIOS").build());
 			crUsuario.addPermiso(Permiso.builder().nombrePermiso("ADMIN_CUENTAS_BANCARIAS_PROPIAS").build());
-			crUsuario.addPermiso(Permiso.builder().nombrePermiso("SUSCRIPCION_PREMIUM").build());
 
 			crUsuario = configuracionRolRepository.save(crUsuario);
 
@@ -108,8 +116,7 @@ public class BackApplication {
 			crPremium = configuracionRolRepository.save(crPremium);
 
 			for (Permiso permiso : crUsuario.getPermisos()) {
-				if (permiso.getNombrePermiso() != "SUSCRIPCION_PREMIUM")
-					crPremium.addPermiso(permiso);
+				crPremium.addPermiso(permiso);
 			}
 
 			configuracionRolRepository.save(crPremium);
@@ -151,6 +158,25 @@ public class BackApplication {
 			cpp.addPrecio(ppAnual);
 
 			configuracionPrecioPremiumRepository.save(cpp);
+
+            CantMaxBancosNoPremium cantMaxBancosNoPremium = CantMaxBancosNoPremium.builder()
+                    .cantidad(2)
+                    .fhaCMBNP(new Date())
+                    .build();
+
+            CantMaxCuentasBancoPropio cantMaxCuentasBancoPropio = CantMaxCuentasBancoPropio.builder()
+                    .cantidad(3)
+                    .fhaCMCBP(new Date())
+                    .build();
+
+            CantMaxCuentasOtrosBancos cantMaxCuentasOtrosBancos = CantMaxCuentasOtrosBancos.builder()
+                    .cantidad(3)
+                    .fhaCMCOB(new Date())
+                    .build();
+
+            cantMaxBancosNoPremiumRepository.save(cantMaxBancosNoPremium);
+            cantMaxCuentasBancoPropioRepository.save(cantMaxCuentasBancoPropio);
+            cantMaxCuentasOtrosBancosRepository.save(cantMaxCuentasOtrosBancos);
 
 
 

@@ -16,6 +16,7 @@ import Pera.Back.Functionalities.RealizarPagos.DTODatosPago;
 import Pera.Back.Functionalities.RealizarPagos.FactoriaARP;
 import Pera.Back.Repositories.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.io.Serializable;
 
@@ -43,8 +44,8 @@ class ExpertoSuscribirseAPremium implements Serializable {
     @Autowired
     private ConfiguracionRolRepository configuracionRolRepository;
 
-    @Autowired
-    private MemoriaSuscribirseAPremium memoria;
+
+    private PrecioPremium plan = null;
 
     public Collection<DTOPlanPremium> obtenerPlanes() {
         ArrayList<DTOPlanPremium> ret = new ArrayList<>();
@@ -66,9 +67,7 @@ class ExpertoSuscribirseAPremium implements Serializable {
 
     public DTOOpcionesPago obtenerMediosDePago(Long idPlan) {
 
-        memoria.setPlan(precioPremiumRepository.obtenerPorId(idPlan));
-
-        PrecioPremium plan = memoria.getPlan();
+        plan = precioPremiumRepository.obtenerPorId(idPlan);
 
         DTOOpcionesPago dtoOpcionesPago = DTOOpcionesPago.builder()
                 .idPP(plan.getId())
@@ -93,8 +92,6 @@ class ExpertoSuscribirseAPremium implements Serializable {
     }
 
     public DTORespuestaSuscripcionPremium realizarPago(DTODatosPagoSuscripcionPremium dto) throws Exception {
-
-        PrecioPremium plan = memoria.getPlan();
 
         if(plan == null) {
             throw new Exception("Seleccione el plan");
