@@ -13,10 +13,11 @@ public class ControladorMisBancos {
     protected ExpertoMisBancos experto;
 
     @GetMapping(value = "/bancos")
-    public ResponseEntity<?> obtenerBancos(Usuario usuario){
+    public ResponseEntity<?> obtenerBancos(){
         try {
-            return ResponseEntity.ok(experto.obtenerBancos(usuario));
+            return ResponseEntity.ok(experto.obtenerBancos());
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

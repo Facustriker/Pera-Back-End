@@ -13,9 +13,9 @@ public class ControladorCrearBanco {
     protected ExpertoCrearBanco experto;
 
     @PostMapping(value = "/crear")
-    public ResponseEntity<String> crear(@RequestBody DTOCrearBanco request) {
+    public ResponseEntity<?> crear(@RequestBody DTOCrearBanco request) {
         try {
-            String ret = experto.crear(request);
+            Long ret = experto.crear(request);
             return ResponseEntity.ok(ret);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
