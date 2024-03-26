@@ -18,13 +18,15 @@ public class Banco extends BaseEntity{
     @Column(name = "fhbBanco")
     private Date fhbBanco;
 
-    @Column(name = "habilitacionAutomatica")
+    @NotNull
+    @Column(name = "habilitacionAutomatica", nullable = false)
     private Boolean habilitacionAutomatica;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "habilitado")
+    @NotNull
+    @Column(name = "habilitado", nullable = false)
     private Boolean habilitado;
 
     @NotNull
@@ -34,15 +36,6 @@ public class Banco extends BaseEntity{
     @NotNull
     @Column(name = "simboloMoneda", nullable = false)
     private String simboloMoneda;
-
-    /*
-
-    @NotNull
-    @Column(name = "nroBanco", nullable = false, unique = true)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int nroBanco;
-
-     */
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dueno_id")
