@@ -1,21 +1,12 @@
 package Pera.Back.CU.CU19_CrearBanco;
 
-import Pera.Back.Entities.Banco;
-import Pera.Back.Entities.CantMaxBancosNoPremium;
-import Pera.Back.Entities.CuentaBancaria;
-import Pera.Back.Entities.Usuario;
+import Pera.Back.Entities.*;
 import Pera.Back.Functionalities.ObtenerUsuarioActual.SingletonObtenerUsuarioActual;
-import Pera.Back.Repositories.BancoRepository;
-import Pera.Back.Repositories.CantMaxBancosNoPremiumRepository;
-import Pera.Back.Repositories.CuentaBancariaRepository;
-import Pera.Back.Repositories.UsuarioRepository;
+import Pera.Back.Repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +18,13 @@ public class ExpertoCrearBanco {
 
     private final CuentaBancariaRepository cuentaBancariaRepository;
 
+    private final ConfiguracionRolRepository configuracionRolRepository;
+
     private final CantMaxBancosNoPremiumRepository cantMaxBancosNoPremiumRepository;
 
-    public String crear(DTOCrearBanco request) throws Exception{
+    public Long crear(DTOCrearBanco request) throws Exception{
         String password = "";
-        boolean habilitado = false;
+        boolean habilitacionAutomatica = false;
 
         Optional<Banco> prev = bancoRepository.findBynombreBanco(request.getNombre());
         if (prev.isPresent()){
@@ -43,7 +36,7 @@ public class ExpertoCrearBanco {
         }
 
         if (request.isHabilitacionAutomatica()){
-            habilitado = true;
+            habilitacionAutomatica = true;
         }
 
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
@@ -51,64 +44,50 @@ public class ExpertoCrearBanco {
 
         dueno = usuarioRepository.findById(dueno.getId()).get();
 
-        if(verificarRolPremium()){
-            Banco banco = Banco.builder()
-                    .nombreBanco(validarNombre(request))
-                    .simboloMoneda(validarSimboloMoneda(request))
-                    .habilitacionAutomatica(request.isHabilitacionAutomatica())
-                    .habilitado(habilitado)
-                    .password(password)
-                    .dueno(dueno)
-                    .build();
+        Rol rolDueno = dueno.getRolActual();
+        ArrayList<String> permisos = new ArrayList<>();
+        for ( Permiso permiso : configuracionRolRepository.getPermisos(rolDueno) ) {
+            permisos.add(permiso.getNombrePermiso());
+        };
 
-            CuentaBancaria cuentaBancaria = CuentaBancaria.builder()
-                    .alias(generarAlias(request.getNombre()))
-                    .esBanquero(true)
-                    .fhaCB(new Date())
-                    .habilitada(true)
-                    .montoDinero(0)
-                    .build();
-
-            cuentaBancaria.setTitular(dueno);
-            cuentaBancaria.setBanco(banco);
-
-            cuentaBancariaRepository.save(cuentaBancaria);
-            return "";
-        }else{
-            CantMaxBancosNoPremium cant = new CantMaxBancosNoPremium();
-            int maximo = cant.getCantidad();
-
-            if(cantBancosActualesCreados()>=2){
-                throw new Exception("Error, ya no puede crear mas bancos. Maximo alcanzado.");
-            }else{
-                Banco banco = Banco.builder()
-                        .nombreBanco(validarNombre(request))
-                        .simboloMoneda(validarSimboloMoneda(request))
-                        .habilitacionAutomatica(request.isHabilitacionAutomatica())
-                        .habilitado(habilitado)
-                        .password(password)
-                        .dueno(dueno)
-                        .build();
-
-                CuentaBancaria cuentaBancaria = CuentaBancaria.builder()
-                        .alias(generarAlias(request.getNombre()))
-                        .esBanquero(true)
-                        .fhaCB(new Date())
-                        .habilitada(true)
-                        .montoDinero(0)
-                        .build();
-
-                cuentaBancaria.setTitular(dueno);
-                cuentaBancaria.setBanco(banco);
-
-                cuentaBancariaRepository.save(cuentaBancaria);
-                return "";
-            }
-
+        if (!permisos.contains("CANTIDAD_BANCOS_DUENO_ILIMITADA")) {
+            //Contar cantidad de bancos que el usuario tiene vigentes
+            //Comparar con CantMaxBancosNoPremium
+        }
+        if (!permisos.contains("CANTIDAD_CUENTAS_PROPIAS_ILIMITADA")) {
+            //Contar cantidad de cuentas que el usuario tiene vigentes en cualquier banco (propio o no)
+            //Comparar con CantMaxCuentasOtrosBancos
+        }
+        String simbolo = "$";
+        if (permisos.contains("ELEGIR_SIMBOLO_MONEDA")) {
+            simbolo = validarSimboloMoneda(request);
+        } else {
+            //Sacar del repositorio de ParametroSimboloMoneda el símbolo por defecto actual
         }
 
+        Banco banco = Banco.builder()
+                .nombreBanco(validarNombre(request))
+                .simboloMoneda(simbolo)
+                .habilitado(true)
+                .habilitacionAutomatica(habilitacionAutomatica)
+                .password(password)
+                .dueno(dueno)
+                .build();
+
+        CuentaBancaria cuentaBancaria = CuentaBancaria.builder()
+                .alias(generarAlias(request.getNombre()))
+                .esBanquero(true)
+                .fhaCB(new Date())
+                .habilitada(true)
+                .montoDinero(0)
+                .titular(dueno)
+                .banco(banco)
+                .build();
 
 
+        cuentaBancaria = cuentaBancariaRepository.save(cuentaBancaria);
+
+        return cuentaBancaria.getId();
 
     }
 
@@ -137,18 +116,6 @@ public class ExpertoCrearBanco {
         }
     }
 
-    private boolean verificarRolPremium(){
-        SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
-        Usuario dueno = singletonObtenerUsuarioActual.obtenerUsuarioActual();
-
-        dueno = usuarioRepository.findById(dueno.getId()).get();
-
-        if(dueno.getRolActual().getNombreRol().equals("Premium")){
-            return true;
-        }else{
-            return false;
-        }
-    }
 
     private int cantBancosActualesCreados(){
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();

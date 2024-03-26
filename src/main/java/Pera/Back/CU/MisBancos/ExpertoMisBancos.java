@@ -2,6 +2,7 @@ package Pera.Back.CU.MisBancos;
 
 import Pera.Back.Entities.Banco;
 import Pera.Back.Entities.Usuario;
+import Pera.Back.Functionalities.ObtenerUsuarioActual.SingletonObtenerUsuarioActual;
 import Pera.Back.Repositories.BancoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +17,11 @@ public class ExpertoMisBancos {
     @Autowired
     private final BancoRepository bancoRepository;
 
-    public Collection<DTOMisBancos> obtenerBancos(Usuario usuario) throws Exception{
-        ArrayList<DTOMisBancos> dto = new ArrayList<>();
+    public Collection<DTOMisBancos> obtenerBancos() throws Exception{
 
-        Collection<Banco> bancos = bancoRepository.obtenerBancos(usuario);
-
-        for (Banco b: bancos) {
-            new DTOMisBancos();
-            DTOMisBancos aux = DTOMisBancos.builder()
-                .id(b.getId())
-                .nombre(b.getNombreBanco())
-                .ocupacion(b.getDueno().getRolActual().getNombreRol())
-                .estado(b.getHabilitado().toString())
-                .build();
-
-            dto.add(aux);
-        }
-
-        return dto;
+        SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
+        Usuario usuario = singletonObtenerUsuarioActual.obtenerUsuarioActual();
+        return bancoRepository.obtenerBancos(usuario);
 
     }
 
