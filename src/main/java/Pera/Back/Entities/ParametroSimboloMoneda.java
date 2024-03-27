@@ -26,9 +26,6 @@ public class ParametroSimboloMoneda extends BaseEntity{
 
     @NotNull
     @Column(name = "simboloMonedaPorDefecto", nullable = false)
-    private String simboloMonedaPorDefecto = "$";
+    private String simboloMonedaPorDefecto;
 
-    @NotNull
-    @Column(name = "usuarioNoPremiumElige", nullable = false)
-    private boolean usuarioNoPremiumElige = false;
 }

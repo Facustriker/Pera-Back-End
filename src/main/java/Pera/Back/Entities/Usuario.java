@@ -31,7 +31,7 @@ public class Usuario extends BaseEntity {
     private String nombreUsuario;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "rol_actual_id")
+    @JoinColumn(name = "rolActual")
     private Rol rolActual;
 
 

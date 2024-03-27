@@ -38,7 +38,7 @@ public class Banco extends BaseEntity{
     private String simboloMoneda;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "dueno_id")
+    @JoinColumn(name = "dueno")
     private Usuario dueno;
 
 }

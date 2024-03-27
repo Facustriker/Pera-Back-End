@@ -22,9 +22,9 @@ public class CantMaxCuentasOtrosBancos extends BaseEntity{
     private int cantidad;
 
     @NotNull
-    @Column(name = "fhaCMCBP", nullable = false)
+    @Column(name = "fhaCMCOB", nullable = false)
     private Date fhaCMCOB;
 
-    @Column(name = "fhbCMCBP")
+    @Column(name = "fhbCMCOB")
     private Date fhbCMCOB;
 }

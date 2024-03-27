@@ -16,8 +16,8 @@ public interface BancoRepository extends BaseRepository<Banco, Long>{
 
     @Query("SELECT COUNT(*) " +
             "FROM Banco b " +
-            "WHERE b.id = :idUsuario ")
-    int cantidadBancosPorIdUsuario(@Param("idUsuario") long id);
+            "WHERE b.dueno = :Usuario ")
+    int cantidadBancosPorUsuario(@Param("Usuario") Usuario dueno);
 
     @Query("SELECT " +
             "    new Pera.Back.CU.MisBancos.DTOMisBancos(" +
