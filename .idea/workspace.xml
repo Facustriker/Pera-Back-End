@@ -4,16 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="faac9d82-efbb-4ea2-b94a-c1dae1e3e7c1" name="Changes" comment="">
+    <list default="true" id="faac9d82-efbb-4ea2-b94a-c1dae1e3e7c1" name="Changes" comment="Terminado CU 19 Crear Banco. Añadidas verificaciones en CU 22 Registrar Usuario">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/Banco/ControladorBanco.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/Banco/DTOBanco.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/Banco/ExpertoBanco.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU19_CrearBanco/ControladorCrearBanco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU19_CrearBanco/ControladorCrearBanco.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU19_CrearBanco/ExpertoCrearBanco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU19_CrearBanco/ExpertoCrearBanco.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU23_SuscribirseAPremium/ExpertoSuscribirseAPremium.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU23_SuscribirseAPremium/ExpertoSuscribirseAPremium.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisBancos/ControladorMisBancos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisBancos/ControladorMisBancos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisBancos/ExpertoMisBancos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisBancos/ExpertoMisBancos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/BancoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/BancoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/CuentaBancariaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/CuentaBancariaRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +34,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -53,10 +58,11 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Gradle.Back_End Pera [:BackApplication.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Pera-Back-End [:BackApplication.main()].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;facu&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
 }</component>
@@ -96,9 +102,20 @@
       <option name="presentableId" value="Default" />
       <updated>1710960854848</updated>
     </task>
+    <task id="LOCAL-00001" summary="Terminado CU 19 Crear Banco. Añadidas verificaciones en CU 22 Registrar Usuario">
+      <option name="closed" value="true" />
+      <created>1711573528353</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1711573528353</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Terminado CU 19 Crear Banco. Añadidas verificaciones en CU 22 Registrar Usuario" />
+    <option name="LAST_COMMIT_MESSAGE" value="Terminado CU 19 Crear Banco. Añadidas verificaciones en CU 22 Registrar Usuario" />
   </component>
 </project>

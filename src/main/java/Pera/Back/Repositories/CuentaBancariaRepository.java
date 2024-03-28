@@ -14,4 +14,9 @@ public interface CuentaBancariaRepository extends BaseRepository<CuentaBancaria,
             "WHERE cb.titular = :Usuario ")
     int cantidadCuentasBancariasPorUsuario(@Param("Usuario") Usuario usuario);
 
+    @Query("SELECT montoDinero " +
+            "FROM CuentaBancaria cb " +
+            "WHERE cb.banco = :nroBanco ")
+    double montoDineroPorNroBanco(@Param("nroBanco") Long nroBanco);
+
 }
