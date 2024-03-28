@@ -33,4 +33,16 @@ public interface BancoRepository extends BaseRepository<Banco, Long>{
             "WHERE u = :usuario " +
             "    AND (d IS NULL OR d = :usuario)")
     public Collection<DTOMisBancos> obtenerBancos(@Param("usuario") Usuario usuario);
+
+    @Query("SELECT b " +
+            "FROM Banco b " +
+            "WHERE (fhbBanco IS NULL OR fhbBanco > CURRENT_TIMESTAMP) " +
+            "AND habilitado = true " +
+            "AND nombreBanco LIKE %:nombre%")
+    Collection<Banco> buscarBancosVigentesYHabilitados(@Param("nombre") String nombreBanco);
+
+    @Query("SELECT b " +
+            "FROM Banco b " +
+            "WHERE id = :nroBanco")
+    Banco getBancoPorNumeroBanco(@Param("nroBanco") Long nroBanco);
 }

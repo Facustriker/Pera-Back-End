@@ -16,7 +16,6 @@ import Pera.Back.Functionalities.RealizarPagos.DTODatosPago;
 import Pera.Back.Functionalities.RealizarPagos.FactoriaARP;
 import Pera.Back.Repositories.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.context.annotation.SessionScope;
 
 import java.io.Serializable;
 

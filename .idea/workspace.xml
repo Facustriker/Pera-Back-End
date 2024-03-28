@@ -5,15 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faac9d82-efbb-4ea2-b94a-c1dae1e3e7c1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU10_AbrirCuentaBancaria/ControladorAbrirCuentaBancaria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU10_AbrirCuentaBancaria/DTOBancoAbrirCuentaBancaria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU10_AbrirCuentaBancaria/DTOConfirmacionAbrirCuenta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU10_AbrirCuentaBancaria/ExpertoAbrirCuentaBancaria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU10_AbrirCuentaBancaria/MemoriaAbrirCuentaBancaria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisCuentasBancarias/ControladorMisCuentasBancarias.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisCuentasBancarias/DTOCuentaBancariaPropia.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisCuentasBancarias/DTOMisCuentasBancarias.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisCuentasBancarias/ExpertoMisCuentasBancarias.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/BackApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/BackApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/CU/CU23_SuscribirseAPremium/ExpertoSuscribirseAPremium.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/CU/CU23_SuscribirseAPremium/ExpertoSuscribirseAPremium.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/Config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/Config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/Repositories/BancoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/Repositories/BancoRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/Repositories/CantMaxCuentasBancoPropioRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/Repositories/CantMaxCuentasBancoPropioRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/Repositories/CantMaxCuentasOtrosBancosRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/Repositories/CantMaxCuentasOtrosBancosRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/Repositories/CuentaBancariaRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/Repositories/CuentaBancariaRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU19_CrearBanco/ControladorCrearBanco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU19_CrearBanco/ControladorCrearBanco.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU19_CrearBanco/ExpertoCrearBanco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU19_CrearBanco/ExpertoCrearBanco.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/BackApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/BackApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU23_SuscribirseAPremium/ExpertoSuscribirseAPremium.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU23_SuscribirseAPremium/ExpertoSuscribirseAPremium.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisBancos/ControladorMisBancos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisBancos/ControladorMisBancos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisBancos/ExpertoMisBancos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisBancos/ExpertoMisBancos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/BancoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/BancoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/CantMaxCuentasBancoPropioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/CantMaxCuentasBancoPropioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/CantMaxCuentasOtrosBancosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/CantMaxCuentasOtrosBancosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/CuentaBancariaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/CuentaBancariaRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,16 +67,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Gradle.Pera-Back-End [:BackApplication.main()].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Gradle.Pera-Back-End [:BackApplication.main()].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Seba",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/saoga/OneDrive/Escritorio/Repos/Pera-Back-End/src/main/java/Pera/Back/CU/MisCuentasBancarias"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\saoga\OneDrive\Escritorio\Repos\Pera-Back-End\src\main\java\Pera\Back\CU\MisCuentasBancarias" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Pera.Back.CU.MisCuentasBancarias" />
+      <recent name="Pera.Back.CU.CU10_AbrirCuentaBancaria" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="BackApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Pera.Back.BackApplication" />
