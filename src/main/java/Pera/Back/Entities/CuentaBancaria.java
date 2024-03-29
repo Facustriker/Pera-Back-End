@@ -16,7 +16,7 @@ import java.util.Date;
 public class CuentaBancaria extends BaseEntity{
 
     @NotNull
-    @Column(name = "alias", nullable = false, unique = true)
+    @Column(name = "alias", nullable = false)
     private String alias;
 
     @NotNull

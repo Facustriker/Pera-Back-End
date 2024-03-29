@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Repository
 public interface CuentaBancariaRepository extends BaseRepository<CuentaBancaria, Long>{
@@ -31,7 +32,7 @@ public interface CuentaBancariaRepository extends BaseRepository<CuentaBancaria,
     @Query("SELECT CASE WHEN (COUNT(cb) > 0) THEN false ELSE true END " +
             "FROM CuentaBancaria cb " +
             "WHERE banco = :banco " +
-            "AND alias LIKE ':alias' " +
+            "AND alias LIKE :alias " +
             "AND fhaCB <= CURRENT_TIMESTAMP " +
             "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)")
     boolean checkAliasDisponible(@Param("banco") Banco banco, @Param("alias") String alias);
@@ -50,4 +51,11 @@ public interface CuentaBancariaRepository extends BaseRepository<CuentaBancaria,
             "WHERE u = :usuario")
     Collection<DTOMisCuentasBancarias> obtenerCuentasBancariasUsuario(@Param("usuario") Usuario usuario);
 
+
+    @Query("SELECT cb " +
+            "FROM CuentaBancaria cb " +
+            "WHERE id = :nroCB " +
+            "AND fhaCB <= CURRENT_TIMESTAMP " +
+            "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)")
+    Optional<CuentaBancaria> getCuentaVigentePorNumeroCuenta(@Param("nroCB") Long nroCB);
 }

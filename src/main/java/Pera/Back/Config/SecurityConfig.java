@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/Usuario/**")).hasAnyAuthority("ADMIN_DATOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/AbrirCuentaBancaria/**")).hasAnyAuthority("ADMIN_CUENTAS_BANCARIAS_PROPIAS")
                         .requestMatchers(new AntPathRequestMatcher("/MisCuentasBancarias/**")).hasAnyAuthority("ADMIN_CUENTAS_BANCARIAS_PROPIAS")
+                        .requestMatchers(new AntPathRequestMatcher("/EmitirDinero/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                 )
                 .cors(withDefaults())
