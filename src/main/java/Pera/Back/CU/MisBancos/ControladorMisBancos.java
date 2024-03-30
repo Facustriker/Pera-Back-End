@@ -20,4 +20,13 @@ public class ControladorMisBancos {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping(value = "/{nroBanco}")
+    public ResponseEntity<?> obtenerBanco(@PathVariable Long nroBanco){
+        try {
+            return ResponseEntity.ok(experto.obtenerDatosBanco(nroBanco));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

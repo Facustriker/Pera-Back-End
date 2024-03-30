@@ -98,9 +98,9 @@ public class ExpertoCrearBanco {
                 .build();
 
 
-        cuentaBancaria = cuentaBancariaRepository.save(cuentaBancaria);
+        cuentaBancariaRepository.save(cuentaBancaria);
 
-        return cuentaBancaria.getId();
+        return banco.getId();
 
     }
 

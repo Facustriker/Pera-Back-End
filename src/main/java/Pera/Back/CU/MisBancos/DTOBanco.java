@@ -1,4 +1,4 @@
-package Pera.Back.CU.Banco;
+package Pera.Back.CU.MisBancos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +17,8 @@ public class DTOBanco {
     private String simboloMoneda;
     private String usaPassword;
     private String usaHabilitacionAutomatica;
-    private String nombreUsuario;
+    private String nombreDueno;
+    private String emailDueno;
     private double baseMonetaria;
+    private Long nroCB;
 }

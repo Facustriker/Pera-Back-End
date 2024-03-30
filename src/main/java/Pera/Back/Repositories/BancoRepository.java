@@ -1,6 +1,5 @@
 package Pera.Back.Repositories;
 
-import Pera.Back.CU.Banco.DTOBanco;
 import Pera.Back.CU.MisBancos.DTOMisBancos;
 import Pera.Back.Entities.Banco;
 import Pera.Back.Entities.Usuario;
@@ -25,14 +24,19 @@ public interface BancoRepository extends BaseRepository<Banco, Long>{
             "    b.id AS id, " +
             "    b.nombreBanco AS nombre, " +
             "    CASE WHEN d IS NULL THEN 'Banquero' ELSE 'Dueño' END AS ocupacion," +
-            "    CASE WHEN b.fhbBanco < CURRENT_TIMESTAMP THEN 'Baja' WHEN b.habilitado THEN 'Habilitado' ELSE 'Deshabilitado' END AS estado" +
+            "    CASE WHEN b.fhbBanco < CURRENT_TIMESTAMP THEN 'Baja' WHEN b.habilitado THEN 'Habilitado' ELSE 'Deshabilitado' END AS estado " +
             ")" +
             "FROM CuentaBancaria cb " +
             "    INNER JOIN cb.banco b " +
             "    INNER JOIN cb.titular u " +
-            "    LEFT JOIN b.dueno d " +
+            "    LEFT JOIN b.dueno d ON d = :usuario " +
             "WHERE u = :usuario " +
-            "    AND (d IS NULL OR d = :usuario)")
+            "    AND cb.esBanquero = true " +
+            "    AND (b.fhbBanco IS NULL OR b.fhbBanco > CURRENT_TIMESTAMP) " +
+            "    AND b.habilitado = true " +
+            "    AND cb.fhaCB <= CURRENT_TIMESTAMP " +
+            "    AND (cb.fhbCB IS NULL OR cb.fhbCB > CURRENT_TIMESTAMP) " +
+            "    AND cb.habilitada = true")
     public Collection<DTOMisBancos> obtenerBancos(@Param("usuario") Usuario usuario);
 
 
