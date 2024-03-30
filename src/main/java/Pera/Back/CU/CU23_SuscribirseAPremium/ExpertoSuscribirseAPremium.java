@@ -1,7 +1,7 @@
 package Pera.Back.CU.CU23_SuscribirseAPremium;
 
 import Pera.Back.Entities.PrecioPremium;
-import Pera.Back.Repositories.ConfiguracionPrecioPremiumRepository;
+import Pera.Back.Repositories.RepositorioConfiguracionPrecioPremium;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,21 +27,21 @@ import java.util.Date;
 class ExpertoSuscribirseAPremium implements Serializable {
 
     @Autowired
-    private ConfiguracionPrecioPremiumRepository configuracionPrecioPremiumRepository;
+    private RepositorioConfiguracionPrecioPremium repositorioConfiguracionPrecioPremium;
     @Autowired
-    private PrecioPremiumRepository precioPremiumRepository;
+    private RepositorioPrecioPremium repositorioPrecioPremium;
 
     @Autowired
-    private MedioDePagoRepository medioDePagoRepository;
+    private RepositorioMedioDePago repositorioMedioDePago;
 
     @Autowired
-    private RolRepository rolRepository;
+    private RepositorioRol repositorioRol;
 
     @Autowired
-    private UsuarioRolRepository usuarioRolRepository;
+    private RepositorioUsuarioRol repositorioUsuarioRol;
 
     @Autowired
-    private ConfiguracionRolRepository configuracionRolRepository;
+    private RepositorioConfiguracionRol repositorioConfiguracionRol;
 
     @Autowired
     private MemoriaSuscribirseAPremium memoria;
@@ -49,7 +49,7 @@ class ExpertoSuscribirseAPremium implements Serializable {
     public Collection<DTOPlanPremium> obtenerPlanes() {
         ArrayList<DTOPlanPremium> ret = new ArrayList<>();
 
-        Collection<PrecioPremium> pps = configuracionPrecioPremiumRepository.obtenerPPVigentes();
+        Collection<PrecioPremium> pps = repositorioConfiguracionPrecioPremium.obtenerPPVigentes();
 
         for (PrecioPremium pp : pps) {
             DTOPlanPremium aux = DTOPlanPremium.builder()
@@ -66,7 +66,7 @@ class ExpertoSuscribirseAPremium implements Serializable {
 
     public DTOOpcionesPago obtenerMediosDePago(Long idPlan) {
 
-        memoria.setPlan(precioPremiumRepository.obtenerPorId(idPlan));
+        memoria.setPlan(repositorioPrecioPremium.obtenerPorId(idPlan));
 
         PrecioPremium plan = memoria.getPlan();
 
@@ -78,7 +78,7 @@ class ExpertoSuscribirseAPremium implements Serializable {
                 .mediosDePago(new ArrayList<>())
                 .build();
 
-        Collection<MedioDePago> mediosDePago = medioDePagoRepository.obtenerVigentes();
+        Collection<MedioDePago> mediosDePago = repositorioMedioDePago.obtenerVigentes();
 
         for (MedioDePago medioDePago : mediosDePago) {
             DTOMedioDePago sub = DTOMedioDePago.builder()
@@ -101,7 +101,7 @@ class ExpertoSuscribirseAPremium implements Serializable {
         }
 
         Long idMDP = dto.getIdMedioDePago();
-        MedioDePago medioDePago = medioDePagoRepository.obtenerPorId(idMDP);
+        MedioDePago medioDePago = repositorioMedioDePago.obtenerPorId(idMDP);
 
         FactoriaARP factoriaARP = FactoriaARP.getInstancia();
         AdaptadorRealizarPago adaptadorRealizarPago = factoriaARP.obtenerARP(medioDePago);
@@ -115,14 +115,14 @@ class ExpertoSuscribirseAPremium implements Serializable {
         c.setTime(new Date());
         c.add(Calendar.DATE, plan.getDiasDuracion());
 
-        Rol rolPremium = rolRepository.obtenerRolPorNombre("Premium");
+        Rol rolPremium = repositorioRol.obtenerRolPorNombre("Premium");
 
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
         Usuario usuario = singletonObtenerUsuarioActual.obtenerUsuarioActual();
 
         Collection<String> permisos = new ArrayList<>();
 
-        for (Permiso permiso : configuracionRolRepository.getPermisos(rolPremium)) {
+        for (Permiso permiso : repositorioConfiguracionRol.getPermisos(rolPremium)) {
             permisos.add(permiso.getNombrePermiso());
         }
 
@@ -144,13 +144,13 @@ class ExpertoSuscribirseAPremium implements Serializable {
                 .build();
 
         SingletonCortarSuperpuestas singletonCortarSuperpuestas = SingletonCortarSuperpuestas.getInstancia();
-        singletonCortarSuperpuestas.cortar(usuarioRolRepository, new Date(), c.getTime(), usuario.getId());
+        singletonCortarSuperpuestas.cortar(repositorioUsuarioRol, new Date(), c.getTime(), usuario.getId());
 
-        usuarioRol = usuarioRolRepository.save(usuarioRol);
+        usuarioRol = repositorioUsuarioRol.save(usuarioRol);
 
         usuarioRol.getUsuario().setRolActual(rolPremium);
 
-        usuarioRolRepository.save(usuarioRol);
+        repositorioUsuarioRol.save(usuarioRol);
 
         return dtoRespuestaSuscripcionPremium;
     }

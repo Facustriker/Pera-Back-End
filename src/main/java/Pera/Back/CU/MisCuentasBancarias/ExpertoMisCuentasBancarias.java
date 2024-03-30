@@ -4,7 +4,7 @@ import Pera.Back.Entities.Banco;
 import Pera.Back.Entities.CuentaBancaria;
 import Pera.Back.Entities.Usuario;
 import Pera.Back.Functionalities.ObtenerUsuarioActual.SingletonObtenerUsuarioActual;
-import Pera.Back.Repositories.CuentaBancariaRepository;
+import Pera.Back.Repositories.RepositorioCuentaBancaria;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +18,13 @@ import java.util.Optional;
 public class ExpertoMisCuentasBancarias {
 
     @Autowired
-    private final CuentaBancariaRepository cuentaBancariaRepository;
+    private final RepositorioCuentaBancaria repositorioCuentaBancaria;
 
     public Collection<DTOMisCuentasBancarias> obtenerCuentasBancarias() throws Exception{
 
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
         Usuario usuario = singletonObtenerUsuarioActual.obtenerUsuarioActual();
-        return cuentaBancariaRepository.obtenerCuentasBancariasUsuario(usuario);
+        return repositorioCuentaBancaria.obtenerCuentasBancariasUsuario(usuario);
 
     }
 
@@ -32,7 +32,7 @@ public class ExpertoMisCuentasBancarias {
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
         Usuario usuario = singletonObtenerUsuarioActual.obtenerUsuarioActual();
 
-        Optional<CuentaBancaria> ocb = cuentaBancariaRepository.findById(id);
+        Optional<CuentaBancaria> ocb = repositorioCuentaBancaria.findById(id);
 
         if (!ocb.isPresent()) {
             throw new Exception("No se encontró la cuenta bancaria");

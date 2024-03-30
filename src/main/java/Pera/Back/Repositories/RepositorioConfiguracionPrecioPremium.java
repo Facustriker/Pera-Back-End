@@ -3,13 +3,12 @@ package Pera.Back.Repositories;
 import Pera.Back.Entities.ConfiguracionPrecioPremium;
 import Pera.Back.Entities.PrecioPremium;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 
 @Repository
-public interface ConfiguracionPrecioPremiumRepository extends BaseRepository<ConfiguracionPrecioPremium, Long> {
+public interface RepositorioConfiguracionPrecioPremium extends BaseRepository<ConfiguracionPrecioPremium, Long> {
 
     @Query("SELECT pp " +
             "FROM ConfiguracionPrecioPremium cpp " +

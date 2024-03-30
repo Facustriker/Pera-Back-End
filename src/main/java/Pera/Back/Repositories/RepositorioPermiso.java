@@ -4,7 +4,7 @@ import Pera.Back.Entities.Permiso;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PermisoRepository extends BaseRepository<Permiso, Long> {
+public interface RepositorioPermiso extends BaseRepository<Permiso, Long> {
 
 
 }

@@ -2,10 +2,10 @@ package Pera.Back.CU.MisBancos;
 
 import Pera.Back.Entities.*;
 import Pera.Back.Functionalities.ObtenerUsuarioActual.SingletonObtenerUsuarioActual;
-import Pera.Back.Repositories.BancoRepository;
-import Pera.Back.Repositories.ConfiguracionRolRepository;
-import Pera.Back.Repositories.CuentaBancariaRepository;
-import Pera.Back.Repositories.UsuarioRepository;
+import Pera.Back.Repositories.RepositorioBanco;
+import Pera.Back.Repositories.RepositorioConfiguracionRol;
+import Pera.Back.Repositories.RepositorioCuentaBancaria;
+import Pera.Back.Repositories.RepositorioUsuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,22 +17,22 @@ import java.util.Collection;
 public class ExpertoMisBancos {
 
     @Autowired
-    private final BancoRepository bancoRepository;
+    private final RepositorioBanco repositorioBanco;
 
     @Autowired
-    private final CuentaBancariaRepository cuentaBancariaRepository;
+    private final RepositorioCuentaBancaria repositorioCuentaBancaria;
 
     @Autowired
-    private final UsuarioRepository usuarioRepository;
+    private final RepositorioUsuario repositorioUsuario;
 
     @Autowired
-    private final ConfiguracionRolRepository configuracionRolRepository;
+    private final RepositorioConfiguracionRol repositorioConfiguracionRol;
 
     public Collection<DTOMisBancos> obtenerBancos() throws Exception{
 
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
         Usuario usuario = singletonObtenerUsuarioActual.obtenerUsuarioActual();
-        Collection<DTOMisBancos> dtos = bancoRepository.obtenerBancos(usuario);
+        Collection<DTOMisBancos> dtos = repositorioBanco.obtenerBancos(usuario);
 
         ArrayList<Long> ids = new ArrayList<>();
 
@@ -57,16 +57,16 @@ public class ExpertoMisBancos {
 
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
         Usuario banquero = singletonObtenerUsuarioActual.obtenerUsuarioActual();
-        banquero = usuarioRepository.findById(banquero.getId()).get();
+        banquero = repositorioUsuario.findById(banquero.getId()).get();
 
         Rol rolDueno = banquero.getRolActual();
         ArrayList<String> permisos = new ArrayList<>();
-        for ( Permiso permiso : configuracionRolRepository.getPermisos(rolDueno) ) {
+        for ( Permiso permiso : repositorioConfiguracionRol.getPermisos(rolDueno) ) {
             permisos.add(permiso.getNombrePermiso());
         };
 
-        Banco banco = bancoRepository.getBancoPorNumeroBanco(nroBanco);
-        Collection<CuentaBancaria> cbs = cuentaBancariaRepository.obtenerCuentasBancariasVigentesPorUsuarioYBanco(banquero, banco);
+        Banco banco = repositorioBanco.getBancoPorNumeroBanco(nroBanco);
+        Collection<CuentaBancaria> cbs = repositorioCuentaBancaria.obtenerCuentasBancariasVigentesPorUsuarioYBanco(banquero, banco);
         if (cbs.isEmpty()) {
             throw new Exception("No se encontró una cuenta bancaria con permiso para acceder a esta información");
         }
@@ -89,7 +89,7 @@ public class ExpertoMisBancos {
         }
 
         Double baseMonetaria = 0.0;
-        for (CuentaBancaria cuentaBancaria : cuentaBancariaRepository.getCuentasVigentesPorBanco(banco)) {
+        for (CuentaBancaria cuentaBancaria : repositorioCuentaBancaria.getCuentasVigentesPorBanco(banco)) {
             baseMonetaria += cuentaBancaria.getMontoDinero();
         }
 

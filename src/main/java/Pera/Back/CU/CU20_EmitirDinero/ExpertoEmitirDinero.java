@@ -5,13 +5,12 @@ import Pera.Back.Entities.CuentaBancaria;
 import Pera.Back.Entities.Emision;
 import Pera.Back.Entities.Usuario;
 import Pera.Back.Functionalities.ObtenerUsuarioActual.SingletonObtenerUsuarioActual;
-import Pera.Back.Repositories.CuentaBancariaRepository;
-import Pera.Back.Repositories.TransferenciaRepository;
-import Pera.Back.Repositories.UsuarioRepository;
+import Pera.Back.Repositories.RepositorioCuentaBancaria;
+import Pera.Back.Repositories.RepositorioTransferencia;
+import Pera.Back.Repositories.RepositorioUsuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 
@@ -21,14 +20,14 @@ public class ExpertoEmitirDinero {
 
     private final MemoriaEmitirDinero memoria;
 
-    private final CuentaBancariaRepository cuentaBancariaRepository;
+    private final RepositorioCuentaBancaria repositorioCuentaBancaria;
 
-    private final TransferenciaRepository transferenciaRepository;
+    private final RepositorioTransferencia repositorioTransferencia;
 
-    private final UsuarioRepository usuarioRepository;
+    private final RepositorioUsuario repositorioUsuario;
 
     public DTOIDEMListaCB obtenerListaCB(Long nroCB) throws Exception {
-        Optional<CuentaBancaria> optCB = cuentaBancariaRepository.findById(nroCB);
+        Optional<CuentaBancaria> optCB = repositorioCuentaBancaria.findById(nroCB);
         if (!optCB.isPresent()) {
             String errorMessage = "No se encontró la cuenta bancaria del banquero";
             memoria.setErrorMessage(errorMessage);
@@ -81,7 +80,7 @@ public class ExpertoEmitirDinero {
                 .motivo("")
                 .build();
 
-        for (CuentaBancaria destino : cuentaBancariaRepository.getCuentasVigentesPorBanco(banco)) {
+        for (CuentaBancaria destino : repositorioCuentaBancaria.getCuentasVigentesPorBanco(banco)) {
             Usuario usuario = destino.getTitular();
 
             DTOIDEMCB detalle = DTOIDEMCB.builder()
@@ -145,7 +144,7 @@ public class ExpertoEmitirDinero {
         CuentaBancaria cuentaBanquero = memoria.getCuentaBanquero();
 
         Usuario banquero = cuentaBanquero.getTitular();
-        banquero = usuarioRepository.findById(banquero.getId()).get();
+        banquero = repositorioUsuario.findById(banquero.getId()).get();
 
         for (DTOIDEMCB detalle : dto.getDetalles()) {
             Emision emision = new Emision();
@@ -157,7 +156,7 @@ public class ExpertoEmitirDinero {
             emision.setOrigen(null);
 
             Long nroCB = detalle.getNroCB();
-            Optional<CuentaBancaria> optCB = cuentaBancariaRepository.getCuentaVigentePorNumeroCuenta(nroCB);
+            Optional<CuentaBancaria> optCB = repositorioCuentaBancaria.getCuentaVigentePorNumeroCuenta(nroCB);
             if (!optCB.isPresent()) {
                 throw new Exception("No se encontró la cuenta bancaria N.° " + nroCB);
             }
@@ -166,9 +165,9 @@ public class ExpertoEmitirDinero {
 
             emision.setFhTransferencia(new Date());
 
-            destino = cuentaBancariaRepository.save(destino);
+            destino = repositorioCuentaBancaria.save(destino);
             emision.setDestino(destino);
-            emision = transferenciaRepository.save(emision);
+            emision = repositorioTransferencia.save(emision);
 
             detalle.setNroTransferencia(emision.getId());
 

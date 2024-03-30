@@ -2,10 +2,10 @@ package Pera.Back.CU.CU22_RegistrarUsuario;
 
 import Pera.Back.Entities.*;
 import Pera.Back.JWT.JwtService;
-import Pera.Back.Repositories.AuthUsuarioRepository;
-import Pera.Back.Repositories.ConfiguracionRolRepository;
-import Pera.Back.Repositories.RolRepository;
-import Pera.Back.Repositories.UsuarioRolRepository;
+import Pera.Back.Repositories.RepositorioAuthUsuario;
+import Pera.Back.Repositories.RepositorioConfiguracionRol;
+import Pera.Back.Repositories.RepositorioRol;
+import Pera.Back.Repositories.RepositorioUsuarioRol;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,20 +19,20 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ExpertoRegistrarUsuario {
 
-    private final AuthUsuarioRepository authUsuarioRepository;
-    private final UsuarioRolRepository usuarioRolRepository;
-    private final ConfiguracionRolRepository configuracionRolRepository;
-    private final RolRepository rolRepository;
+    private final RepositorioAuthUsuario repositorioAuthUsuario;
+    private final RepositorioUsuarioRol repositorioUsuarioRol;
+    private final RepositorioConfiguracionRol repositorioConfiguracionRol;
+    private final RepositorioRol repositorioRol;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
 
     public String register(DTORegisterRequest request) throws Exception {
-        Optional<AuthUsuario> prev = authUsuarioRepository.findByUsername(request.getEmail());
+        Optional<AuthUsuario> prev = repositorioAuthUsuario.findByUsername(request.getEmail());
         if (prev.isPresent()){
             if (prev.get().isEnabled()) {
                 throw new Exception("El mail ya está registrado a nombre de otro usuario");
             } else {
-                authUsuarioRepository.delete(prev.get());
+                repositorioAuthUsuario.delete(prev.get());
             }
         }
 
@@ -68,13 +68,13 @@ public class ExpertoRegistrarUsuario {
 
         Rol rol;
         if("admin@gmail.com".equals(usuario.getMail())){
-            rol = rolRepository.obtenerRolPorNombre("Administrador del Sistema");
+            rol = repositorioRol.obtenerRolPorNombre("Administrador del Sistema");
         }else{
-            rol = rolRepository.obtenerRolPorNombre("No Premium");
+            rol = repositorioRol.obtenerRolPorNombre("No Premium");
         }
         usuario.setRolActual(rol);
 
-        authUsuarioRepository.save(authUsuario);
+        repositorioAuthUsuario.save(authUsuario);
 
         UsuarioRol usuarioRol = UsuarioRol.builder()
                 .fhaUsuarioRol(new Date(timeNow))
@@ -82,7 +82,7 @@ public class ExpertoRegistrarUsuario {
                 .usuario(usuario)
                 .build();
 
-        usuarioRolRepository.save(usuarioRol);
+        repositorioUsuarioRol.save(usuarioRol);
 
 
         return "";
@@ -90,7 +90,7 @@ public class ExpertoRegistrarUsuario {
     }
 
     public DTOAuthResponse ingresarCodigo(String username, int codigo) throws Exception {
-        Optional<AuthUsuario> optAuthUsuario = authUsuarioRepository.findByUsername(username);
+        Optional<AuthUsuario> optAuthUsuario = repositorioAuthUsuario.findByUsername(username);
         if (!optAuthUsuario.isPresent()) {
             throw new Exception("No se encontró la solicitud de generación de cuenta");
         }
@@ -101,11 +101,11 @@ public class ExpertoRegistrarUsuario {
 
         authUsuario.setEnabled(true);
 
-        authUsuarioRepository.save(authUsuario);
+        repositorioAuthUsuario.save(authUsuario);
 
         Collection<String> permisos = new ArrayList<>();
 
-        for (Permiso permiso : configuracionRolRepository.getPermisos(authUsuario.getUsuario().getRolActual())) {
+        for (Permiso permiso : repositorioConfiguracionRol.getPermisos(authUsuario.getUsuario().getRolActual())) {
             permisos.add(permiso.getNombrePermiso());
         }
 

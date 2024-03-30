@@ -3,8 +3,7 @@ package Pera.Back.Functionalities.ActualizarRol;
 import Pera.Back.Entities.Rol;
 import Pera.Back.Entities.Usuario;
 import Pera.Back.Entities.UsuarioRol;
-import Pera.Back.Repositories.UsuarioRepository;
-import Pera.Back.Repositories.UsuarioRolRepository;
+import Pera.Back.Repositories.RepositorioUsuarioRol;
 
 public class SingletonActualizarRol {
     private static SingletonActualizarRol instancia;
@@ -14,7 +13,7 @@ public class SingletonActualizarRol {
         return instancia;
     }
 
-    public Rol actualizarRol(UsuarioRolRepository repo, Usuario usuario) {
+    public Rol actualizarRol(RepositorioUsuarioRol repo, Usuario usuario) {
         UsuarioRol usuarioRol = repo.getActualByUsuario(usuario);
         Rol rol = usuarioRol.getRol();
         usuarioRol.getUsuario().setRolActual(rol);

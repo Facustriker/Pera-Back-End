@@ -1,6 +1,5 @@
 package Pera.Back.Repositories;
 
-import Pera.Back.Entities.Permiso;
 import Pera.Back.Entities.Usuario;
 import Pera.Back.Entities.UsuarioRol;
 import Pera.Back.Functionalities.CortarSuperpuestas.RepositorioCortable;
@@ -10,11 +9,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.Date;
 
 @Repository
-public interface UsuarioRolRepository extends BaseRepository<UsuarioRol, Long>, RepositorioCortable {
+public interface RepositorioUsuarioRol extends BaseRepository<UsuarioRol, Long>, RepositorioCortable {
 
     @Query("SELECT ur " +
             "FROM UsuarioRol ur " +

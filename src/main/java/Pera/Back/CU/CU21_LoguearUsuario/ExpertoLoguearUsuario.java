@@ -6,9 +6,9 @@ import Pera.Back.Entities.Permiso;
 import Pera.Back.Entities.Rol;
 import Pera.Back.Functionalities.ActualizarRol.SingletonActualizarRol;
 import Pera.Back.JWT.JwtService;
-import Pera.Back.Repositories.AuthUsuarioRepository;
-import Pera.Back.Repositories.ConfiguracionRolRepository;
-import Pera.Back.Repositories.UsuarioRolRepository;
+import Pera.Back.Repositories.RepositorioAuthUsuario;
+import Pera.Back.Repositories.RepositorioConfiguracionRol;
+import Pera.Back.Repositories.RepositorioUsuarioRol;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,25 +22,25 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class ExpertoLoguearUsuario {
 
-    private final AuthUsuarioRepository authUsuarioRepository;
+    private final RepositorioAuthUsuario repositorioAuthUsuario;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    private final UsuarioRolRepository usuarioRolRepository;
-    private final ConfiguracionRolRepository configuracionRolRepository;
+    private final RepositorioUsuarioRol repositorioUsuarioRol;
+    private final RepositorioConfiguracionRol repositorioConfiguracionRol;
 
     public DTOAuthResponse login(DTOLoginRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        UserDetails user = authUsuarioRepository.findByUsername(request.getEmail()).orElseThrow();
+        UserDetails user = repositorioAuthUsuario.findByUsername(request.getEmail()).orElseThrow();
         String token = jwtService.getToken(user);
 
         Collection<String> permisos = new ArrayList<>();
 
         SingletonActualizarRol singletonActualizarRol = SingletonActualizarRol.getInstancia();
 
-        Rol rol = singletonActualizarRol.actualizarRol(usuarioRolRepository, ((AuthUsuario)user).getUsuario());
+        Rol rol = singletonActualizarRol.actualizarRol(repositorioUsuarioRol, ((AuthUsuario)user).getUsuario());
 
-        for (Permiso permiso : configuracionRolRepository.getPermisos(rol)) {
+        for (Permiso permiso : repositorioConfiguracionRol.getPermisos(rol)) {
             permisos.add(permiso.getNombrePermiso());
         }
 

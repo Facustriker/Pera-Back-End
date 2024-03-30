@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 @Repository
-public interface ConfiguracionRolRepository extends BaseRepository<ConfiguracionRol, Long> {
+public interface RepositorioConfiguracionRol extends BaseRepository<ConfiguracionRol, Long> {
 
     @Query("SELECT p " +
             "FROM ConfiguracionRol cr " +

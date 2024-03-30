@@ -8,37 +8,35 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 @SpringBootApplication
 public class BackApplication {
 
     @Autowired
-    private ConfiguracionRolRepository configuracionRolRepository;
+    private RepositorioConfiguracionRol repositorioConfiguracionRol;
 
 	@Autowired
-	private PermisoRepository permisoRepository;
+	private RepositorioPermiso repositorioPermiso;
 
 	@Autowired
-	private MedioDePagoRepository medioDePagoRepository;
+	private RepositorioMedioDePago repositorioMedioDePago;
 
 	@Autowired
-	private ConfiguracionPrecioPremiumRepository configuracionPrecioPremiumRepository;
+	private RepositorioConfiguracionPrecioPremium repositorioConfiguracionPrecioPremium;
 
     @Autowired
-    private CantMaxBancosNoPremiumRepository cantMaxBancosNoPremiumRepository;
+    private RepositorioCantMaxBancosNoPremium repositorioCantMaxBancosNoPremium;
 
     @Autowired
-    private CantMaxCuentasBancoPropioRepository cantMaxCuentasBancoPropioRepository;
+    private RepositorioCantMaxCuentasBancoPropio repositorioCantMaxCuentasBancoPropio;
 
     @Autowired
-    private CantMaxCuentasOtrosBancosRepository cantMaxCuentasOtrosBancosRepository;
+    private RepositorioCantMaxCuentasOtrosBancos repositorioCantMaxCuentasOtrosBancos;
 
 	@Autowired
-	private ParametroSimboloMonedaRepository parametroSimboloMonedaRepository;
+	private RepositorioParametroSimboloMoneda repositorioParametroSimboloMoneda;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackApplication.class, args);
@@ -72,7 +70,7 @@ public class BackApplication {
 			crAdmin.addPermiso(Permiso.builder().nombrePermiso("VER_REPORTES").build());
 			crAdmin.addPermiso(Permiso.builder().nombrePermiso("ADMIN_DATOS_PROPIOS").build());
 
-			crAdmin = configuracionRolRepository.save(crAdmin);
+			crAdmin = repositorioConfiguracionRol.save(crAdmin);
 
 
 
@@ -91,7 +89,7 @@ public class BackApplication {
 			crUsuario.addPermiso(Permiso.builder().nombrePermiso("ADMIN_CUENTAS_BANCARIAS_PROPIAS").build());
 			crUsuario.addPermiso(Permiso.builder().nombrePermiso("SUSCRIPCION_PREMIUM").build());
 
-			crUsuario = configuracionRolRepository.save(crUsuario);
+			crUsuario = repositorioConfiguracionRol.save(crUsuario);
 
 			for (Permiso permiso : crAdmin.getPermisos()) {
 				if(permiso.getNombrePermiso() == "ADMIN_DATOS_PROPIOS") {
@@ -99,7 +97,7 @@ public class BackApplication {
 				}
 			}
 
-			crUsuario = configuracionRolRepository.save(crUsuario);
+			crUsuario = repositorioConfiguracionRol.save(crUsuario);
 
 
 			Rol premium = Rol.builder()
@@ -117,21 +115,21 @@ public class BackApplication {
 			crPremium.addPermiso(Permiso.builder().nombrePermiso("ELEGIR_SIMBOLO_MONEDA").build());
 
 
-			crPremium = configuracionRolRepository.save(crPremium);
+			crPremium = repositorioConfiguracionRol.save(crPremium);
 
 			for (Permiso permiso : crUsuario.getPermisos()) {
 				if (permiso.getNombrePermiso() != "SUSCRIPCION_PREMIUM")
 					crPremium.addPermiso(permiso);
 			}
 
-			configuracionRolRepository.save(crPremium);
+			repositorioConfiguracionRol.save(crPremium);
 
 
 
 			MedioDePago mdpMercadoPago = MedioDePago.builder()
 					.nombreMDP("Mercado Pago")
 					.build();
-			medioDePagoRepository.save(mdpMercadoPago);
+			repositorioMedioDePago.save(mdpMercadoPago);
 
 			PrecioPremium ppMensual = PrecioPremium.builder()
 					.nombrePP("Mensual")
@@ -162,7 +160,7 @@ public class BackApplication {
 			cpp.addPrecio(ppTrimestral);
 			cpp.addPrecio(ppAnual);
 
-			configuracionPrecioPremiumRepository.save(cpp);
+			repositorioConfiguracionPrecioPremium.save(cpp);
 
             CantMaxBancosNoPremium cantMaxBancosNoPremium = CantMaxBancosNoPremium.builder()
                     .cantidad(2)
@@ -179,16 +177,16 @@ public class BackApplication {
                     .fhaCMCOB(new Date())
                     .build();
 
-            cantMaxBancosNoPremiumRepository.save(cantMaxBancosNoPremium);
-            cantMaxCuentasBancoPropioRepository.save(cantMaxCuentasBancoPropio);
-            cantMaxCuentasOtrosBancosRepository.save(cantMaxCuentasOtrosBancos);
+            repositorioCantMaxBancosNoPremium.save(cantMaxBancosNoPremium);
+            repositorioCantMaxCuentasBancoPropio.save(cantMaxCuentasBancoPropio);
+            repositorioCantMaxCuentasOtrosBancos.save(cantMaxCuentasOtrosBancos);
 
 			ParametroSimboloMoneda parametroSimboloMoneda = ParametroSimboloMoneda.builder()
 					.fhaPSM(new Date())
 					.simboloMonedaPorDefecto("$")
 					.build();
 
-			parametroSimboloMonedaRepository.save(parametroSimboloMoneda);
+			repositorioParametroSimboloMoneda.save(parametroSimboloMoneda);
 
 		};
 	}

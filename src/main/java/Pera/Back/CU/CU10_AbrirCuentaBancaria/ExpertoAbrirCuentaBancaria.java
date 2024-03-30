@@ -15,24 +15,24 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class ExpertoAbrirCuentaBancaria {
 
-    private final BancoRepository bancoRepository;
+    private final RepositorioBanco repositorioBanco;
 
-    private final UsuarioRepository usuarioRepository;
+    private final RepositorioUsuario repositorioUsuario;
 
-    private final ConfiguracionRolRepository configuracionRolRepository;
+    private final RepositorioConfiguracionRol repositorioConfiguracionRol;
 
-    private final UsuarioRolRepository usuarioRolRepository;
+    private final RepositorioUsuarioRol repositorioUsuarioRol;
 
-    private final CantMaxCuentasOtrosBancosRepository cantMaxCuentasOtrosBancosRepository;
+    private final RepositorioCantMaxCuentasOtrosBancos repositorioCantMaxCuentasOtrosBancos;
 
-    private final CuentaBancariaRepository cuentaBancariaRepository;
+    private final RepositorioCuentaBancaria repositorioCuentaBancaria;
 
-    private final CantMaxCuentasBancoPropioRepository cantMaxCuentasBancoPropioRepository;
+    private final RepositorioCantMaxCuentasBancoPropio repositorioCantMaxCuentasBancoPropio;
 
     private final MemoriaAbrirCuentaBancaria memoria;
 
     public Collection<DTOBancoAbrirCuentaBancaria> getBancos(String nombreBanco) {
-        Collection<Banco> bancos = bancoRepository.buscarBancosVigentesYHabilitados(nombreBanco);
+        Collection<Banco> bancos = repositorioBanco.buscarBancosVigentesYHabilitados(nombreBanco);
 
         ArrayList<DTOBancoAbrirCuentaBancaria> dtos = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class ExpertoAbrirCuentaBancaria {
     }
 
     public boolean seleccionarBanco(Long nroBanco) throws Exception {
-        Banco banco = bancoRepository.getBancoPorNumeroBanco(nroBanco);
+        Banco banco = repositorioBanco.getBancoPorNumeroBanco(nroBanco);
 
         CuentaBancaria cuenta = CuentaBancaria.builder()
                 .banco(banco)
@@ -60,23 +60,23 @@ public class ExpertoAbrirCuentaBancaria {
 
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
         Usuario usuario = singletonObtenerUsuarioActual.obtenerUsuarioActual();
-        usuario = usuarioRepository.findById(usuario.getId()).get();
+        usuario = repositorioUsuario.findById(usuario.getId()).get();
 
         cuenta.setTitular(usuario);
 
         Rol rolActualUsuario = usuario.getRolActual();
 
         ArrayList<String> permisos = new ArrayList<>();
-        for ( Permiso permiso : configuracionRolRepository.getPermisos(rolActualUsuario) ) {
+        for ( Permiso permiso : repositorioConfiguracionRol.getPermisos(rolActualUsuario) ) {
             permisos.add(permiso.getNombrePermiso());
         };
 
         if (!permisos.contains("CANTIDAD_CUENTAS_PROPIAS_ILIMITADA")) {
-            Collection<CantMaxCuentasOtrosBancos> cantMaxCuentasOtrosBancos = cantMaxCuentasOtrosBancosRepository.getVigentes();
+            Collection<CantMaxCuentasOtrosBancos> cantMaxCuentasOtrosBancos = repositorioCantMaxCuentasOtrosBancos.getVigentes();
 
             int cantidad = cantMaxCuentasOtrosBancos.iterator().next().getCantidad();
 
-            Collection<CuentaBancaria> cuentasBancarias = cuentaBancariaRepository.getCuentasVigentesPorUsuario(usuario);
+            Collection<CuentaBancaria> cuentasBancarias = repositorioCuentaBancaria.getCuentasVigentesPorUsuario(usuario);
 
             if (cuentasBancarias.size() >= cantidad) {
                 throw new Exception("Ha llegado al límite de cuentas bancarias que puede tener en bancos");
@@ -84,19 +84,19 @@ public class ExpertoAbrirCuentaBancaria {
         }
 
         SingletonActualizarRol singletonActualizarRol = SingletonActualizarRol.getInstancia();
-        Rol rolActualDueno = singletonActualizarRol.actualizarRol(usuarioRolRepository, banco.getDueno());
+        Rol rolActualDueno = singletonActualizarRol.actualizarRol(repositorioUsuarioRol, banco.getDueno());
 
         ArrayList<String> permisosDueno = new ArrayList<>();
-        for ( Permiso permiso : configuracionRolRepository.getPermisos(rolActualDueno) ) {
+        for ( Permiso permiso : repositorioConfiguracionRol.getPermisos(rolActualDueno) ) {
             permisosDueno.add(permiso.getNombrePermiso());
         };
 
         if (!permisos.contains("CANTIDAD_CUENTAS_BANCO_PROPIO_ILIMITADA")) {
-            Collection<CantMaxCuentasBancoPropio> cantMaxCuentasBancoPropios = cantMaxCuentasBancoPropioRepository.getVigentes();
+            Collection<CantMaxCuentasBancoPropio> cantMaxCuentasBancoPropios = repositorioCantMaxCuentasBancoPropio.getVigentes();
 
             int cantidad = cantMaxCuentasBancoPropios.iterator().next().getCantidad();
 
-            Collection<CuentaBancaria> cuentasBancarias = cuentaBancariaRepository.getCuentasVigentesPorBanco(banco);
+            Collection<CuentaBancaria> cuentasBancarias = repositorioCuentaBancaria.getCuentasVigentesPorBanco(banco);
 
             if (cuentasBancarias.size() >= cantidad) {
                 throw new Exception("Este banco ha llegado al límite de cuentas bancarias soportadas");
@@ -120,7 +120,7 @@ public class ExpertoAbrirCuentaBancaria {
 
         Banco banco = cuenta.getBanco();
 
-        boolean aliasDisponible = cuentaBancariaRepository.checkAliasDisponible(banco, alias);
+        boolean aliasDisponible = repositorioCuentaBancaria.checkAliasDisponible(banco, alias);
 
         if (!aliasDisponible) {
             throw new Exception("El alias ya está en uso por otra cuenta bancaria de este banco");
@@ -171,7 +171,7 @@ public class ExpertoAbrirCuentaBancaria {
             throw new Exception("La contraseña no coincide");
         }
 
-        boolean aliasDisponible = cuentaBancariaRepository.checkAliasDisponible(banco, cuenta.getAlias());
+        boolean aliasDisponible = repositorioCuentaBancaria.checkAliasDisponible(banco, cuenta.getAlias());
 
         if (!aliasDisponible) {
             throw new Exception("El alias ya está en uso por otra cuenta bancaria de este banco");
@@ -179,10 +179,10 @@ public class ExpertoAbrirCuentaBancaria {
 
         cuenta.setFhaCB(new Date());
 
-        cuenta.setBanco(bancoRepository.getBancoPorNumeroBanco(cuenta.getBanco().getId()));
-        cuenta.setTitular(usuarioRepository.findById(cuenta.getTitular().getId()).get());
+        cuenta.setBanco(repositorioBanco.getBancoPorNumeroBanco(cuenta.getBanco().getId()));
+        cuenta.setTitular(repositorioUsuario.findById(cuenta.getTitular().getId()).get());
 
-        cuenta = cuentaBancariaRepository.save(cuenta);
+        cuenta = repositorioCuentaBancaria.save(cuenta);
 
         memoria.setCuenta(null);
 

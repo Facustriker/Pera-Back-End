@@ -1,7 +1,6 @@
 package Pera.Back.Config;
 
-import Pera.Back.Repositories.AuthUsuarioRepository;
-import Pera.Back.Repositories.UsuarioRepository;
+import Pera.Back.Repositories.RepositorioAuthUsuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final AuthUsuarioRepository authUsuarioRepository;
+    private final RepositorioAuthUsuario repositorioAuthUsuario;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
@@ -44,7 +43,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailService() {
-        return username -> (UserDetails) authUsuarioRepository.findByUsername(username)
+        return username -> (UserDetails) repositorioAuthUsuario.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
     }
 }

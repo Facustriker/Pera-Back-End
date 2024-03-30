@@ -12,25 +12,25 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ExpertoCrearBanco {
 
-    private final BancoRepository bancoRepository;
+    private final RepositorioBanco repositorioBanco;
 
-    private final UsuarioRepository usuarioRepository;
+    private final RepositorioUsuario repositorioUsuario;
 
-    private final CuentaBancariaRepository cuentaBancariaRepository;
+    private final RepositorioCuentaBancaria repositorioCuentaBancaria;
 
-    private final ConfiguracionRolRepository configuracionRolRepository;
+    private final RepositorioConfiguracionRol repositorioConfiguracionRol;
 
-    private final CantMaxBancosNoPremiumRepository cantMaxBancosNoPremiumRepository;
+    private final RepositorioCantMaxBancosNoPremium repositorioCantMaxBancosNoPremium;
 
-    private final CantMaxCuentasOtrosBancosRepository cantMaxCuentasOtrosBancosRepository;
+    private final RepositorioCantMaxCuentasOtrosBancos repositorioCantMaxCuentasOtrosBancos;
 
-    private final ParametroSimboloMonedaRepository parametroSimboloMonedaRepository;
+    private final RepositorioParametroSimboloMoneda repositorioParametroSimboloMoneda;
 
     public Long crear(DTOCrearBanco request) throws Exception{
         String password = "";
         boolean habilitacionAutomatica = false;
 
-        Optional<Banco> prev = bancoRepository.findBynombreBanco(request.getNombre());
+        Optional<Banco> prev = repositorioBanco.findBynombreBanco(request.getNombre());
         if (prev.isPresent()){
             throw new Exception("Error, este banco ya esta registrado");
         }
@@ -46,17 +46,17 @@ public class ExpertoCrearBanco {
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
         Usuario dueno = singletonObtenerUsuarioActual.obtenerUsuarioActual();
 
-        dueno = usuarioRepository.findById(dueno.getId()).get();
+        dueno = repositorioUsuario.findById(dueno.getId()).get();
 
         Rol rolDueno = dueno.getRolActual();
         ArrayList<String> permisos = new ArrayList<>();
-        for ( Permiso permiso : configuracionRolRepository.getPermisos(rolDueno) ) {
+        for ( Permiso permiso : repositorioConfiguracionRol.getPermisos(rolDueno) ) {
             permisos.add(permiso.getNombrePermiso());
         };
 
         if (!permisos.contains("CANTIDAD_BANCOS_DUENO_ILIMITADA")) {
-            int cantidadBancosUsuario = bancoRepository.cantidadBancosPorUsuario(dueno);
-            int cantMaxBancosNoPremium = cantMaxBancosNoPremiumRepository.obtenerCantidadVigente();
+            int cantidadBancosUsuario = repositorioBanco.cantidadBancosPorUsuario(dueno);
+            int cantMaxBancosNoPremium = repositorioCantMaxBancosNoPremium.obtenerCantidadVigente();
             if(cantidadBancosUsuario>=cantMaxBancosNoPremium){
                 throw new Exception("Error, se ha alcanzado la cantidad maxima de bancos No Premium");
             }
@@ -64,8 +64,8 @@ public class ExpertoCrearBanco {
         }
 
         if (!permisos.contains("CANTIDAD_CUENTAS_PROPIAS_ILIMITADA")) {
-            int cantidadTotalCuentas = cuentaBancariaRepository.cantidadCuentasBancariasPorUsuario(dueno);
-            int cantidadMaximaCuentasOtrosBancos = cantMaxCuentasOtrosBancosRepository.obtenerCantidadVigente();
+            int cantidadTotalCuentas = repositorioCuentaBancaria.cantidadCuentasBancariasPorUsuario(dueno);
+            int cantidadMaximaCuentasOtrosBancos = repositorioCantMaxCuentasOtrosBancos.obtenerCantidadVigente();
             if(cantidadTotalCuentas>=cantidadMaximaCuentasOtrosBancos){
                 throw new Exception("Error, se ha alcanzado la cantidad maxima de cuentas bancarias No Premium");
             }
@@ -75,7 +75,7 @@ public class ExpertoCrearBanco {
         if (permisos.contains("ELEGIR_SIMBOLO_MONEDA")) {
             simbolo = validarSimboloMoneda(request);
         } else {
-            simbolo= parametroSimboloMonedaRepository.obtenerSimboloVigente();
+            simbolo= repositorioParametroSimboloMoneda.obtenerSimboloVigente();
         }
 
         Banco banco = Banco.builder()
@@ -98,7 +98,7 @@ public class ExpertoCrearBanco {
                 .build();
 
 
-        cuentaBancariaRepository.save(cuentaBancaria);
+        repositorioCuentaBancaria.save(cuentaBancaria);
 
         return banco.getId();
 

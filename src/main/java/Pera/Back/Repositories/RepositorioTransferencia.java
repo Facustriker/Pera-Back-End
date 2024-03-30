@@ -4,5 +4,5 @@ import Pera.Back.Entities.Transferencia;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TransferenciaRepository extends BaseRepository<Transferencia, Long> {
+public interface RepositorioTransferencia extends BaseRepository<Transferencia, Long> {
 }
