@@ -37,6 +37,9 @@ public class BackApplication {
     @Autowired
     private CantMaxCuentasOtrosBancosRepository cantMaxCuentasOtrosBancosRepository;
 
+	@Autowired
+	private ParametroSimboloMonedaRepository parametroSimboloMonedaRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BackApplication.class, args);
         System.out.println("La aplicacion se ha iniciado correctamente");
@@ -178,7 +181,12 @@ public class BackApplication {
             cantMaxCuentasBancoPropioRepository.save(cantMaxCuentasBancoPropio);
             cantMaxCuentasOtrosBancosRepository.save(cantMaxCuentasOtrosBancos);
 
+			ParametroSimboloMoneda parametroSimboloMoneda = ParametroSimboloMoneda.builder()
+					.fhaPSM(new Date())
+					.simboloMonedaPorDefecto("$")
+					.build();
 
+			parametroSimboloMonedaRepository.save(parametroSimboloMoneda);
 
 		};
 	}

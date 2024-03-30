@@ -38,6 +38,18 @@ public class ExpertoRegistrarUsuario {
 
         long timeNow = System.currentTimeMillis();
 
+        if(request.getNombre().equals("")){
+            throw new Exception("Debe ingresar un nombre");
+        }
+
+        if(request.getEmail().equals("")){
+            throw new Exception("Debe ingresar un email");
+        }
+
+        if(request.getPassword().equals("")){
+            throw new Exception("Debe ingresar una contrasena");
+        }
+
         Usuario usuario = Usuario.builder()
                 .nombreUsuario(request.getNombre())
                 .mail(request.getEmail())
@@ -84,7 +96,7 @@ public class ExpertoRegistrarUsuario {
         }
         AuthUsuario authUsuario = optAuthUsuario.get();
         if (authUsuario.getVerificationCode() != codigo) {
-            throw new Exception("El código no coincide");
+            throw new Exception("El código no es correcto");
         }
 
         authUsuario.setEnabled(true);

@@ -17,7 +17,6 @@ public class ControladorMisBancos {
         try {
             return ResponseEntity.ok(experto.obtenerBancos());
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
