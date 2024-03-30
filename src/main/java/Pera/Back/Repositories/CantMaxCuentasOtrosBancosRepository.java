@@ -10,9 +10,16 @@ import java.util.Collection;
 @Repository
 public interface CantMaxCuentasOtrosBancosRepository extends BaseRepository<CantMaxCuentasOtrosBancos, Long> {
 
+
     @Query("SELECT p " +
             "FROM CantMaxCuentasOtrosBancos p " +
             "WHERE fhaCMCOB <= CURRENT_TIMESTAMP " +
             "AND (fhbCMCOB IS NULL OR fhbCMCOB > CURRENT_TIMESTAMP)")
     Collection<CantMaxCuentasOtrosBancos> getVigentes();
+
+    @Query("SELECT cantidad " +
+            "FROM CantMaxCuentasOtrosBancos cmcob " +
+            "WHERE cmcob.fhbCMCOB IS NULL OR CURRENT_TIMESTAMP < cmcob.fhbCMCOB")
+    int obtenerCantidadVigente();
+
 }

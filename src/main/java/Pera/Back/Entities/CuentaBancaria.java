@@ -38,10 +38,10 @@ public class CuentaBancaria extends BaseEntity{
     private double montoDinero;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "titular_id")
+    @JoinColumn(name = "titular")
     private Usuario titular;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "banco_id")
+    @JoinColumn(name = "banco")
     private Banco banco;
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 @Repository
+
 public interface CantMaxCuentasBancoPropioRepository extends BaseRepository<CantMaxCuentasBancoPropio, Long> {
 
     @Query("SELECT p " +
@@ -14,5 +15,10 @@ public interface CantMaxCuentasBancoPropioRepository extends BaseRepository<Cant
             "WHERE fhaCMCBP <= CURRENT_TIMESTAMP " +
             "AND (fhbCMCBP IS NULL OR fhbCMCBP > CURRENT_TIMESTAMP)")
     Collection<CantMaxCuentasBancoPropio> getVigentes();
+
+    @Query("SELECT cantidad " +
+            "FROM CantMaxCuentasBancoPropio cmcbp " +
+            "WHERE cmcbp.fhbCMCBP IS NULL OR CURRENT_TIMESTAMP < cmcbp.fhbCMCBP")
+    int obtenerCantidadVigente();
 
 }

@@ -14,6 +14,15 @@ import java.util.Optional;
 @Repository
 public interface CuentaBancariaRepository extends BaseRepository<CuentaBancaria, Long>{
 
+    @Query("SELECT COUNT(*) " +
+            "FROM CuentaBancaria cb " +
+            "WHERE cb.titular = :Usuario ")
+    int cantidadCuentasBancariasPorUsuario(@Param("Usuario") Usuario usuario);
+
+    @Query("SELECT montoDinero " +
+            "FROM CuentaBancaria cb " +
+            "WHERE cb.banco = :nroBanco ")
+    double montoDineroPorNroBanco(@Param("nroBanco") Long nroBanco);
 
     @Query("SELECT cb " +
             "FROM CuentaBancaria cb " +

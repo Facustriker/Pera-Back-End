@@ -1,5 +1,6 @@
 package Pera.Back.Repositories;
 
+import Pera.Back.CU.Banco.DTOBanco;
 import Pera.Back.CU.MisBancos.DTOMisBancos;
 import Pera.Back.Entities.Banco;
 import Pera.Back.Entities.Usuario;
@@ -16,8 +17,8 @@ public interface BancoRepository extends BaseRepository<Banco, Long>{
 
     @Query("SELECT COUNT(*) " +
             "FROM Banco b " +
-            "WHERE b.id = :idUsuario ")
-    int cantidadBancosPorIdUsuario(@Param("idUsuario") long id);
+            "WHERE b.dueno = :Usuario ")
+    int cantidadBancosPorUsuario(@Param("Usuario") Usuario dueno);
 
     @Query("SELECT " +
             "    new Pera.Back.CU.MisBancos.DTOMisBancos(" +
@@ -34,6 +35,7 @@ public interface BancoRepository extends BaseRepository<Banco, Long>{
             "    AND (d IS NULL OR d = :usuario)")
     public Collection<DTOMisBancos> obtenerBancos(@Param("usuario") Usuario usuario);
 
+
     @Query("SELECT b " +
             "FROM Banco b " +
             "WHERE (fhbBanco IS NULL OR fhbBanco > CURRENT_TIMESTAMP) " +
@@ -45,4 +47,31 @@ public interface BancoRepository extends BaseRepository<Banco, Long>{
             "FROM Banco b " +
             "WHERE id = :nroBanco")
     Banco getBancoPorNumeroBanco(@Param("nroBanco") Long nroBanco);
+
+    @Query("SELECT habilitacionAutomatica " +
+            "FROM Banco b " +
+            "WHERE b.id = :nroBanco ")
+    public boolean obtenerIsHabilitacionAutomaticaPorNroBanco(@Param("nroBanco") Long nroBanco);
+
+    @Query("SELECT habilitado " +
+            "FROM Banco b " +
+            "WHERE b.id = :nroBanco ")
+    public boolean obtenerIsHabilitadoPorNroBanco(@Param("nroBanco") Long nroBanco);
+
+    @Query("SELECT nombreBanco " +
+            "FROM Banco b " +
+            "WHERE b.id = :nroBanco ")
+    public String obtenerNombreBancoPorNroBanco(@Param("nroBanco") Long nroBanco);
+
+    @Query("SELECT simboloMoneda " +
+            "FROM Banco b " +
+            "WHERE b.id = :nroBanco ")
+    public String obtenerSimboloMonedaPorNroBanco(@Param("nroBanco") Long nroBanco);
+
+    @Query("SELECT password " +
+            "FROM Banco b " +
+            "WHERE b.id = :nroBanco ")
+    public String obtenerPasswordPorNroBanco(@Param("nroBanco") Long nroBanco);
+
+
 }

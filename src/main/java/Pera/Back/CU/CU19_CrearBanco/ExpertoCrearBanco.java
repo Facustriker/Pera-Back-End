@@ -22,6 +22,10 @@ public class ExpertoCrearBanco {
 
     private final CantMaxBancosNoPremiumRepository cantMaxBancosNoPremiumRepository;
 
+    private final CantMaxCuentasOtrosBancosRepository cantMaxCuentasOtrosBancosRepository;
+
+    private final ParametroSimboloMonedaRepository parametroSimboloMonedaRepository;
+
     public Long crear(DTOCrearBanco request) throws Exception{
         String password = "";
         boolean habilitacionAutomatica = false;
@@ -51,18 +55,27 @@ public class ExpertoCrearBanco {
         };
 
         if (!permisos.contains("CANTIDAD_BANCOS_DUENO_ILIMITADA")) {
-            //Contar cantidad de bancos que el usuario tiene vigentes
-            //Comparar con CantMaxBancosNoPremium
+            int cantidadBancosUsuario = bancoRepository.cantidadBancosPorUsuario(dueno);
+            int cantMaxBancosNoPremium = cantMaxBancosNoPremiumRepository.obtenerCantidadVigente();
+            if(cantidadBancosUsuario>=cantMaxBancosNoPremium){
+                throw new Exception("Error, se ha alcanzado la cantidad maxima de bancos No Premium");
+            }
+
         }
+
         if (!permisos.contains("CANTIDAD_CUENTAS_PROPIAS_ILIMITADA")) {
-            //Contar cantidad de cuentas que el usuario tiene vigentes en cualquier banco (propio o no)
-            //Comparar con CantMaxCuentasOtrosBancos
+            int cantidadTotalCuentas = cuentaBancariaRepository.cantidadCuentasBancariasPorUsuario(dueno);
+            int cantidadMaximaCuentasOtrosBancos = cantMaxCuentasOtrosBancosRepository.obtenerCantidadVigente();
+            if(cantidadTotalCuentas>=cantidadMaximaCuentasOtrosBancos){
+                throw new Exception("Error, se ha alcanzado la cantidad maxima de cuentas bancarias No Premium");
+            }
         }
+
         String simbolo = "$";
         if (permisos.contains("ELEGIR_SIMBOLO_MONEDA")) {
             simbolo = validarSimboloMoneda(request);
         } else {
-            //Sacar del repositorio de ParametroSimboloMoneda el símbolo por defecto actual
+            simbolo= parametroSimboloMonedaRepository.obtenerSimboloVigente();
         }
 
         Banco banco = Banco.builder()
@@ -116,13 +129,4 @@ public class ExpertoCrearBanco {
         }
     }
 
-
-    private int cantBancosActualesCreados(){
-        SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
-        Usuario dueno = singletonObtenerUsuarioActual.obtenerUsuarioActual();
-        dueno = usuarioRepository.findById(dueno.getId()).get();
-
-        return bancoRepository.cantidadBancosPorIdUsuario(dueno.getId());
-
-    }
 }
