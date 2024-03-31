@@ -47,7 +47,7 @@ public class ExpertoRegistrarUsuario {
         }
 
         if(request.getPassword().equals("")){
-            throw new Exception("Debe ingresar una contrasena");
+            throw new Exception("Debe ingresar una contraseña");
         }
 
         Usuario usuario = Usuario.builder()
