@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faac9d82-efbb-4ea2-b94a-c1dae1e3e7c1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU15_AdministrarDatosDelUsuario/ControladorAdministrarDatosDelUsuario.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU15_AdministrarDatosDelUsuario/DTOAdminDatosUsuario.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU15_AdministrarDatosDelUsuario/ExpertoAdministrarDatosDelUsuario.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU25_TransferirDominioDeBanco/ControladorTransferirDominioDeBanco.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU25_TransferirDominioDeBanco/DTOBancoTransferirDominio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU25_TransferirDominioDeBanco/DTOPosiblesDuenos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU25_TransferirDominioDeBanco/DTOUsuarioPosibleDueno.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU25_TransferirDominioDeBanco/ExpertoTransferirDominioDeBanco.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU25_TransferirDominioDeBanco/MemoriaTransferirDominioDeBanco.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioAuthUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioAuthUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioCuentaBancaria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioCuentaBancaria.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +67,7 @@
       <recent name="C:\Users\saoga\OneDrive\Escritorio\Repos\Pera-Back-End\src\main\java\Pera\Back\CU\MisCuentasBancarias" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Pera.Back.CU.CU25_TransferirDominioDeBanco" />
       <recent name="Pera.Back.CU.CU20_EmitirDinero" />
       <recent name="Pera.Back.CU.MisCuentasBancarias" />
       <recent name="Pera.Back.CU.CU10_AbrirCuentaBancaria" />

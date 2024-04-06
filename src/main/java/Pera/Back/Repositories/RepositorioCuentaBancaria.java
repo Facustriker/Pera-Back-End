@@ -77,4 +77,13 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP) " +
             "AND habilitada = true")
     Collection<CuentaBancaria> obtenerCuentasBancariasVigentesPorUsuarioYBanco(@Param("usuario") Usuario usuario, @Param("banco") Banco banco);
+
+
+    @Query("SELECT cb " +
+            "FROM CuentaBancaria cb " +
+            "WHERE banco = :banco " +
+            "AND fhaCB <= CURRENT_TIMESTAMP " +
+            "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP) " +
+            "AND esBanquero = true")
+    Collection<CuentaBancaria> getCuentasBanqueroVigentesPorBanco(@Param("banco") Banco banco);
 }
