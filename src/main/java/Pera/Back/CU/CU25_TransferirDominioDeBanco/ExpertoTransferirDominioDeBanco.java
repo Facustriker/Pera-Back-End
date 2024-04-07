@@ -2,16 +2,15 @@ package Pera.Back.CU.CU25_TransferirDominioDeBanco;
 
 import Pera.Back.Entities.Banco;
 import Pera.Back.Entities.CuentaBancaria;
+import Pera.Back.Entities.Rol;
 import Pera.Back.Entities.Usuario;
 import Pera.Back.Functionalities.ActualizarRol.SingletonActualizarRol;
 import Pera.Back.Functionalities.ObtenerUsuarioActual.SingletonObtenerUsuarioActual;
-import Pera.Back.Repositories.RepositorioBanco;
-import Pera.Back.Repositories.RepositorioCuentaBancaria;
-import Pera.Back.Repositories.RepositorioUsuario;
-import Pera.Back.Repositories.RepositorioUsuarioRol;
+import Pera.Back.Repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -28,6 +27,12 @@ public class ExpertoTransferirDominioDeBanco {
     private final RepositorioUsuarioRol repositorioUsuarioRol;
 
     private final RepositorioUsuario repositorioUsuario;
+
+    private final RepositorioCantMaxBancosNoPremium repositorioCantMaxBancosNoPremium;
+
+    private final RepositorioCantMaxCuentasBancoPropio repositorioCantMaxCuentasBancoPropio;
+
+    private final RepositorioConfiguracionRol repositorioConfiguracionRol;
 
     public DTOBancoTransferirDominio obtenerPosiblesDuenos(Long idBanco) throws Exception {
         memoria.setUsuario(null);
@@ -48,13 +53,39 @@ public class ExpertoTransferirDominioDeBanco {
 
         SingletonActualizarRol singletonActualizarRol = SingletonActualizarRol.getInstancia();
 
+        int cantMaxBancosNoPremium = repositorioCantMaxBancosNoPremium.obtenerCantidadVigente();
+
+        int cantMaxCuentasBancoPropio = repositorioCantMaxCuentasBancoPropio.obtenerCantidadVigente();
+
+        int cantCuentasBanco = repositorioCuentaBancaria.getCuentasVigentesPorBanco(banco).size();
+
         for (CuentaBancaria cuentaBancaria : repositorioCuentaBancaria.getCuentasBanqueroVigentesPorBanco(banco)) {
-            if (cuentaBancaria.getTitular().getId().longValue() != actual.getId().longValue()) {
+            Usuario titular = cuentaBancaria.getTitular();
+            if (titular.getId().longValue() != actual.getId().longValue()) {
+
+                Rol rolTitular = singletonActualizarRol.actualizarRol(repositorioUsuarioRol, titular);
+
+                ArrayList<String> permisos = new ArrayList<>();
+
+                repositorioConfiguracionRol.getPermisos(rolTitular).forEach(permiso -> permisos.add(permiso.getNombrePermiso()));
+
+                if (!permisos.contains("CANTIDAD_BANCOS_DUENO_ILIMITADA")) {
+                    if (repositorioBanco.cantidadBancosPorUsuario(titular) >= cantMaxBancosNoPremium) {
+                        continue;
+                    }
+                }
+
+                if (!permisos.contains("CANTIDAD_CUENTAS_BANCO_PROPIO_ILIMITADA")) {
+                    if (cantCuentasBanco >= cantMaxCuentasBancoPropio) {
+                        continue;
+                    }
+                }
+
                 DTOPosiblesDuenos dtoPosiblesDuenos = DTOPosiblesDuenos.builder()
-                        .id(cuentaBancaria.getTitular().getId())
+                        .id(titular.getId())
                         .nroCB(cuentaBancaria.getId())
-                        .nombre(cuentaBancaria.getTitular().getNombreUsuario())
-                        .rol(singletonActualizarRol.actualizarRol(repositorioUsuarioRol, cuentaBancaria.getTitular()).getNombreRol())
+                        .nombre(titular.getNombreUsuario())
+                        .rol(rolTitular.getNombreRol())
                         .build();
                 dto.getPosiblesDuenos().add(dtoPosiblesDuenos);
             }
@@ -82,6 +113,8 @@ public class ExpertoTransferirDominioDeBanco {
         if (!isBanquero(usuario, banco)) {
             throw new Exception("El usuario seleccionado debe ser un banquero");
         }
+
+        validarPermisos(usuario, banco);
 
         DTOUsuarioPosibleDueno dto = DTOUsuarioPosibleDueno.builder()
                 .nombre(usuario.getNombreUsuario())
@@ -120,6 +153,8 @@ public class ExpertoTransferirDominioDeBanco {
         if (!isBanquero(usuario, banco)) {
             throw new Exception("El usuario seleccionado debe ser un banquero");
         }
+
+        validarPermisos(usuario, banco);
 
         banco.setDueno(usuario);
 
@@ -161,5 +196,32 @@ public class ExpertoTransferirDominioDeBanco {
             }
         }
         return cbBanqueroEncontrada;
+    }
+
+    private void validarPermisos(Usuario usuario, Banco banco) throws Exception {
+        int cantMaxBancosNoPremium = repositorioCantMaxBancosNoPremium.obtenerCantidadVigente();
+
+        int cantMaxCuentasBancoPropio = repositorioCantMaxCuentasBancoPropio.obtenerCantidadVigente();
+
+        int cantCuentasBanco = repositorioCuentaBancaria.getCuentasVigentesPorBanco(banco).size();
+
+        SingletonActualizarRol singletonActualizarRol = SingletonActualizarRol.getInstancia();
+        Rol rol = singletonActualizarRol.actualizarRol(repositorioUsuarioRol, usuario);
+
+        ArrayList<String> permisos = new ArrayList<>();
+
+        repositorioConfiguracionRol.getPermisos(rol).forEach(permiso -> permisos.add(permiso.getNombrePermiso()));
+
+        if (!permisos.contains("CANTIDAD_BANCOS_DUENO_ILIMITADA")) {
+            if (repositorioBanco.cantidadBancosPorUsuario(usuario) >= cantMaxBancosNoPremium) {
+                throw new Exception("El usuario seleccionado no puede ser dueño de más bancos");
+            }
+        }
+
+        if (!permisos.contains("CANTIDAD_CUENTAS_BANCO_PROPIO_ILIMITADA")) {
+            if (cantCuentasBanco >= cantMaxCuentasBancoPropio) {
+                throw new Exception("El usuario seleccionado no puede se dueño de un banco con la cantidad de cuentas vigentes de este banco");
+            }
+        }
     }
 }

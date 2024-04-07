@@ -9,6 +9,7 @@ public interface RepositorioCantMaxBancosNoPremium extends BaseRepository<CantMa
 
     @Query("SELECT cantidad " +
             "FROM CantMaxBancosNoPremium cmbnp " +
-            "WHERE cmbnp.fhbCMBNP IS NULL OR CURRENT_TIMESTAMP < cmbnp.fhbCMBNP")
+            "WHERE fhaCMBNP < CURRENT_TIMESTAMP AND " +
+            "(cmbnp.fhbCMBNP IS NULL OR CURRENT_TIMESTAMP < cmbnp.fhbCMBNP)")
     int obtenerCantidadVigente();
 }

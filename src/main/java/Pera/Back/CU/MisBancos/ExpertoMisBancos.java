@@ -70,9 +70,16 @@ public class ExpertoMisBancos {
         if (cbs.isEmpty()) {
             throw new Exception("No se encontró una cuenta bancaria con permiso para acceder a esta información");
         }
-        CuentaBancaria cbBanquero = cbs.iterator().next();
 
-        if(!cbBanquero.isEsBanquero() || !cbBanquero.isHabilitada()) {
+        CuentaBancaria cbBanquero = null;
+        for (CuentaBancaria cb : cbs) {
+            if (cb.isEsBanquero() && cb.isHabilitada()) {
+                cbBanquero = cb;
+                break;
+            }
+        }
+
+        if(cbBanquero == null) {
             throw new Exception("Debe ser un banquero habilitado para ver esta información");
         }
 
