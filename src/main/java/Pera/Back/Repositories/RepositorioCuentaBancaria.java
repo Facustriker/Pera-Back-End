@@ -57,7 +57,9 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "FROM CuentaBancaria cb " +
             "    INNER JOIN cb.banco b " +
             "    INNER JOIN cb.titular u " +
-            "WHERE u = :usuario")
+            "WHERE u = :usuario " +
+            "AND (b.fhbBanco IS NULL OR b.fhbBanco > CURRENT_TIMESTAMP) " +
+            "AND b.habilitado = true")
     Collection<DTOMisCuentasBancarias> obtenerCuentasBancariasUsuario(@Param("usuario") Usuario usuario);
 
 
