@@ -1,30 +1,19 @@
 package Pera.Back.CU.CU11_AdministrarBancoPropio;
 
 import Pera.Back.Entities.Banco;
-import Pera.Back.Entities.CuentaBancaria;
-import Pera.Back.Entities.Rol;
 import Pera.Back.Entities.Usuario;
-import Pera.Back.Functionalities.ActualizarRol.SingletonActualizarRol;
 import Pera.Back.Functionalities.ObtenerUsuarioActual.SingletonObtenerUsuarioActual;
 import Pera.Back.Repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ExpertoAdministrarBancoPropio {
 
     private final RepositorioBanco repositorioBanco;
-
-    private final RepositorioCuentaBancaria repositorioCuentaBancaria;
-
-    private final RepositorioUsuarioRol repositorioUsuarioRol;
-
-    private final RepositorioUsuario repositorioUsuario;
 
     public DTODatosBanco obtenerDatos(Long idBanco) throws Exception {
         Banco banco = repositorioBanco.getBancoPorNumeroBanco(idBanco);
