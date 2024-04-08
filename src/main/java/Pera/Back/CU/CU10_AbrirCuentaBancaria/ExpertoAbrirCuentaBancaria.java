@@ -91,7 +91,7 @@ public class ExpertoAbrirCuentaBancaria {
             permisosDueno.add(permiso.getNombrePermiso());
         };
 
-        if (!permisosDueno.contains("CANTIDAD_CUENTAS_BANCO_PROPIO_ILIMITADA")) {
+        if (!permisos.contains("CANTIDAD_CUENTAS_BANCO_PROPIO_ILIMITADA")) {
             Collection<CantMaxCuentasBancoPropio> cantMaxCuentasBancoPropios = repositorioCantMaxCuentasBancoPropio.getVigentes();
 
             int cantidad = cantMaxCuentasBancoPropios.iterator().next().getCantidad();
@@ -156,11 +156,6 @@ public class ExpertoAbrirCuentaBancaria {
     }
 
     public Long confirmar(Boolean confirmacion, String contrasena) throws Exception {
-        if (!confirmacion) {
-            memoria.setCuenta(null);
-            return (long) -1;
-        }
-
         CuentaBancaria cuenta = memoria.getCuenta();
 
         if(cuenta == null) {

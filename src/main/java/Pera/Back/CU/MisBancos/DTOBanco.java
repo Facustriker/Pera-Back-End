@@ -21,5 +21,4 @@ public class DTOBanco {
     private String emailDueno;
     private double baseMonetaria;
     private Long nroCB;
-    private boolean esDueno;
 }

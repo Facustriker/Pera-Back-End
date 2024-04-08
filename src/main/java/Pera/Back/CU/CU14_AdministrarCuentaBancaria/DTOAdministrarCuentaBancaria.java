@@ -1,25 +1,19 @@
-package Pera.Back.CU.Usuario;
+package Pera.Back.CU.CU14_AdministrarCuentaBancaria;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Collection;
 import java.util.Date;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTODatosUsuarioRol {
+public class DTOAdministrarCuentaBancaria {
 
-    String nombre;
-
-    Collection<String> permisos;
-
-    Date vencimiento;
-
-
-
+    private Long nroCB;
+    private String alias;
+    private Date fhBaja;
 }
