@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -67,25 +66,13 @@ public class ExpertoMisBancos {
         };
 
         Banco banco = repositorioBanco.getBancoPorNumeroBanco(nroBanco);
-
-        if (banco.getFhbBanco() != null && banco.getFhbBanco().before(new Date())) {
-            throw new Exception("El banco ha sido dado de baja");
-        }
-
         Collection<CuentaBancaria> cbs = repositorioCuentaBancaria.obtenerCuentasBancariasVigentesPorUsuarioYBanco(banquero, banco);
         if (cbs.isEmpty()) {
             throw new Exception("No se encontró una cuenta bancaria con permiso para acceder a esta información");
         }
+        CuentaBancaria cbBanquero = cbs.iterator().next();
 
-        CuentaBancaria cbBanquero = null;
-        for (CuentaBancaria cb : cbs) {
-            if (cb.isEsBanquero() && cb.isHabilitada()) {
-                cbBanquero = cb;
-                break;
-            }
-        }
-
-        if(cbBanquero == null) {
+        if(!cbBanquero.isEsBanquero() || !cbBanquero.isHabilitada()) {
             throw new Exception("Debe ser un banquero habilitado para ver esta información");
         }
 
@@ -117,7 +104,6 @@ public class ExpertoMisBancos {
                 .emailDueno(banco.getDueno().getMail())
                 .baseMonetaria(baseMonetaria)
                 .nroCB(cbBanquero.getId())
-                .esDueno(banquero.getId().longValue() == banco.getDueno().getId().longValue())
                 .build();
 
         return dto;

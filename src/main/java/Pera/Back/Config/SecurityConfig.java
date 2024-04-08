@@ -55,7 +55,6 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/TransferirDominioDeBanco/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/AdministrarBancoPropio/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/AdministrarBanqueros/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
-
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         
                 )

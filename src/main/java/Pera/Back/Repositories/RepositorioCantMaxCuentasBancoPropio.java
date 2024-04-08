@@ -18,8 +18,7 @@ public interface RepositorioCantMaxCuentasBancoPropio extends BaseRepository<Can
 
     @Query("SELECT cantidad " +
             "FROM CantMaxCuentasBancoPropio cmcbp " +
-            "WHERE fhaCMCBP <= CURRENT_TIMESTAMP " +
-            "AND (cmcbp.fhbCMCBP IS NULL OR CURRENT_TIMESTAMP < cmcbp.fhbCMCBP)")
+            "WHERE cmcbp.fhbCMCBP IS NULL OR CURRENT_TIMESTAMP < cmcbp.fhbCMCBP")
     int obtenerCantidadVigente();
 
 }

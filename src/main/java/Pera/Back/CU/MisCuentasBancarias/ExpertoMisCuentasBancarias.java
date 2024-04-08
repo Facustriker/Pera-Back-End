@@ -44,11 +44,6 @@ public class ExpertoMisCuentasBancarias {
         }
 
         Banco banco = cb.getBanco();
-
-        if (banco.getFhbBanco() != null && banco.getFhbBanco().before(new Date()) || !banco.getHabilitado()) {
-            throw new Exception("El banco de esta cuenta bancaria ha sido dado de baja o está deshabilitado");
-        }
-
         usuario = cb.getTitular();
 
         String estado = "";
