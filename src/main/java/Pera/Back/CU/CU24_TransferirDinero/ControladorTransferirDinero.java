@@ -47,7 +47,7 @@ public class ControladorTransferirDinero {
     public ResponseEntity<?> establecerDetalles(@RequestBody DTODetallesTransferencia request) {
         try {
             experto.establecerDetalles(request);
-            return ResponseEntity.ok("");
+            return ResponseEntity.ok("OK");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

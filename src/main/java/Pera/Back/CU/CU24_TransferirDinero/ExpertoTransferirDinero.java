@@ -131,6 +131,7 @@ public class ExpertoTransferirDinero {
                 .AliasCBDestino(detalles.getAliasCBDestino())
                 .monto(detalles.getMonto())
                 .motivo(detalles.getMotivo())
+                .simbolo(memoria.getMoneda())
                 .build();
 
         destino.setMontoDinero((memoria.getCuentaDestino().getMontoDinero())+(detalles.getMonto()));

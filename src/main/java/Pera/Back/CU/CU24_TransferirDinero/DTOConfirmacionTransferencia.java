@@ -16,4 +16,5 @@ public class DTOConfirmacionTransferencia {
     Double monto;
     String motivo;
     Long nroTransferencia;
+    String simbolo;
 }
