@@ -48,11 +48,14 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/Usuario/**")).hasAnyAuthority("ADMIN_DATOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/AbrirCuentaBancaria/**")).hasAnyAuthority("ADMIN_CUENTAS_BANCARIAS_PROPIAS")
                         .requestMatchers(new AntPathRequestMatcher("/MisCuentasBancarias/**")).hasAnyAuthority("ADMIN_CUENTAS_BANCARIAS_PROPIAS")
+                        .requestMatchers(new AntPathRequestMatcher("/AdministrarCuentaBancaria/**")).hasAnyAuthority("ADMIN_CUENTAS_BANCARIAS_PROPIAS")
                         .requestMatchers(new AntPathRequestMatcher("/EmitirDinero/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
+                        .requestMatchers(new AntPathRequestMatcher("/TransferirDinero/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/AdministrarDatosDelUsuario/**")).hasAnyAuthority("ADMIN_DATOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/TransferirDominioDeBanco/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/AdministrarBancoPropio/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/AdministrarBanqueros/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
+
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         
                 )

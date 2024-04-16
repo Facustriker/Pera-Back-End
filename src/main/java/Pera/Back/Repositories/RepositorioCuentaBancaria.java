@@ -1,5 +1,6 @@
 package Pera.Back.Repositories;
 
+import Pera.Back.CU.CU14_AdministrarCuentaBancaria.DTOAdministrarCuentaBancaria;
 import Pera.Back.CU.MisCuentasBancarias.DTOMisCuentasBancarias;
 import Pera.Back.Entities.Banco;
 import Pera.Back.Entities.CuentaBancaria;
@@ -57,9 +58,7 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "FROM CuentaBancaria cb " +
             "    INNER JOIN cb.banco b " +
             "    INNER JOIN cb.titular u " +
-            "WHERE u = :usuario " +
-            "AND (b.fhbBanco IS NULL OR b.fhbBanco > CURRENT_TIMESTAMP) " +
-            "AND b.habilitado = true")
+            "WHERE u = :usuario")
     Collection<DTOMisCuentasBancarias> obtenerCuentasBancariasUsuario(@Param("usuario") Usuario usuario);
 
 
@@ -79,6 +78,27 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP) " +
             "AND habilitada = true")
     Collection<CuentaBancaria> obtenerCuentasBancariasVigentesPorUsuarioYBanco(@Param("usuario") Usuario usuario, @Param("banco") Banco banco);
+
+    @Query("SELECT cb " +
+            "FROM CuentaBancaria cb " +
+            "WHERE id = :nroCB " +
+            "AND fhaCB <= CURRENT_TIMESTAMP " +
+            "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)")
+    CuentaBancaria obtenerCuentaVigentePorNumeroCuenta(@Param("nroCB") Long nroCB);
+
+
+    @Query("SELECT cb " +
+            "FROM CuentaBancaria cb " +
+            "WHERE cb.alias = :alias " +
+            "AND fhaCB <= CURRENT_TIMESTAMP " +
+            "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)")
+    CuentaBancaria obtenerCuentaVigentePorAliasUsuario(@Param("alias") String alias);
+    
+    @Query("SELECT alias " +
+            "FROM CuentaBancaria cb " +
+            "WHERE fhaCB <= CURRENT_TIMESTAMP " +
+            "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)")
+    Collection<String> obtenerAliasCuentasBancariasVigentes();
 
 
     @Query("SELECT cb " +
