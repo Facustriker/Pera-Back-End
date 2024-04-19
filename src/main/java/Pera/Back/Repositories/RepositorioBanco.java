@@ -14,6 +14,12 @@ import java.util.Optional;
 public interface RepositorioBanco extends BaseRepository<Banco, Long>{
     Optional<Banco> findBynombreBanco(String nombre);
 
+    @Query("SELECT b " +
+            "FROM Banco b " +
+            "WHERE nombreBanco LIKE :nombre " +
+            "AND (fhbBanco IS NULL OR fhbBanco > CURRENT_TIMESTAMP)")
+    Optional<Banco> obtenerVigentePorNombre(@Param("nombre") String nombre);
+
     @Query("SELECT COUNT(*) " +
             "FROM Banco b " +
             "WHERE b.dueno = :Usuario ")

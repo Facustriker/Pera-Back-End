@@ -39,6 +39,14 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)")
     Collection<CuentaBancaria> getCuentasVigentesPorBanco(@Param("banco") Banco banco);
 
+    @Query("SELECT cb " +
+            "FROM CuentaBancaria cb " +
+            "WHERE banco = :banco " +
+            "AND (:nroCB IS NULL OR id = :nroCB) " +
+            "AND fhaCB <= CURRENT_TIMESTAMP " +
+            "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)")
+    Collection<CuentaBancaria> getCuentasVigentesPorBancoYNroCB(@Param("banco") Banco banco, @Param("nroCB") Long nroCB);
+
     @Query("SELECT CASE WHEN (COUNT(cb) > 0) THEN false ELSE true END " +
             "FROM CuentaBancaria cb " +
             "WHERE banco = :banco " +
@@ -117,4 +125,6 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)" +
             "AND titular.nombreUsuario LIKE %:busqueda%")
     Collection<CuentaBancaria> buscarCuentasVigentesPorBanco(@Param("banco") Banco banco, @Param("busqueda") String busqueda);
+
+
 }
