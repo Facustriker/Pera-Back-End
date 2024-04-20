@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTOConfirmacionTransferencia {
-
-    Long nroCBOrigen;
-    Long nroCBDestino;
+public class DTOMontoMotivo {
     Double monto;
     String motivo;
 }

@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTOConfirmacionTransferencia {
+public class DTODatosIngresarMonto {
 
-    Long nroCBOrigen;
-    Long nroCBDestino;
-    Double monto;
-    String motivo;
+    String aliasCuentaDestino;
+    Long nroCuentaDestino;
+
 }
