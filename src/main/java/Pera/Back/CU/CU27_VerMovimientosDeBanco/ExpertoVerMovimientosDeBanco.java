@@ -40,13 +40,17 @@ public class ExpertoVerMovimientosDeBanco {
             CuentaBancaria cbOrigen = transferencia.getOrigen();
             CuentaBancaria cbDestino = transferencia.getDestino();
 
+            if (!filtro.emisiones && cbOrigen == null) continue;
+            if (!filtro.recepciones && cbDestino == null) continue;
+            if (!filtro.transferencias && cbOrigen != null && cbDestino != null) continue;
+
             DTODetallesMovimientosBanco detalle = DTODetallesMovimientosBanco.builder()
                     .nroTransferencia(transferencia.getId())
                     .fhTransferencia(transferencia.getFhTransferencia())
-                    .nroCBOrigen(cbOrigen.getId())
-                    .nroCBDestino(cbDestino.getId())
-                    .nombreTitularDestino(cbDestino.getTitular().getNombreUsuario())
-                    .nombreTitularOrigen(cbOrigen.getTitular().getNombreUsuario())
+                    .nroCBOrigen(cbOrigen != null ? cbOrigen.getId() : null)
+                    .nroCBDestino(cbDestino != null ? cbDestino.getId() : null)
+                    .nombreTitularDestino(cbDestino != null ? cbDestino.getTitular().getNombreUsuario() : null)
+                    .nombreTitularOrigen(cbOrigen != null ? cbOrigen.getTitular().getNombreUsuario() : null)
                     .monto(transferencia.getMontoTransferencia())
                     .anulada(transferencia.isAnulada())
                     .build();
@@ -86,10 +90,10 @@ public class ExpertoVerMovimientosDeBanco {
         CuentaBancaria cbOrigen = transferencia.getOrigen();
         CuentaBancaria cbDestino = transferencia.getDestino();
 
-        dto.setNroCBOrigen(cbOrigen.getId());
-        dto.setNombreTitularOrigen(cbOrigen.getTitular().getNombreUsuario());
-        dto.setNroCBDestino(cbDestino.getId());
-        dto.setNombreTitularDestino(cbDestino.getTitular().getNombreUsuario());
+        dto.setNroCBOrigen(cbOrigen != null ? cbOrigen.getId() : null);
+        dto.setNombreTitularOrigen(cbOrigen != null ? cbOrigen.getTitular().getNombreUsuario() : null);
+        dto.setNroCBDestino(cbDestino != null ? cbDestino.getId() : null);
+        dto.setNombreTitularDestino(cbDestino != null ? cbDestino.getTitular().getNombreUsuario() : null);
         dto.setMonto(transferencia.getMontoTransferencia());
         dto.setAnulada(transferencia.isAnulada());
         dto.setMotivo(transferencia.getMotivo());

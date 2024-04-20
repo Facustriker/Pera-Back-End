@@ -5,24 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faac9d82-efbb-4ea2-b94a-c1dae1e3e7c1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco/ControladorVerMovimientosDeBanco.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco/DTODetallesMovimientosBanco.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco/DTODetallesMovimientosBancoSeleccionado.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco/DTOFiltrosMovimientosBanco.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco/DTOMovimientosBanco.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco/ExpertoVerMovimientosDeBanco.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU10_AbrirCuentaBancaria/ExpertoAbrirCuentaBancaria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU10_AbrirCuentaBancaria/ExpertoAbrirCuentaBancaria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU19_CrearBanco/ExpertoCrearBanco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU19_CrearBanco/ExpertoCrearBanco.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisBancos/DTOBanco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisBancos/DTOBanco.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisBancos/ExpertoMisBancos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisBancos/ExpertoMisBancos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisCuentasBancarias/ExpertoMisCuentasBancarias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/MisCuentasBancarias/ExpertoMisCuentasBancarias.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioBanco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioBanco.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioCuentaBancaria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioCuentaBancaria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioTransferencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioTransferencia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco/ControladorVerMovimientosDeBanco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco/ControladorVerMovimientosDeBanco.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco/ExpertoVerMovimientosDeBanco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco/ExpertoVerMovimientosDeBanco.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

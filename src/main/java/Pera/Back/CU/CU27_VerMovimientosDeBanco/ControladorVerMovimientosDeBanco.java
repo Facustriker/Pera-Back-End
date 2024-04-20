@@ -21,7 +21,7 @@ public class ControladorVerMovimientosDeBanco {
         }
     }
 
-    @PostMapping("/getDetalle/{nroTransferencia}")
+    @GetMapping("/getDetalle/{nroTransferencia}")
     public ResponseEntity<?> getDetalle(@PathVariable Long nroTransferencia) {
         try {
             DTODetallesMovimientosBancoSeleccionado ret = experto.getDetalle(nroTransferencia);
