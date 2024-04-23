@@ -54,7 +54,7 @@ public class ControladorTransferirDinero {
     }
 
     @PostMapping("/ingresarMontoYMotivo")
-    public ResponseEntity<?> ingresarMontoYMotivo(@RequestParam("montoMotivo") DTOMontoMotivo montoMotivo) {
+    public ResponseEntity<?> ingresarMontoYMotivo(@RequestBody DTOMontoMotivo montoMotivo) {
         try {
             experto.ingresarMontoYMotivo(montoMotivo);
             return ResponseEntity.ok("");
