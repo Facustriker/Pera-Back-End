@@ -56,7 +56,7 @@ public interface RepositorioBanco extends BaseRepository<Banco, Long>{
     @Query("SELECT b " +
             "FROM Banco b " +
             "WHERE id = :nroBanco")
-    Banco getBancoPorNumeroBanco(@Param("nroBanco") Long nroBanco);
+    Optional<Banco> getBancoPorNumeroBanco(@Param("nroBanco") Long nroBanco);
 
     @Query("SELECT habilitacionAutomatica " +
             "FROM Banco b " +

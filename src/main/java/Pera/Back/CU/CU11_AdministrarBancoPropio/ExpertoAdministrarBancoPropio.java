@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,70 +17,70 @@ public class ExpertoAdministrarBancoPropio {
     private final RepositorioBanco repositorioBanco;
 
     public DTODatosBanco obtenerDatos(Long idBanco) throws Exception {
-        Banco banco = repositorioBanco.getBancoPorNumeroBanco(idBanco);
+        Optional<Banco> banco = repositorioBanco.getBancoPorNumeroBanco(idBanco);
 
-        if (!esTitular(banco)) {
+        if (!esTitular(banco.get())) {
             throw new Exception("Solo el dueño del banco puede modificar esta información");
         }
 
         DTODatosBanco dto = DTODatosBanco.builder()
-                .id(banco.getId())
-                .nombre(banco.getNombreBanco())
-                .simboloMoneda(banco.getSimboloMoneda())
-                .habilitacionAutomatica(banco.getHabilitacionAutomatica())
-                .dueno(banco.getDueno().getNombreUsuario())
+                .id(banco.get().getId())
+                .nombre(banco.get().getNombreBanco())
+                .simboloMoneda(banco.get().getSimboloMoneda())
+                .habilitacionAutomatica(banco.get().getHabilitacionAutomatica())
+                .dueno(banco.get().getDueno().getNombreUsuario())
                 .contrasena("")
-                .cambiarContrasena(!banco.getPassword().isEmpty())
-                .habilitado(banco.getHabilitado())
+                .cambiarContrasena(!banco.get().getPassword().isEmpty())
+                .habilitado(banco.get().getHabilitado())
                 .build();
 
         return dto;
     }
 
     public void modificar(DTODatosBanco dto) throws Exception {
-        Banco banco = repositorioBanco.getBancoPorNumeroBanco(dto.getId());
+        Optional<Banco> banco = repositorioBanco.getBancoPorNumeroBanco(dto.getId());
 
-        if (!esTitular(banco)) {
+        if (!esTitular(banco.get())) {
             throw new Exception("Solo el dueño del banco puede modificar esta información");
         }
 
-        banco.setNombreBanco(dto.getNombre());
-        banco.setSimboloMoneda(dto.getSimboloMoneda());
-        banco.setHabilitacionAutomatica(dto.isHabilitacionAutomatica());
+        banco.get().setNombreBanco(dto.getNombre());
+        banco.get().setSimboloMoneda(dto.getSimboloMoneda());
+        banco.get().setHabilitacionAutomatica(dto.isHabilitacionAutomatica());
 
         if(dto.isCambiarContrasena()) {
             if (dto.getContrasena().isEmpty()) {
                 throw new Exception("Debe ingresar la contraseña");
             }
-            banco.setPassword(dto.getContrasena());
+            banco.get().setPassword(dto.getContrasena());
         } else {
-            banco.setPassword("");
+            banco.get().setPassword("");
         }
 
-        repositorioBanco.save(banco);
+        repositorioBanco.save(banco.get());
     }
 
     public void cambiarHabilitacion(Long idBanco) throws Exception {
-        Banco banco = repositorioBanco.getBancoPorNumeroBanco(idBanco);
+        Optional<Banco> banco = repositorioBanco.getBancoPorNumeroBanco(idBanco);
 
-        if (!esTitular(banco)) {
+        if (!esTitular(banco.get())) {
             throw new Exception("Solo el dueño del banco puede modificar esta información");
         }
 
-        banco.setHabilitado(!banco.getHabilitado());
-        repositorioBanco.save(banco);
+        banco.get().setHabilitado(!banco.get().getHabilitado());
+        repositorioBanco.save(banco.get());
     }
 
     public void baja(Long idBanco) throws Exception {
-        Banco banco = repositorioBanco.getBancoPorNumeroBanco(idBanco);
+        Optional<Banco> banco = repositorioBanco.getBancoPorNumeroBanco(idBanco);
 
-        if (!esTitular(banco)) {
+        if (!esTitular(banco.get())) {
             throw new Exception("Solo el dueño del banco puede modificar esta información");
         }
 
-        banco.setFhbBanco(new Date());
+        banco.get().setFhbBanco(new Date());
 
-        repositorioBanco.save(banco);
+        repositorioBanco.save(banco.get());
     }
 
 

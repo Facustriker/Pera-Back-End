@@ -28,13 +28,13 @@ public class ExpertoTransferirDinero {
 
     public void almacenarCBOrigen(Long nroCB) throws Exception{
         memoria.setTransferencia(null);
-        CuentaBancaria cuentaOrigen = repositorioCuentaBancaria.obtenerCuentaVigentePorNumeroCuenta(nroCB);
-        if (cuentaOrigen==null) {
+        Optional<CuentaBancaria> cuentaOrigen = repositorioCuentaBancaria.obtenerCuentaVigentePorNumeroCuenta(nroCB);
+        if (cuentaOrigen.isEmpty()) {
             throw new Exception("Error: No se encontró la cuenta bancaria N.° " + nroCB);
         }
 
         Transferencia transferencia = Transferencia.builder()
-                .origen(cuentaOrigen)
+                .origen(cuentaOrigen.get())
                 .build();
 
         memoria.setTransferencia(transferencia);
@@ -46,16 +46,16 @@ public class ExpertoTransferirDinero {
             throw new Exception("Ingrese la cuenta bancaria de origen de fondos");
         }
 
-        CuentaBancaria cuentaDestino = repositorioCuentaBancaria.obtenerCuentaVigentePorNumeroCuenta(nroCB);
-        if (cuentaDestino==null) {
+        Optional<CuentaBancaria> cuentaDestino = repositorioCuentaBancaria.obtenerCuentaVigentePorNumeroCuenta(nroCB);
+        if (cuentaDestino.isEmpty()) {
             throw new Exception("Error: No se encontró la cuenta bancaria N.° " + nroCB);
         }
 
-        if(transferencia.getOrigen().getId().longValue() == cuentaDestino.getId().longValue()) {
+        if(transferencia.getOrigen().getId().longValue() == cuentaDestino.get().getId().longValue()) {
             throw new Exception("No puede transferir a la misma cuenta");
         }
         
-        transferencia.setDestino(cuentaDestino);
+        transferencia.setDestino(cuentaDestino.get());
         memoria.setTransferencia(transferencia);
 
     }
@@ -65,16 +65,16 @@ public class ExpertoTransferirDinero {
         if (transferencia == null) {
             throw new Exception("Ingrese la cuenta bancaria de origen de fondos");
         }
-        CuentaBancaria cuentaDestino = repositorioCuentaBancaria.obtenerCuentaVigentePorAliasUsuario(alias);
-        if (cuentaDestino==null) {
+        Optional<CuentaBancaria> cuentaDestino = repositorioCuentaBancaria.obtenerCuentaVigentePorAliasUsuario(alias);
+        if (cuentaDestino.isEmpty()) {
             throw new Exception("Error: No se encontró la cuenta bancaria con alias: " + alias);
         }
 
-        if(transferencia.getOrigen().getId().longValue() == cuentaDestino.getId().longValue()) {
+        if(transferencia.getOrigen().getId().longValue() == cuentaDestino.get().getId().longValue()) {
             throw new Exception("No puede transferir a la misma cuenta");
         }
 
-        transferencia.setDestino(cuentaDestino);
+        transferencia.setDestino(cuentaDestino.get());
         memoria.setTransferencia(transferencia);
     }
 

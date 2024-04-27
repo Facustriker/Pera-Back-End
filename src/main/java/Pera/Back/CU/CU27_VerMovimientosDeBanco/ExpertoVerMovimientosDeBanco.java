@@ -26,14 +26,14 @@ public class ExpertoVerMovimientosDeBanco {
 
 
     public DTOMovimientosBanco filtrar(Long idBanco, DTOFiltrosMovimientosBanco filtro) throws Exception {
-        Banco banco = repositorioBanco.getBancoPorNumeroBanco(idBanco);
+        Optional<Banco> banco = repositorioBanco.getBancoPorNumeroBanco(idBanco);
 
-        getCBBanquero(banco);
+        getCBBanquero(banco.get());
 
-        Collection<CuentaBancaria> cuentaBancarias = repositorioCuentaBancaria.getCuentasVigentesPorBancoYNroCB(banco, filtro.getNroCBFiltro());
+        Collection<CuentaBancaria> cuentaBancarias = repositorioCuentaBancaria.getCuentasVigentesPorBancoYNroCB(banco.get(), filtro.getNroCBFiltro());
 
         DTOMovimientosBanco dto = DTOMovimientosBanco.builder()
-                .nombreBanco(banco.getNombreBanco())
+                .nombreBanco(banco.get().getNombreBanco())
                 .build();
 
         for (Transferencia transferencia : repositorioTransferencia.getTransferenciasPorCuentaBancaria(cuentaBancarias, filtro.getFechaDesde(), filtro.getFechaHasta())) {

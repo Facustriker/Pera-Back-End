@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -48,14 +49,14 @@ public class ExpertoAbrirCuentaBancaria {
     }
 
     public boolean seleccionarBanco(Long nroBanco) throws Exception {
-        Banco banco = repositorioBanco.getBancoPorNumeroBanco(nroBanco);
+        Optional<Banco> banco = repositorioBanco.getBancoPorNumeroBanco(nroBanco);
 
         CuentaBancaria cuenta = CuentaBancaria.builder()
-                .banco(banco)
+                .banco(banco.get())
                 .esBanquero(false)
                 .fhbCB(null)
                 .montoDinero(0)
-                .habilitada(banco.getHabilitacionAutomatica())
+                .habilitada(banco.get().getHabilitacionAutomatica())
                 .build();
 
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
@@ -84,7 +85,7 @@ public class ExpertoAbrirCuentaBancaria {
         }
 
         SingletonActualizarRol singletonActualizarRol = SingletonActualizarRol.getInstancia();
-        Rol rolActualDueno = singletonActualizarRol.actualizarRol(repositorioUsuarioRol, banco.getDueno());
+        Rol rolActualDueno = singletonActualizarRol.actualizarRol(repositorioUsuarioRol, banco.get().getDueno());
 
         ArrayList<String> permisosDueno = new ArrayList<>();
         for ( Permiso permiso : repositorioConfiguracionRol.getPermisos(rolActualDueno) ) {
@@ -96,7 +97,7 @@ public class ExpertoAbrirCuentaBancaria {
 
             int cantidad = cantMaxCuentasBancoPropios.iterator().next().getCantidad();
 
-            Collection<CuentaBancaria> cuentasBancarias = repositorioCuentaBancaria.getCuentasVigentesPorBanco(banco);
+            Collection<CuentaBancaria> cuentasBancarias = repositorioCuentaBancaria.getCuentasVigentesPorBanco(banco.get());
 
             if (cuentasBancarias.size() >= cantidad) {
                 throw new Exception("Este banco ha llegado al límite de cuentas bancarias soportadas");
@@ -184,7 +185,7 @@ public class ExpertoAbrirCuentaBancaria {
 
         cuenta.setFhaCB(new Date());
 
-        cuenta.setBanco(repositorioBanco.getBancoPorNumeroBanco(cuenta.getBanco().getId()));
+        cuenta.setBanco(repositorioBanco.getBancoPorNumeroBanco(cuenta.getBanco().getId()).get());
         cuenta.setTitular(repositorioUsuario.findById(cuenta.getTitular().getId()).get());
 
         cuenta = repositorioCuentaBancaria.save(cuenta);

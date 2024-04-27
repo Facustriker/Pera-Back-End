@@ -21,11 +21,11 @@ public class ExpertoAdministrarCuentaBancaria {
     private final RepositorioCuentaBancaria repositorioCuentaBancaria;
 
     public DTOAdministrarCuentaBancaria getCuentaBancaria(Long nroCB) throws Exception{
-        CuentaBancaria cuenta = repositorioCuentaBancaria.obtenerCuentaVigentePorNumeroCuenta(nroCB);
+        Optional<CuentaBancaria> cuenta = repositorioCuentaBancaria.obtenerCuentaVigentePorNumeroCuenta(nroCB);
 
         DTOAdministrarCuentaBancaria dto = DTOAdministrarCuentaBancaria.builder()
-                .nroCB(cuenta.getId())
-                .alias(cuenta.getAlias())
+                .nroCB(cuenta.get().getId())
+                .alias(cuenta.get().getAlias())
                 .build();
 
         return dto;

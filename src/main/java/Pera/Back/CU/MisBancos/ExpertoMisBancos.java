@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -66,13 +67,13 @@ public class ExpertoMisBancos {
             permisos.add(permiso.getNombrePermiso());
         };
 
-        Banco banco = repositorioBanco.getBancoPorNumeroBanco(nroBanco);
+        Optional<Banco> banco = repositorioBanco.getBancoPorNumeroBanco(nroBanco);
 
-        if (banco.getFhbBanco() != null && banco.getFhbBanco().before(new Date())) {
+        if (banco.get().getFhbBanco() != null && banco.get().getFhbBanco().before(new Date())) {
             throw new Exception("El banco ha sido dado de baja");
         }
 
-        Collection<CuentaBancaria> cbs = repositorioCuentaBancaria.obtenerCuentasBancariasVigentesPorUsuarioYBanco(banquero, banco);
+        Collection<CuentaBancaria> cbs = repositorioCuentaBancaria.obtenerCuentasBancariasVigentesPorUsuarioYBanco(banquero, banco.get());
         if (cbs.isEmpty()) {
             throw new Exception("No se encontró una cuenta bancaria con permiso para acceder a esta información");
         }
@@ -89,35 +90,35 @@ public class ExpertoMisBancos {
             throw new Exception("Debe ser un banquero habilitado para ver esta información");
         }
 
-        if(banco.getHabilitado()){
+        if(banco.get().getHabilitado()){
             estado = "Habilitado";
         }
 
-        if(banco.getHabilitacionAutomatica()){
+        if(banco.get().getHabilitacionAutomatica()){
             usaHabilitacionAutomatica = "Si";
         }
 
-        if(banco.getPassword().isEmpty()){
+        if(banco.get().getPassword().isEmpty()){
             usaPassword = "No";
         }
 
         Double baseMonetaria = 0.0;
-        for (CuentaBancaria cuentaBancaria : repositorioCuentaBancaria.getCuentasVigentesPorBanco(banco)) {
+        for (CuentaBancaria cuentaBancaria : repositorioCuentaBancaria.getCuentasVigentesPorBanco(banco.get())) {
             baseMonetaria += cuentaBancaria.getMontoDinero();
         }
 
         DTOBanco dto = DTOBanco.builder()
-                .nroBanco(banco.getId())
-                .nombre(banco.getNombreBanco())
+                .nroBanco(banco.get().getId())
+                .nombre(banco.get().getNombreBanco())
                 .estado(estado)
-                .simboloMoneda(banco.getSimboloMoneda())
+                .simboloMoneda(banco.get().getSimboloMoneda())
                 .usaHabilitacionAutomatica(usaHabilitacionAutomatica)
                 .usaPassword(usaPassword)
-                .nombreDueno(banco.getDueno().getNombreUsuario())
-                .emailDueno(banco.getDueno().getMail())
+                .nombreDueno(banco.get().getDueno().getNombreUsuario())
+                .emailDueno(banco.get().getDueno().getMail())
                 .baseMonetaria(baseMonetaria)
                 .nroCB(cbBanquero.getId())
-                .esDueno(banquero.getId().longValue() == banco.getDueno().getId().longValue())
+                .esDueno(banquero.getId().longValue() == banco.get().getDueno().getId().longValue())
                 .build();
 
         return dto;

@@ -92,7 +92,7 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "WHERE id = :nroCB " +
             "AND fhaCB <= CURRENT_TIMESTAMP " +
             "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)")
-    CuentaBancaria obtenerCuentaVigentePorNumeroCuenta(@Param("nroCB") Long nroCB);
+    Optional<CuentaBancaria> obtenerCuentaVigentePorNumeroCuenta(@Param("nroCB") Long nroCB);
 
 
     @Query("SELECT cb " +
@@ -100,7 +100,7 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "WHERE cb.alias = :alias " +
             "AND fhaCB <= CURRENT_TIMESTAMP " +
             "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)")
-    CuentaBancaria obtenerCuentaVigentePorAliasUsuario(@Param("alias") String alias);
+    Optional<CuentaBancaria> obtenerCuentaVigentePorAliasUsuario(@Param("alias") String alias);
     
     @Query("SELECT alias " +
             "FROM CuentaBancaria cb " +
