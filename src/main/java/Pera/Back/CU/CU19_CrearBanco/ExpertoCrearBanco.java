@@ -30,9 +30,9 @@ public class ExpertoCrearBanco {
         String password = "";
         boolean habilitacionAutomatica = false;
 
-        Optional<Banco> prev = repositorioBanco.findBynombreBanco(request.getNombre());
+        Optional<Banco> prev = repositorioBanco.obtenerVigentePorNombre(request.getNombre());
         if (prev.isPresent()){
-            throw new Exception("Error, este banco ya esta registrado");
+            throw new Exception("Error, este banco ya está registrado");
         }
 
         if (request.isUsarPassword()){

@@ -39,6 +39,14 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)")
     Collection<CuentaBancaria> getCuentasVigentesPorBanco(@Param("banco") Banco banco);
 
+    @Query("SELECT cb " +
+            "FROM CuentaBancaria cb " +
+            "WHERE banco = :banco " +
+            "AND (:nroCB IS NULL OR id = :nroCB) " +
+            "AND fhaCB <= CURRENT_TIMESTAMP " +
+            "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)")
+    Collection<CuentaBancaria> getCuentasVigentesPorBancoYNroCB(@Param("banco") Banco banco, @Param("nroCB") Long nroCB);
+
     @Query("SELECT CASE WHEN (COUNT(cb) > 0) THEN false ELSE true END " +
             "FROM CuentaBancaria cb " +
             "WHERE banco = :banco " +
@@ -81,10 +89,19 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
 
     @Query("SELECT cb " +
             "FROM CuentaBancaria cb " +
+            "WHERE cb.titular = :usuario " +
+            "AND cb.banco = :banco " +
+            "AND fhaCB <= CURRENT_TIMESTAMP " +
+            "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP) ")
+    Collection<CuentaBancaria> obtenerCuentasBancariasPorUsuarioYBanco(@Param("usuario") Usuario usuario, @Param("banco") Banco banco);
+
+
+    @Query("SELECT cb " +
+            "FROM CuentaBancaria cb " +
             "WHERE id = :nroCB " +
             "AND fhaCB <= CURRENT_TIMESTAMP " +
             "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)")
-    CuentaBancaria obtenerCuentaVigentePorNumeroCuenta(@Param("nroCB") Long nroCB);
+    Optional<CuentaBancaria> obtenerCuentaVigentePorNumeroCuenta(@Param("nroCB") Long nroCB);
 
 
     @Query("SELECT cb " +
@@ -92,7 +109,7 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "WHERE cb.alias = :alias " +
             "AND fhaCB <= CURRENT_TIMESTAMP " +
             "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)")
-    CuentaBancaria obtenerCuentaVigentePorAliasUsuario(@Param("alias") String alias);
+    Optional<CuentaBancaria> obtenerCuentaVigentePorAliasUsuario(@Param("alias") String alias);
     
     @Query("SELECT alias " +
             "FROM CuentaBancaria cb " +
@@ -117,4 +134,14 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)" +
             "AND titular.nombreUsuario LIKE %:busqueda%")
     Collection<CuentaBancaria> buscarCuentasVigentesPorBanco(@Param("banco") Banco banco, @Param("busqueda") String busqueda);
+
+    @Query("SELECT cb " +
+            "FROM CuentaBancaria cb " +
+            "WHERE cb.titular = :usuario " +
+            "AND fhaCB <= CURRENT_TIMESTAMP " +
+            "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)" +
+            "AND cb.id LIKE %:filtro%")
+    Collection<CuentaBancaria> buscarCuentasVigentesPorUsuario(@Param("usuario") Usuario usuario, @Param("filtro") String filtro);
+
+
 }

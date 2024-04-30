@@ -16,47 +16,57 @@ public class ControladorTransferirDinero {
     @PostMapping("/{nroCB}")
     public ResponseEntity<?> almacenarCBOrigen(@RequestBody Long nroCB) {
         try {
-            experto.recordarCBOrigen(nroCB);
+            experto.almacenarCBOrigen(nroCB);
             return ResponseEntity.ok("");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @GetMapping("/obtenerCB")
-    public ResponseEntity<?> obtenerCB(@RequestParam("nroCB") Long nroCB) {
+    @PostMapping("/ingresarCB")
+    public ResponseEntity<?> ingresarCB(@RequestParam("nroCB") Long nroCB) {
         try {
-            DTOObtenerCB ret = experto.obtenerCB(nroCB);
+            experto.ingresarCB(nroCB);
+            return ResponseEntity.ok("");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/ingresarAlias")
+    public ResponseEntity<?> ingresarAlias(@RequestParam("alias") String alias) {
+        try {
+            experto.ingresarAlias(alias);
+            return ResponseEntity.ok("");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/getDatosIngresarMonto")
+    public ResponseEntity<?> getDatosIngresarMonto() {
+        try {
+            DTODatosIngresarMonto ret = experto.getDatosIngresarMonto();
             return ResponseEntity.ok(ret);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @GetMapping("/obtenerCBAlias")
-    public ResponseEntity<?> obtenerCBAlias(@RequestParam("alias") String alias) {
+    @PostMapping("/ingresarMontoYMotivo")
+    public ResponseEntity<?> ingresarMontoYMotivo(@RequestBody DTOMontoMotivo montoMotivo) {
         try {
-            DTOObtenerCB ret = experto.obtenerCBAlias(alias);
-            return ResponseEntity.ok(ret);
+            experto.ingresarMontoYMotivo(montoMotivo);
+            return ResponseEntity.ok("");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @PostMapping("/establecerDetalles")
-    public ResponseEntity<?> establecerDetalles(@RequestBody DTODetallesTransferencia request) {
+    @GetMapping("/getDatosConfirmacionTransferencia")
+    public ResponseEntity<?> getDatosConfirmacionTransferencia() {
         try {
-            experto.establecerDetalles(request);
-            return ResponseEntity.ok("OK");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @GetMapping("/obtenerDetalles")
-    public ResponseEntity<?> obtenerDetalles() {
-        try {
-            DTOConfirmacionTransferencia ret = experto.obtenerDetalles();
+            DTOConfirmacionTransferencia ret = experto.getDatosConfirmacionTransferencia();
             return ResponseEntity.ok(ret);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -64,9 +74,9 @@ public class ControladorTransferirDinero {
     }
 
     @PostMapping("/confirmar")
-    public ResponseEntity<?> confirmar(@RequestParam("valor") Boolean valor) {
+    public ResponseEntity<?> confirmar(@RequestParam("confirmacion") Boolean confirmacion) {
         try {
-            DTOConfirmacionTransferencia ret = experto.confirmar(valor);
+            Long ret = experto.confirmar(confirmacion);
             return ResponseEntity.ok(ret);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
