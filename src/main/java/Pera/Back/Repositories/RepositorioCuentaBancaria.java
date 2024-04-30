@@ -126,5 +126,13 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "AND titular.nombreUsuario LIKE %:busqueda%")
     Collection<CuentaBancaria> buscarCuentasVigentesPorBanco(@Param("banco") Banco banco, @Param("busqueda") String busqueda);
 
+    @Query("SELECT cb " +
+            "FROM CuentaBancaria cb " +
+            "WHERE cb.titular = :usuario " +
+            "AND fhaCB <= CURRENT_TIMESTAMP " +
+            "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)" +
+            "AND cb.id LIKE %:filtro%")
+    Collection<CuentaBancaria> buscarCuentasVigentesPorUsuario(@Param("usuario") Usuario usuario, @Param("filtro") String filtro);
+
 
 }
