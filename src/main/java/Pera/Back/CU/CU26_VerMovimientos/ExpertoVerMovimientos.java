@@ -213,7 +213,7 @@ public class ExpertoVerMovimientos {
                         tipoT = "Envio";
                         nroCBT = transferencia.getDestino().getId();
                         titularCBT = transferencia.getDestino().getTitular().getNombreUsuario();
-                        if(!(titularCBT.equals(dtoFiltros.filtroNombreUsuario)) && !(nroCBT==Long.parseLong(dtoFiltros.filtroNroCB))){
+                        if(!(titularCBT.equals(dtoFiltros.filtroNombreUsuario)) && (nroCBT==Long.parseLong(dtoFiltros.filtroNroCB))){
                             continue;
                         }
                     }else{

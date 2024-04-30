@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faac9d82-efbb-4ea2-b94a-c1dae1e3e7c1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/ControladorAdministrarUsuarios.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/DTOAdministrarUsuarios.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/DTOAdministrarUsuariosSeleccionado.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/DTODetallesUsuarioSeleccionado.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/ExpertoAdministrarUsuarios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU16_AdministrarHabilitacionDeCuentasBancarias/ExpertoAdministrarHabilitacionDeCuentasBancarias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU16_AdministrarHabilitacionDeCuentasBancarias/ExpertoAdministrarHabilitacionDeCuentasBancarias.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU26_VerMovimientos/ExpertoVerMovimientos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU26_VerMovimientos/ExpertoVerMovimientos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioCuentaBancaria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioCuentaBancaria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioUsuario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

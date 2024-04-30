@@ -104,19 +104,20 @@ public class ExpertoAdministrarHabilitacionDeCuentasBancarias {
         }
 
         CuentaBancaria cuentaReservadaDueno = null;
-        boolean foundCBBanquero = false;
+        boolean foundCB = false;
 
-        for (CuentaBancaria cuenta : repositorioCuentaBancaria.obtenerCuentasBancariasVigentesPorUsuarioYBanco(usuarioActual, bancoActual.get())) {
-            if (cuenta.isEsBanquero()) {
-                foundCBBanquero = true;
+        for (CuentaBancaria cuenta : repositorioCuentaBancaria.obtenerCuentasBancariasPorUsuarioYBanco(usuarioActual, bancoActual.get())) {
+            if (cuenta.isEsBanquero() && cuenta.isHabilitada()) {
+                foundCB = true;
                 break;
             } else {
                 if (cuentaReservadaDueno == null) cuentaReservadaDueno = cuenta;
             }
         }
 
-        if(!foundCBBanquero) {
+        if(!foundCB) {
             cuentaReservadaDueno.setEsBanquero(true);
+            cuentaReservadaDueno.setHabilitada(true);
             repositorioCuentaBancaria.save(cuentaReservadaDueno);
         }
     }
