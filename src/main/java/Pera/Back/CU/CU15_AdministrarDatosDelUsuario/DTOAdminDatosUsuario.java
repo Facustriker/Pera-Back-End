@@ -13,6 +13,4 @@ public class DTOAdminDatosUsuario {
     private Long id;
     private String email;
     private String nombre;
-    private String contrasena;
-    private boolean cambiarContrasena;
 }

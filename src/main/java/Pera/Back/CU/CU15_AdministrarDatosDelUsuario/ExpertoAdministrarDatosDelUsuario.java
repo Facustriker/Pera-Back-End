@@ -19,8 +19,6 @@ public class ExpertoAdministrarDatosDelUsuario {
 
     private final RepositorioAuthUsuario repositorioAuthUsuario;
 
-    private final PasswordEncoder passwordEncoder;
-
     public DTOAdminDatosUsuario get() throws Exception {
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
         Usuario usuario = singletonObtenerUsuarioActual.obtenerUsuarioActual();
@@ -34,8 +32,6 @@ public class ExpertoAdministrarDatosDelUsuario {
                 .id(usuario.getId())
                 .nombre(usuario.getNombreUsuario())
                 .email(usuario.getMail())
-                .cambiarContrasena(false)
-                .contrasena("")
                 .build();
     }
 
@@ -66,10 +62,6 @@ public class ExpertoAdministrarDatosDelUsuario {
             }
         }
 
-        if(dto.isCambiarContrasena() && dto.getContrasena().isEmpty()) {
-            throw new Exception("Debe ingresar su nueva contraseña");
-        }
-
         Optional<AuthUsuario> optAuth = repositorioAuthUsuario.findByUsuario(usuario);
         if(optAuth.isEmpty()) {
             throw new Exception("No se encontró al usuario actual");
@@ -80,10 +72,6 @@ public class ExpertoAdministrarDatosDelUsuario {
         usuario.setMail(dto.getEmail());
 
         auth.setUsername(dto.getEmail());
-
-        if (dto.isCambiarContrasena()) {
-            auth.setPassword(passwordEncoder.encode(dto.getContrasena()));
-        }
 
         repositorioAuthUsuario.save(auth);
 
