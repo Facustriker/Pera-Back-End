@@ -5,8 +5,7 @@ import Pera.Back.Repositories.RepositorioConfiguracionPrecioPremium;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 import Pera.Back.Entities.*;
 import Pera.Back.Functionalities.CortarSuperpuestas.SingletonCortarSuperpuestas;
@@ -18,9 +17,6 @@ import Pera.Back.Repositories.*;
 import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
-
-import java.util.Calendar;
-import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -115,14 +111,14 @@ class ExpertoSuscribirseAPremium implements Serializable {
         c.setTime(new Date());
         c.add(Calendar.DATE, plan.getDiasDuracion());
 
-        Rol rolPremium = repositorioRol.obtenerRolPorNombre("Premium");
+        Optional<Rol> rolPremium = repositorioRol.obtenerRolPorNombre("Premium");
 
         SingletonObtenerUsuarioActual singletonObtenerUsuarioActual = SingletonObtenerUsuarioActual.getInstancia();
         Usuario usuario = singletonObtenerUsuarioActual.obtenerUsuarioActual();
 
         Collection<String> permisos = new ArrayList<>();
 
-        for (Permiso permiso : repositorioConfiguracionRol.getPermisos(rolPremium)) {
+        for (Permiso permiso : repositorioConfiguracionRol.getPermisos(rolPremium.get())) {
             permisos.add(permiso.getNombrePermiso());
         }
 
@@ -133,10 +129,10 @@ class ExpertoSuscribirseAPremium implements Serializable {
                 .permisos(permisos)
                 .build();
 
-        usuario.setRolActual(rolPremium);
+        usuario.setRolActual(rolPremium.get());
 
         UsuarioRol usuarioRol = UsuarioRol.builder()
-                .rol(rolPremium)
+                .rol(rolPremium.get())
                 .usuario(usuario)
                 .plan(plan)
                 .fhaUsuarioRol(new Date())
@@ -148,7 +144,7 @@ class ExpertoSuscribirseAPremium implements Serializable {
 
         usuarioRol = repositorioUsuarioRol.save(usuarioRol);
 
-        usuarioRol.getUsuario().setRolActual(rolPremium);
+        usuarioRol.getUsuario().setRolActual(rolPremium.get());
 
         repositorioUsuarioRol.save(usuarioRol);
 
