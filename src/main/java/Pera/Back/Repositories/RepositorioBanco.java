@@ -58,30 +58,12 @@ public interface RepositorioBanco extends BaseRepository<Banco, Long>{
             "WHERE id = :nroBanco")
     Optional<Banco> getBancoPorNumeroBanco(@Param("nroBanco") Long nroBanco);
 
-    @Query("SELECT habilitacionAutomatica " +
+    @Query("SELECT b " +
             "FROM Banco b " +
-            "WHERE b.id = :nroBanco ")
-    public boolean obtenerIsHabilitacionAutomaticaPorNroBanco(@Param("nroBanco") Long nroBanco);
-
-    @Query("SELECT habilitado " +
-            "FROM Banco b " +
-            "WHERE b.id = :nroBanco ")
-    public boolean obtenerIsHabilitadoPorNroBanco(@Param("nroBanco") Long nroBanco);
-
-    @Query("SELECT nombreBanco " +
-            "FROM Banco b " +
-            "WHERE b.id = :nroBanco ")
-    public String obtenerNombreBancoPorNroBanco(@Param("nroBanco") Long nroBanco);
-
-    @Query("SELECT simboloMoneda " +
-            "FROM Banco b " +
-            "WHERE b.id = :nroBanco ")
-    public String obtenerSimboloMonedaPorNroBanco(@Param("nroBanco") Long nroBanco);
-
-    @Query("SELECT password " +
-            "FROM Banco b " +
-            "WHERE b.id = :nroBanco ")
-    public String obtenerPasswordPorNroBanco(@Param("nroBanco") Long nroBanco);
+            "WHERE (:noVigentes = true OR (fhbBanco IS NULL OR fhbBanco > CURRENT_TIMESTAMP)) " +
+            "AND (:deshabilitados = true OR habilitado = true) " +
+            "AND nombreBanco LIKE %:nombre%")
+    Collection<Banco> filtrarBancos(@Param("nombre") String nombre, @Param("deshabilitados") boolean deshabilitados, @Param("noVigentes") boolean noVigentes);
 
 
 }

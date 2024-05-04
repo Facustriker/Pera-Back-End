@@ -55,6 +55,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/AdministrarDatosDelUsuario/**")).hasAnyAuthority("ADMIN_DATOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/TransferirDominioDeBanco/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/AdministrarBancoPropio/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
+                        .requestMatchers(new AntPathRequestMatcher("/AdministrarBancos/**")).hasAnyAuthority("ADMIN_BANCOS")
                         .requestMatchers(new AntPathRequestMatcher("/AdministrarBanqueros/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/AdministrarHabilitacionDeCuentasBancarias/**")).hasAnyAuthority("ADMIN_CUENTAS_BANCARIAS_PROPIAS")
                         .requestMatchers(new AntPathRequestMatcher("/AdministrarUsuarios/**")).hasAnyAuthority("ADMIN_USUARIOS")
