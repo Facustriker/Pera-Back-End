@@ -5,14 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faac9d82-efbb-4ea2-b94a-c1dae1e3e7c1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU18_CambiarContrasena/ControladorCambiarContrasena.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU18_CambiarContrasena/ExpertoCambiarContrasena.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/DTORolUsuarioAdministrarUsuarios.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU15_AdministrarDatosDelUsuario/DTOAdminDatosUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU15_AdministrarDatosDelUsuario/DTOAdminDatosUsuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU15_AdministrarDatosDelUsuario/ExpertoAdministrarDatosDelUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU15_AdministrarDatosDelUsuario/ExpertoAdministrarDatosDelUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/ControladorAdministrarUsuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/ControladorAdministrarUsuarios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/DTODetallesUsuarioSeleccionado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/DTODetallesUsuarioSeleccionado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/ExpertoAdministrarUsuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/ExpertoAdministrarUsuarios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU23_SuscribirseAPremium/ExpertoSuscribirseAPremium.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU23_SuscribirseAPremium/ExpertoSuscribirseAPremium.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioCuentaBancaria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioCuentaBancaria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioRol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioRol.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,10 +56,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Gradle.Pera-Back-End [:BackApplication.main()].executor": "Debug",
+    "Gradle.Pera-Back-End [:BackApplication.main()].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "seba4",
+    "git-widget-placeholder": "facu5",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/saoga/OneDrive/Escritorio/Repos/Pera-Back-End/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco",
     "settings.editor.selected.configurable": "preferences.pluginManager"

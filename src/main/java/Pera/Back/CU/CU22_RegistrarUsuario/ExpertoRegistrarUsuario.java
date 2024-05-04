@@ -66,19 +66,19 @@ public class ExpertoRegistrarUsuario {
                 .verificationCode(codigo)
                 .build();
 
-        Rol rol;
+        Optional<Rol> rol;
         if("admin@gmail.com".equals(usuario.getMail())){
             rol = repositorioRol.obtenerRolPorNombre("Administrador del Sistema");
         }else{
             rol = repositorioRol.obtenerRolPorNombre("No Premium");
         }
-        usuario.setRolActual(rol);
+        usuario.setRolActual(rol.get());
 
         repositorioAuthUsuario.save(authUsuario);
 
         UsuarioRol usuarioRol = UsuarioRol.builder()
                 .fhaUsuarioRol(new Date(timeNow))
-                .rol(rol)
+                .rol(rol.get())
                 .usuario(usuario)
                 .build();
 
