@@ -14,5 +14,5 @@ public class DTODetallesUsuarioSeleccionado {
     Long nroCB;
     String nombreBanco;
     Double monto;
-    String cuentaHabilitada;
+    boolean cuentaHabilitada;
 }
