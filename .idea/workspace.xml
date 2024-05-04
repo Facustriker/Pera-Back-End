@@ -5,18 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faac9d82-efbb-4ea2-b94a-c1dae1e3e7c1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/DTORolUsuarioAdministrarUsuarios.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU12_AdministrarBancos/ControladorAdministrarBancos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU12_AdministrarBancos/DTOAdministrarBancos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU12_AdministrarBancos/DTOAdministrarBancosCuentas.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU12_AdministrarBancos/DTOAdministrarBancosCuentasDetalle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU12_AdministrarBancos/DTODetalleBanco.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU12_AdministrarBancos/DTODetalleCuenta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU12_AdministrarBancos/DTOFiltrosBancos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU12_AdministrarBancos/ExpertoAdministrarBancos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/ControladorAdministrarUsuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/ControladorAdministrarUsuarios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/DTODetallesUsuarioSeleccionado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/DTODetallesUsuarioSeleccionado.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/ExpertoAdministrarUsuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU17_AdministrarUsuarios/ExpertoAdministrarUsuarios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU23_SuscribirseAPremium/ExpertoSuscribirseAPremium.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU23_SuscribirseAPremium/ExpertoSuscribirseAPremium.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioBanco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioBanco.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioCuentaBancaria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioCuentaBancaria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioRol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioRol.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,25 +62,26 @@
     "Gradle.Pera-Back-End [:BackApplication.main()].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "facu5",
+    "git-widget-placeholder": "seba4",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/saoga/OneDrive/Escritorio/Repos/Pera-Back-End/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco",
+    "last_opened_file_path": "C:/Users/saoga/OneDrive/Escritorio/Repos/Pera-Back-End/src/main/java/Pera/Back/CU/CU12_AdministrarBancos",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\saoga\OneDrive\Escritorio\Repos\Pera-Back-End\src\main\java\Pera\Back\CU\CU12_AdministrarBancos" />
       <recent name="C:\Users\saoga\OneDrive\Escritorio\Repos\Pera-Back-End\src\main\java\Pera\Back\CU\CU27_VerMovimientosDeBanco" />
       <recent name="C:\Users\saoga\OneDrive\Escritorio\Repos\Pera-Back-End\src\main\java\Pera\Back\CU\" />
       <recent name="C:\Users\saoga\OneDrive\Escritorio\Repos\Pera-Back-End\src\main\java\Pera\Back\CU\CU11_AdministrarBancoPropio" />
       <recent name="C:\Users\saoga\OneDrive\Escritorio\Repos\Pera-Back-End\src\main\java\Pera\Back\CU\MisCuentasBancarias" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Pera.Back.CU.CU12_AdministrarBancos" />
       <recent name="Pera.Back.CU.CU27_VerMovimientosDeBanco" />
       <recent name="Pera.Back.CU.CU25_TransferirDominioDeBanco" />
       <recent name="Pera.Back.CU.CU20_EmitirDinero" />
       <recent name="Pera.Back.CU.MisCuentasBancarias" />
-      <recent name="Pera.Back.CU.CU10_AbrirCuentaBancaria" />
     </key>
   </component>
   <component name="RunManager">

@@ -20,11 +20,6 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "WHERE cb.titular = :Usuario ")
     int cantidadCuentasBancariasPorUsuario(@Param("Usuario") Usuario usuario);
 
-    @Query("SELECT montoDinero " +
-            "FROM CuentaBancaria cb " +
-            "WHERE cb.banco.id = :nroBanco ")
-    double montoDineroPorNroBanco(@Param("nroBanco") Long nroBanco);
-
     @Query("SELECT cb " +
             "FROM CuentaBancaria cb " +
             "WHERE titular = :usuario " +
@@ -142,5 +137,10 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "AND (fhbCB IS NULL OR fhbCB > CURRENT_TIMESTAMP)" )
     Collection<CuentaBancaria> buscarCuentasVigentesPorUsuario(@Param("usuario") Usuario usuario);
 
+    @Query("SELECT cb " +
+            "FROM CuentaBancaria cb " +
+            "WHERE banco = :banco " +
+            "AND (:nroCB IS NULL OR cb.id = :nroCB)")
+    Collection<CuentaBancaria> getCuentasPorBancoYNroCB(@Param("banco") Banco banco, @Param("nroCB") Long nroCB);
 
 }
