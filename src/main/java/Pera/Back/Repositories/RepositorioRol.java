@@ -20,4 +20,10 @@ public interface RepositorioRol extends BaseRepository<Rol, Long> {
             "FROM Rol r " +
             "WHERE (fhbRol IS NULL OR fhbRol > CURRENT_TIMESTAMP) ")
     Collection<Rol> getRolesVigentes();
+
+    @Query("SELECT r " +
+            "FROM Rol r " +
+            "WHERE id = :nroRol " +
+            "AND (fhbRol IS NULL OR fhbRol > CURRENT_TIMESTAMP)")
+    Optional<Rol> obtenerRolVigentePorNumeroRol(@Param("nroRol") Long nroRol);
 }
