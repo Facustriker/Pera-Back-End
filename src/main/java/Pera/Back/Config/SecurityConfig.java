@@ -63,6 +63,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/VerMovimientosDeBanco/**")).hasAnyAuthority("ADMIN_BANCOS_PROPIOS")
                         .requestMatchers(new AntPathRequestMatcher("/ABMPSM/**")).hasAnyAuthority("ADMIN_PARAMETROS")
                         .requestMatchers(new AntPathRequestMatcher("/ABMRol/**")).hasAnyAuthority("ADMIN_PARAMETROS")
+                        .requestMatchers(new AntPathRequestMatcher("/ABMPermiso/**")).hasAnyAuthority("ADMIN_PARAMETROS")
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         
                 )
