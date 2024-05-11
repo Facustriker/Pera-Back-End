@@ -15,7 +15,6 @@ public class DTOABMPSM {
 
     Long nroSimbolo;
     String simbolo;
-    boolean soloPremium;
     Date fechaInicio;
     Date fechaFin;
 }
