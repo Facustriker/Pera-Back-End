@@ -28,7 +28,7 @@ public class ControladorABMConfiguracionRol {
     public ResponseEntity<?> altaConfiguracion() {
         try {
             DTODetallesAltaConfiguracionRol ret = experto.altaConfiguracion();
-            return ResponseEntity.ok("");
+            return ResponseEntity.ok(ret);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
