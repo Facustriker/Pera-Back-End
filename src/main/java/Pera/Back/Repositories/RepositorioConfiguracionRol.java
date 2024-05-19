@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Repository
 public interface RepositorioConfiguracionRol extends BaseRepository<ConfiguracionRol, Long> {
@@ -19,5 +20,11 @@ public interface RepositorioConfiguracionRol extends BaseRepository<Configuracio
             "AND CURRENT_TIMESTAMP >= cr.fhaCR " +
             "AND (CURRENT_TIMESTAMP < cr.fhbCR OR cr.fhbCR IS NULL)")
     Collection<Permiso> getPermisos(@Param("rol") Rol rol);
+
+    @Query("SELECT c " +
+            "FROM ConfiguracionRol c " +
+            "WHERE id = :nroConfig " +
+            "AND (fhbCR IS NULL OR fhbCR > CURRENT_TIMESTAMP)")
+    Optional<ConfiguracionRol> obtenerConfiguracionVigentePorNumeroConfiguracion(@Param("nroConfig") Long nroConfig);
 
 }
