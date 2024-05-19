@@ -16,6 +16,7 @@ public class DTODetalleBanco {
     Long id;
     String nombre;
     boolean habilitado;
+    Date alta;
     Date baja;
     String nombreDueno;
     String mailDueno;

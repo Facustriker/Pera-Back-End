@@ -85,6 +85,7 @@ public class ExpertoCrearBanco {
                 .habilitacionAutomatica(habilitacionAutomatica)
                 .password(password)
                 .dueno(dueno)
+                .fhaBanco(new Date())
                 .build();
 
         CuentaBancaria cuentaBancaria = CuentaBancaria.builder()

@@ -24,4 +24,22 @@ public class ControladorVerReportes {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @GetMapping("bancosAbiertosCerrados")
+    public ResponseEntity<?> bancosAbiertosCerrados(@RequestParam("fechaInicio") Long fechaInicio, @RequestParam("fechaFin") Long fechaFin, @RequestParam("intervalo") Long intervalo) {
+        try {
+            DTOHistograma ret = experto.bancosAbiertosCerrados(new Date(fechaInicio), new Date(fechaFin), intervalo);
+            return ResponseEntity.ok(ret);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @GetMapping("montosTransferidos")
+    public ResponseEntity<?> montosTransferidos(@RequestParam("fechaInicio") Long fechaInicio, @RequestParam("fechaFin") Long fechaFin, @RequestParam("intervalo") Long intervalo, @RequestParam("nroBanco") Long nroBanco) {
+        try {
+            DTOHistograma ret = experto.montosTransferidos(new Date(fechaInicio), new Date(fechaFin), intervalo, nroBanco);
+            return ResponseEntity.ok(ret);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

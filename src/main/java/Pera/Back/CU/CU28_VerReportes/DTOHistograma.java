@@ -17,6 +17,7 @@ public class DTOHistograma {
     @Builder.Default
     Collection<DTOItemHistograma> items = new ArrayList<>();
 
+    String titulo;
     public void addItem(DTOItemHistograma item) {
         items.add(item);
     }

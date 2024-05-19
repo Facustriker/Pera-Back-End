@@ -74,4 +74,22 @@ public interface RepositorioBanco extends BaseRepository<Banco, Long>{
     )
     Collection<Banco> obtenerBancosVigentesAl(@Param("fecha")Date fecha);
 
+
+    @Query("SELECT COUNT(*) " +
+            "FROM Banco b " +
+            "WHERE CAST(fhaBanco as date) >= :desde AND CAST(fhaBanco as date) < :hasta")
+    Long getCantidadBancosAltaEntre(@Param("desde") Date desde, @Param("hasta") Date hasta);
+
+    @Query("SELECT COUNT(*) " +
+            "FROM Banco b " +
+            "WHERE CAST(fhbBanco as date) >= :desde AND CAST(fhbBanco as date) < :hasta")
+    Long getCantidadBancosBajaEntre(@Param("desde") Date desde, @Param("hasta") Date hasta);
+
+    @Query("SELECT SUM(t.montoTransferencia) " +
+            "FROM Transferencia t " +
+            "LEFT JOIN t.origen o ON o.banco = :banco " +
+            "LEFT JOIN t.destino d ON d.banco = :banco " +
+            "WHERE CAST(fhTransferencia as date) >= :desde AND CAST(fhTransferencia as date) < :hasta " +
+            "AND t.anulada = false")
+    Long getMontosTransferidosBanco(@Param("desde") Date desde, @Param("hasta") Date hasta, @Param("banco") Banco banco);
 }
