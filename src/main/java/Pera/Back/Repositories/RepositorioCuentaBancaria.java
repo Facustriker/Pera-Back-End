@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Optional;
 
 @Repository
@@ -143,4 +144,10 @@ public interface RepositorioCuentaBancaria extends BaseRepository<CuentaBancaria
             "AND (:nroCB IS NULL OR cb.id = :nroCB)")
     Collection<CuentaBancaria> getCuentasPorBancoYNroCB(@Param("banco") Banco banco, @Param("nroCB") Long nroCB);
 
+    @Query("SELECT COUNT(*) " +
+            "FROM CuentaBancaria cb " +
+            "WHERE cb.banco = :banco " +
+            "AND CAST(fhaCB as date) <= :fecha " +
+            "AND (fhbCB IS NULL OR CAST(fhbCB as date) > :fecha)")
+    Long getCantidadCuentasVigentesAl(@Param("banco") Banco banco, @Param("fecha")Date fecha);
 }

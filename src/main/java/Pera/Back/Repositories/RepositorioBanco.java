@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Optional;
 
 @Repository
@@ -65,5 +66,12 @@ public interface RepositorioBanco extends BaseRepository<Banco, Long>{
             "AND nombreBanco LIKE %:nombre%")
     Collection<Banco> filtrarBancos(@Param("nombre") String nombre, @Param("deshabilitados") boolean deshabilitados, @Param("noVigentes") boolean noVigentes);
 
+
+    @Query(
+            "SELECT b " +
+            "FROM Banco b " +
+            "WHERE fhbBanco IS NULL OR CAST(fhbBanco as date) > :fecha"
+    )
+    Collection<Banco> obtenerBancosVigentesAl(@Param("fecha")Date fecha);
 
 }
