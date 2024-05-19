@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faac9d82-efbb-4ea2-b94a-c1dae1e3e7c1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU1_ABMCMBNP/ControladorABMCMBNP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU1_ABMCMBNP/DTOABMCMBNP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU1_ABMCMBNP/ExpertoABMCMBNP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU2_ABMCMCBP/ControladorABMCMCBP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU2_ABMCMCBP/DTOABMCMCBP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU2_ABMCMCBP/ExpertoABMCMCBP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU3_ABMCMCOB/ControladorABMCMCOB.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU3_ABMCMCOB/DTOABMCMCOB.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU3_ABMCMCOB/ExpertoABMCMCOB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU4_ABMConfiguracionRol/ControladorABMConfiguracionRol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU4_ABMConfiguracionRol/ControladorABMConfiguracionRol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +56,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Gradle.Pera-Back-End [:BackApplication.main()].executor": "Debug",
+    "Gradle.Pera-Back-End [:BackApplication.main()].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "facu6",
