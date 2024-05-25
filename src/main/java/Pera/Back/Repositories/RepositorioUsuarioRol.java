@@ -1,5 +1,6 @@
 package Pera.Back.Repositories;
 
+import Pera.Back.Entities.PrecioPremium;
 import Pera.Back.Entities.Usuario;
 import Pera.Back.Entities.UsuarioRol;
 import Pera.Back.Functionalities.CortarSuperpuestas.RepositorioCortable;
@@ -65,4 +66,11 @@ public interface RepositorioUsuarioRol extends BaseRepository<UsuarioRol, Long>,
             "AND (ur.fhbUsuarioRol IS NULL OR ur.fhbUsuarioRol > ?2) " +
             "AND ur.usuario.id = ?3")
     public void cortarEnvolvente(Date fha, Date fhb, Long id);
+
+
+    @Query("SELECT COUNT(ur) " +
+            "FROM UsuarioRol ur  " +
+            "WHERE CAST(fhaUsuarioRol as date) >= :desde AND (CAST(fhaUsuarioRol as date) < :hasta) " +
+            "AND plan = :precioPremium")
+    Long getCantidadSuscripcionesEntre(Date desde, Date hasta, PrecioPremium precioPremium);
 }

@@ -1,8 +1,8 @@
 package Pera.Back.CU.CU28_VerReportes;
 
 import Pera.Back.Entities.Banco;
-import Pera.Back.Repositories.RepositorioBanco;
-import Pera.Back.Repositories.RepositorioCuentaBancaria;
+import Pera.Back.Entities.PrecioPremium;
+import Pera.Back.Repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +14,9 @@ import java.util.*;
 public class ExpertoVerReportes {
     private final RepositorioBanco repositorioBanco;
     private final RepositorioCuentaBancaria repositorioCuentaBancaria;
+    private final RepositorioUsuario repositorioUsuario;
+    private final RepositorioUsuarioRol repositorioUsuarioRol;
+    private final RepositorioPrecioPremium repositorioPrecioPremium;
 
     public DTOHistograma cuentasPorBanco(Date fecha, Long intervalo) {
         DTOHistograma ret = DTOHistograma.builder().build();
@@ -93,6 +96,39 @@ public class ExpertoVerReportes {
                     .label(format.format(desde) + "-" + format.format(hasta))
                     .build();
             item.values.add(repositorioBanco.getMontosTransferidosBanco(desde, hasta, banco));
+            ret.addItem(item);
+        }
+        return ret;
+    }
+
+    public DTOHistograma cantidadRegistraciones(Date fechaInicio, Date fechaFin, Long intervalo) {
+        DTOHistograma ret = DTOHistograma.builder().build();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaInicio);
+
+        while (calendar.getTime().before(fechaFin)) {
+            Date desde = calendar.getTime();
+            calendar.add(Calendar.DATE, intervalo.intValue());
+            Date hasta = calendar.getTime();
+
+            DTOItemHistograma item = DTOItemHistograma.builder()
+                    .label(format.format(desde) + "-" + format.format(hasta))
+                    .build();
+            item.values.add(repositorioUsuario.getCantidadUsuariosAltaEntre(desde, hasta));
+            ret.addItem(item);
+        }
+        return ret;
+    }
+
+    public DTOHistograma cantidadSuscripciones(Date fechaInicio, Date fechaFin) {
+        DTOHistograma ret = DTOHistograma.builder().build();
+
+        for (PrecioPremium precioPremium : repositorioPrecioPremium.obtenerVigentesEntre(fechaInicio, fechaFin)) {
+            DTOItemHistograma item = DTOItemHistograma.builder()
+                    .label(precioPremium.getNombrePP() + " (" + precioPremium.getDiasDuracion() + " días) $" + precioPremium.getPrecio())
+                    .build();
+            item.values.add(repositorioUsuarioRol.getCantidadSuscripcionesEntre(fechaInicio, fechaFin, precioPremium));
             ret.addItem(item);
         }
         return ret;

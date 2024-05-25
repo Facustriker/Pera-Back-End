@@ -42,4 +42,24 @@ public class ControladorVerReportes {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("cantidadRegistraciones")
+    public ResponseEntity<?> cantidadRegistraciones(@RequestParam("fechaInicio") Long fechaInicio, @RequestParam("fechaFin") Long fechaFin, @RequestParam("intervalo") Long intervalo) {
+        try {
+            DTOHistograma ret = experto.cantidadRegistraciones(new Date(fechaInicio), new Date(fechaFin), intervalo);
+            return ResponseEntity.ok(ret);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("cantidadSuscripciones")
+    public ResponseEntity<?> cantidadSuscripciones(@RequestParam("fechaInicio") Long fechaInicio, @RequestParam("fechaFin") Long fechaFin) {
+        try {
+            DTOHistograma ret = experto.cantidadSuscripciones(new Date(fechaInicio), new Date(fechaFin));
+            return ResponseEntity.ok(ret);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
