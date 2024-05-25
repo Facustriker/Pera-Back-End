@@ -1,6 +1,7 @@
 package Pera.Back.CU.CU5_ABMConfiguracionPrecioPremium;
 
 import Pera.Back.Entities.*;
+import Pera.Back.Functionalities.CortarSuperpuestas.SingletonCortarSuperpuestas;
 import Pera.Back.Repositories.RepositorioConfiguracionPrecioPremium;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ExpertoABMConfiguracionPrecioPremium {
 
         Collection<DTOABMCPP> ret = new ArrayList<>();
 
-        for (ConfiguracionPrecioPremium configuracionPrecioPremium : repositorioConfiguracionPrecioPremium.findAll()) {
+        for (ConfiguracionPrecioPremium configuracionPrecioPremium : repositorioConfiguracionPrecioPremium.findAllOrdenadas()) {
             DTOABMCPP dto = DTOABMCPP.builder()
                     .nroConfig(configuracionPrecioPremium.getId())
                     .fechaInicio(configuracionPrecioPremium.getFhaCPP())
@@ -54,6 +55,25 @@ public class ExpertoABMConfiguracionPrecioPremium {
                     .precio(plan.getPrecio())
                     .build();
             cpp.addPrecio(precioPremium);
+        }
+
+        ConfiguracionPrecioPremium cppAnterior = repositorioConfiguracionPrecioPremium.obtenerCPPVigente();
+
+        SingletonCortarSuperpuestas singletonCortarSuperpuestas = SingletonCortarSuperpuestas.getInstancia();
+        singletonCortarSuperpuestas.cortar(repositorioConfiguracionPrecioPremium, dto.getFechaInicio(), dto.getFechaFin(), 0L);
+
+        if(cppAnterior.getFhaCPP().before(cpp.getFhaCPP()) && (cppAnterior.getFhbCPP() == null || cppAnterior.getFhbCPP().after(cpp.getFhbCPP()))) {
+            //Es envolvente
+            ConfiguracionPrecioPremium cppDividida = repositorioConfiguracionPrecioPremium.obtenerCPPDividida(cpp.getFhbCPP(), cppAnterior.getFhbCPP());
+            for (PrecioPremium precio : cppAnterior.getPrecios()) {
+                cppDividida.addPrecio(PrecioPremium.builder()
+                                .nombrePP(precio.getNombrePP())
+                                .descripcion(precio.getDescripcion())
+                                .diasDuracion(precio.getDiasDuracion())
+                                .precio(precio.getPrecio())
+                        .build());
+            }
+            repositorioConfiguracionPrecioPremium.save(cppDividida);
         }
 
         repositorioConfiguracionPrecioPremium.save(cpp);

@@ -27,7 +27,6 @@ public class ExpertoVerReportes {
             Long value = set.getOrDefault(q, 0L) + 1;
             set.put(q, value);
             if(q > maxCBs) maxCBs = q;
-            System.out.println(q + " - " + value);
         }
 
         Long nroIntervalos = (long) Math.ceil((double) maxCBs / intervalo);

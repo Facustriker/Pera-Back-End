@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faac9d82-efbb-4ea2-b94a-c1dae1e3e7c1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU5_ABMConfiguracionPrecioPremium/ControladorABMConfiguracionPrecioPremium.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU5_ABMConfiguracionPrecioPremium/DTOABMCPP.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU5_ABMConfiguracionPrecioPremium/DTODetallesCPP.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU5_ABMConfiguracionPrecioPremium/DTODetallesCPPPrecioPremium.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU5_ABMConfiguracionPrecioPremium/ExpertoABMConfiguracionPrecioPremium.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU28_VerReportes/ExpertoVerReportes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU28_VerReportes/ExpertoVerReportes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU5_ABMConfiguracionPrecioPremium/ExpertoABMConfiguracionPrecioPremium.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU5_ABMConfiguracionPrecioPremium/ExpertoABMConfiguracionPrecioPremium.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioConfiguracionPrecioPremium.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioConfiguracionPrecioPremium.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,18 +45,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Gradle.Pera-Back-End [:BackApplication.main()].executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "seba4",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/saoga/OneDrive/Escritorio/Repos/Pera-Back-End/src/main/java/Pera/Back/CU/CU5_ABMConfiguracionPrecioPremium",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Gradle.Pera-Back-End [:BackApplication.main()].executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;seba4&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/saoga/OneDrive/Escritorio/Repos/Pera-Back-End/src/main/java/Pera/Back/CU/CU5_ABMConfiguracionPrecioPremium&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\saoga\OneDrive\Escritorio\Repos\Pera-Back-End\src\main\java\Pera\Back\CU\CU5_ABMConfiguracionPrecioPremium" />
