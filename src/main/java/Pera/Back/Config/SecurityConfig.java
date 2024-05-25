@@ -65,6 +65,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/ABMRol/**")).hasAnyAuthority("ADMIN_PARAMETROS")
                         .requestMatchers(new AntPathRequestMatcher("/ABMPermiso/**")).hasAnyAuthority("ADMIN_PARAMETROS")
                         .requestMatchers(new AntPathRequestMatcher("/ABMConfiguracionRol/**")).hasAnyAuthority("ADMIN_PARAMETROS")
+                        .requestMatchers(new AntPathRequestMatcher("/ABMConfiguracionPrecioPremium/**")).hasAnyAuthority("ADMIN_PARAMETROS")
                         .requestMatchers(new AntPathRequestMatcher("/VerReportes/**")).hasAnyAuthority("VER_REPORTES")
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         
