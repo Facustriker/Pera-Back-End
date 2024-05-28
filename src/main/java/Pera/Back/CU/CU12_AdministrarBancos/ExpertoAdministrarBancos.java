@@ -52,6 +52,7 @@ public class ExpertoAdministrarBancos {
                 .nombreDueno(banco.getDueno().getNombreUsuario())
                 .mailDueno(banco.getDueno().getMail())
                 .habilitado(banco.getHabilitado())
+                .alta(banco.getFhaBanco())
                 .baja(banco.getFhbBanco())
                 .build();
 

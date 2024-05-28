@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Optional;
 
 @Repository
@@ -66,4 +67,29 @@ public interface RepositorioBanco extends BaseRepository<Banco, Long>{
     Collection<Banco> filtrarBancos(@Param("nombre") String nombre, @Param("deshabilitados") boolean deshabilitados, @Param("noVigentes") boolean noVigentes);
 
 
+    @Query(
+            "SELECT b " +
+            "FROM Banco b " +
+            "WHERE fhbBanco IS NULL OR CAST(fhbBanco as date) > :fecha"
+    )
+    Collection<Banco> obtenerBancosVigentesAl(@Param("fecha")Date fecha);
+
+
+    @Query("SELECT COUNT(*) " +
+            "FROM Banco b " +
+            "WHERE CAST(fhaBanco as date) >= :desde AND CAST(fhaBanco as date) < :hasta")
+    Long getCantidadBancosAltaEntre(@Param("desde") Date desde, @Param("hasta") Date hasta);
+
+    @Query("SELECT COUNT(*) " +
+            "FROM Banco b " +
+            "WHERE CAST(fhbBanco as date) >= :desde AND CAST(fhbBanco as date) < :hasta")
+    Long getCantidadBancosBajaEntre(@Param("desde") Date desde, @Param("hasta") Date hasta);
+
+    @Query("SELECT SUM(t.montoTransferencia) " +
+            "FROM Transferencia t " +
+            "LEFT JOIN t.origen o ON o.banco = :banco " +
+            "LEFT JOIN t.destino d ON d.banco = :banco " +
+            "WHERE CAST(fhTransferencia as date) >= :desde AND CAST(fhTransferencia as date) < :hasta " +
+            "AND t.anulada = false")
+    Long getMontosTransferidosBanco(@Param("desde") Date desde, @Param("hasta") Date hasta, @Param("banco") Banco banco);
 }

@@ -18,6 +18,9 @@ public class Banco extends BaseEntity{
     @Column(name = "fhbBanco")
     private Date fhbBanco;
 
+    @Column(name = "fhaBanco")
+    private Date fhaBanco;
+
     @NotNull
     @Column(name = "habilitacionAutomatica", nullable = false)
     private Boolean habilitacionAutomatica;
