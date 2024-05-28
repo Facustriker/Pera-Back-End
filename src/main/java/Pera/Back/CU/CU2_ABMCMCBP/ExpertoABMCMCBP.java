@@ -1,9 +1,11 @@
 package Pera.Back.CU.CU2_ABMCMCBP;
 
 import Pera.Back.Entities.CantMaxCuentasBancoPropio;
+import Pera.Back.Functionalities.CortarSuperpuestas.SingletonCortarSuperpuestas;
 import Pera.Back.Repositories.RepositorioCantMaxCuentasBancoPropio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class ExpertoABMCMCBP {
 
     public Collection<DTOABMCMCBP> getCantidadesCBP() throws Exception{
 
-        Collection<CantMaxCuentasBancoPropio> cantidadesSistema = repositorioCantMaxCuentasBancoPropio.findAll();
+        Collection<CantMaxCuentasBancoPropio> cantidadesSistema = repositorioCantMaxCuentasBancoPropio.findAll(Sort.by("fhaCMCBP"));
 
         if(cantidadesSistema.isEmpty()){
             throw new Exception("Error, no se han encontrado parametros");
@@ -52,6 +54,10 @@ public class ExpertoABMCMCBP {
                 .fhbCMCBP(dto.getFechaFin())
                 .cantidad(Integer.parseInt(dto.getCantidad()))
                 .build();
+
+        SingletonCortarSuperpuestas singletonCortarSuperpuestas = SingletonCortarSuperpuestas.getInstancia();
+        singletonCortarSuperpuestas.cortar(repositorioCantMaxCuentasBancoPropio, dto.getFechaInicio(), dto.getFechaFin(), 0L);
+
 
         repositorioCantMaxCuentasBancoPropio.save(cantidadNueva);
     }

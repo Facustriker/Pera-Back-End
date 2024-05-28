@@ -1,9 +1,11 @@
 package Pera.Back.CU.CU9_ABMPSM;
 
 import Pera.Back.Entities.ParametroSimboloMoneda;
+import Pera.Back.Functionalities.CortarSuperpuestas.SingletonCortarSuperpuestas;
 import Pera.Back.Repositories.RepositorioParametroSimboloMoneda;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -44,7 +46,7 @@ public class ExpertoABMPSM {
 
     public void altaPSM(String simbolo) throws Exception{
 
-        List<ParametroSimboloMoneda> parametrosSistema = repositorioParametroSimboloMoneda.findAll();
+        List<ParametroSimboloMoneda> parametrosSistema = repositorioParametroSimboloMoneda.findAll(Sort.by("fhaPSM"));
 
         if(parametrosSistema.isEmpty()){
             throw new Exception("No se han encontrado simbolos de monedas");
@@ -60,6 +62,10 @@ public class ExpertoABMPSM {
                 .simboloMonedaPorDefecto(simbolo)
                 .fhaPSM(new Date())
                 .build();
+
+        SingletonCortarSuperpuestas singletonCortarSuperpuestas = SingletonCortarSuperpuestas.getInstancia();
+        singletonCortarSuperpuestas.cortar(repositorioParametroSimboloMoneda, new Date(), null, 0L);
+
 
         repositorioParametroSimboloMoneda.save(psm);
 
