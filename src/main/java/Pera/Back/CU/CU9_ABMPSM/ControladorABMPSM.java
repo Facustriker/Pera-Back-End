@@ -25,9 +25,9 @@ public class ControladorABMPSM {
     }
 
     @PostMapping("/altaPSM")
-    public ResponseEntity<?> altaPSM(String simbolo) {
+    public ResponseEntity<?> altaPSM(@RequestBody DTOABMPSM dto) {
         try {
-            experto.altaPSM(simbolo);
+            experto.altaPSM(dto);
             return ResponseEntity.ok("");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

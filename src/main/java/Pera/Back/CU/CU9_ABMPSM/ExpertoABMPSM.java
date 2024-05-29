@@ -44,7 +44,7 @@ public class ExpertoABMPSM {
         return dto;
     }
 
-    public void altaPSM(String simbolo) throws Exception{
+    public void altaPSM(DTOABMPSM dto) throws Exception{
 
         List<ParametroSimboloMoneda> parametrosSistema = repositorioParametroSimboloMoneda.findAll(Sort.by("fhaPSM"));
 
@@ -53,18 +53,19 @@ public class ExpertoABMPSM {
         }
 
         for(ParametroSimboloMoneda parametro: parametrosSistema){
-            if(parametro.getSimboloMonedaPorDefecto().equals(simbolo)){
+            if(parametro.getSimboloMonedaPorDefecto().equals(dto.getSimbolo())){
                 throw new Exception("Error, el simbolo ingresado ya existe");
             }
         }
 
         ParametroSimboloMoneda psm = ParametroSimboloMoneda.builder()
-                .simboloMonedaPorDefecto(simbolo)
-                .fhaPSM(new Date())
+                .simboloMonedaPorDefecto(dto.getSimbolo())
+                .fhaPSM(dto.getFechaInicio())
+                .fhbPSM(dto.getFechaFin())
                 .build();
 
         SingletonCortarSuperpuestas singletonCortarSuperpuestas = SingletonCortarSuperpuestas.getInstancia();
-        singletonCortarSuperpuestas.cortar(repositorioParametroSimboloMoneda, new Date(), null, 0L);
+        singletonCortarSuperpuestas.cortar(repositorioParametroSimboloMoneda, dto.getFechaInicio(), dto.getFechaFin(), 0L);
 
 
         repositorioParametroSimboloMoneda.save(psm);
