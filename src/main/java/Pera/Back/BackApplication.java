@@ -47,7 +47,7 @@ public class BackApplication {
 	public CommandLineRunner init() {
 		return args -> {
 
-			SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+			/*SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm:ss");
 			String fechaString = "2023-03-03";
 			String horaString = "21:03:05";
@@ -187,7 +187,7 @@ public class BackApplication {
 					.build();
 
 			repositorioParametroSimboloMoneda.save(parametroSimboloMoneda);
-
+			*/
 		};
 	}
 }

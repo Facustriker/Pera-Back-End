@@ -21,7 +21,7 @@ public interface RepositorioTransferencia extends BaseRepository<Transferencia, 
 
     @Query("SELECT t " +
             "FROM Transferencia t " +
-            "WHERE (origen IN :cuentaBancaria OR destino IN :cuentaBancaria) " +
+            "WHERE (origen = :cuentaBancaria OR destino = :cuentaBancaria) " +
             "AND fhTransferencia >= :fechaDesde AND fhTransferencia <= :fechaHasta")
     Collection<Transferencia> getTransferenciasDeCuentaBancaria(@Param("cuentaBancaria")Optional<CuentaBancaria> cuentaBancaria, @Param("fechaDesde") Date fechaDesde, @Param("fechaHasta") Date fechaHasta);
 }
