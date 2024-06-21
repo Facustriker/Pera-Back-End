@@ -1,7 +1,9 @@
 package Pera.Back.CU.CU28_VerReportes;
 
 import Pera.Back.Entities.Banco;
+import Pera.Back.Entities.CuentaBancaria;
 import Pera.Back.Entities.PrecioPremium;
+import Pera.Back.Entities.Transferencia;
 import Pera.Back.Repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -94,7 +96,16 @@ public class ExpertoVerReportes {
             DTOItemHistograma item = DTOItemHistograma.builder()
                     .label(format.format(desde) + "-" + format.format(hasta))
                     .build();
-            item.values.add(repositorioBanco.getMontosTransferidosBanco(desde, hasta, banco));
+            Double monto = 0.0;
+            for (Transferencia transferencia : repositorioBanco.getMontosTransferidos(desde, hasta)) {
+                CuentaBancaria CO = transferencia.getOrigen();
+                CuentaBancaria CD = transferencia.getDestino();
+                if (CO != null && Objects.equals(CO.getBanco().getId(), banco.getId())
+                || CD != null && Objects.equals(CD.getBanco().getId(), banco.getId())) {
+                    monto += transferencia.getMontoTransferencia();
+                }
+            }
+            item.values.add(monto.longValue());
             ret.addItem(item);
         }
         return ret;

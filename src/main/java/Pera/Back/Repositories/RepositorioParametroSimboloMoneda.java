@@ -53,6 +53,7 @@ public interface RepositorioParametroSimboloMoneda extends BaseRepository<Parame
     
     @Query("SELECT simboloMonedaPorDefecto " +
             "FROM ParametroSimboloMoneda psm " +
-            "WHERE psm.fhbPSM IS NULL OR CURRENT_TIMESTAMP < psm.fhbPSM")
+            "WHERE psm.fhaPSM <= CURRENT_TIMESTAMP " +
+            "AND (psm.fhbPSM IS NULL OR CURRENT_TIMESTAMP < psm.fhbPSM)")
     String obtenerSimboloVigente();
 }

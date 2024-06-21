@@ -44,6 +44,12 @@ public class ExpertoAdministrarBancoPropio {
             throw new Exception("Solo el dueño del banco puede modificar esta información");
         }
 
+        if(dto.getNombre().trim().isEmpty())
+            throw new Exception("El nombre no puede quedar en blanco");
+
+        if(dto.getSimboloMoneda().trim().isEmpty())
+            throw new Exception("El símbolo de la moneda no puede quedar en blanco");
+
         banco.get().setNombreBanco(dto.getNombre());
         banco.get().setSimboloMoneda(dto.getSimboloMoneda());
         banco.get().setHabilitacionAutomatica(dto.isHabilitacionAutomatica());

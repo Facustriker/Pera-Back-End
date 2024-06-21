@@ -11,6 +11,7 @@ import Pera.Back.Repositories.RepositorioConfiguracionRol;
 import Pera.Back.Repositories.RepositorioUsuarioRol;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,12 @@ public class ExpertoLoguearUsuario {
     private final RepositorioUsuarioRol repositorioUsuarioRol;
     private final RepositorioConfiguracionRol repositorioConfiguracionRol;
 
-    public DTOAuthResponse login(DTOLoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+    public DTOAuthResponse login(DTOLoginRequest request) throws Exception {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        } catch (BadCredentialsException e) {
+            throw new Exception("El usuario o lo contraseña son incorrectos");
+        }
         UserDetails user = repositorioAuthUsuario.findByUsername(request.getEmail()).orElseThrow();
         String token = jwtService.getToken(user);
 

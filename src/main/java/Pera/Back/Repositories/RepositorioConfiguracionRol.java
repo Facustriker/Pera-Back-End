@@ -75,7 +75,7 @@ public interface RepositorioConfiguracionRol extends BaseRepository<Configuracio
     @Query("SELECT c " +
             "FROM ConfiguracionRol c " +
             "WHERE id = :nroConfig " +
-            "AND fhaCR > CURRENT_TIMESTAMP AND (fhbCR IS NULL OR fhbCR > CURRENT_TIMESTAMP)")
+            "AND fhaCR <= CURRENT_TIMESTAMP AND (fhbCR IS NULL OR fhbCR > CURRENT_TIMESTAMP)")
     Optional<ConfiguracionRol> obtenerConfiguracionVigentePorNumeroConfiguracion(@Param("nroConfig") Long nroConfig);
 
 
