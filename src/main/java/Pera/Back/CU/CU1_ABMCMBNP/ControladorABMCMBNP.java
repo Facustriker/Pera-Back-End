@@ -1,5 +1,4 @@
-package Pera.Back.CU.CU9_ABMPSM;
-
+package Pera.Back.CU.CU1_ABMCMBNP;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,29 +7,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping(path = "/ABMPSM")
-public class ControladorABMPSM {
+@RequestMapping(path = "/ABMCMBNP")
+public class ControladorABMCMBNP {
 
     @Autowired
-    protected ExpertoABMPSM experto;
+    protected ExpertoABMCMBNP experto;
 
-    @GetMapping("/getSimbolosMoneda")
-    public ResponseEntity<?> getSimbolosMoneda() {
+    @GetMapping("/getCantidades")
+    public ResponseEntity<?> getCantidadesBNP() {
         try {
-            Collection<DTOABMPSM> ret = experto.getSimbolosMoneda();
+            Collection<DTOABMCMBNP> ret = experto.getCantidadesBNP();
             return ResponseEntity.ok(ret);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @PostMapping("/altaPSM")
-    public ResponseEntity<?> altaPSM(@RequestBody DTOABMPSM dto) {
+    @PostMapping("/confirmar")
+    public ResponseEntity<?> confirmarBNP(@RequestBody DTOABMCMBNP dto) {
         try {
-            experto.altaPSM(dto);
+            experto.confirmarBNP(dto);
             return ResponseEntity.ok("");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 }

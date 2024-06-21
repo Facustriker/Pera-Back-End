@@ -1,9 +1,11 @@
 package Pera.Back.CU.CU9_ABMPSM;
 
 import Pera.Back.Entities.ParametroSimboloMoneda;
+import Pera.Back.Functionalities.CortarSuperpuestas.SingletonCortarSuperpuestas;
 import Pera.Back.Repositories.RepositorioParametroSimboloMoneda;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -42,24 +44,29 @@ public class ExpertoABMPSM {
         return dto;
     }
 
-    public void altaPSM(String simbolo) throws Exception{
+    public void altaPSM(DTOABMPSM dto) throws Exception{
 
-        List<ParametroSimboloMoneda> parametrosSistema = repositorioParametroSimboloMoneda.findAll();
+        List<ParametroSimboloMoneda> parametrosSistema = repositorioParametroSimboloMoneda.findAll(Sort.by("fhaPSM"));
 
         if(parametrosSistema.isEmpty()){
             throw new Exception("No se han encontrado simbolos de monedas");
         }
 
         for(ParametroSimboloMoneda parametro: parametrosSistema){
-            if(parametro.getSimboloMonedaPorDefecto().equals(simbolo)){
+            if(parametro.getSimboloMonedaPorDefecto().equals(dto.getSimbolo())){
                 throw new Exception("Error, el simbolo ingresado ya existe");
             }
         }
 
         ParametroSimboloMoneda psm = ParametroSimboloMoneda.builder()
-                .simboloMonedaPorDefecto(simbolo)
-                .fhaPSM(new Date())
+                .simboloMonedaPorDefecto(dto.getSimbolo())
+                .fhaPSM(dto.getFechaInicio())
+                .fhbPSM(dto.getFechaFin())
                 .build();
+
+        SingletonCortarSuperpuestas singletonCortarSuperpuestas = SingletonCortarSuperpuestas.getInstancia();
+        singletonCortarSuperpuestas.cortar(repositorioParametroSimboloMoneda, dto.getFechaInicio(), dto.getFechaFin(), 0L);
+
 
         repositorioParametroSimboloMoneda.save(psm);
 

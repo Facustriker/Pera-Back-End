@@ -14,7 +14,7 @@ public class ControladorTransferirDinero {
     protected ExpertoTransferirDinero experto;
 
     @PostMapping("/{nroCB}")
-    public ResponseEntity<?> almacenarCBOrigen(@RequestBody Long nroCB) {
+    public ResponseEntity<?> almacenarCBOrigen(@PathVariable Long nroCB) {
         try {
             experto.almacenarCBOrigen(nroCB);
             return ResponseEntity.ok("");

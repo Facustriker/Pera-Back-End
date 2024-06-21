@@ -1,13 +1,13 @@
 package Pera.Back.CU.CU4_ABMConfiguracionRol;
 
-import Pera.Back.Entities.ConfiguracionRol;
-import Pera.Back.Entities.Permiso;
-import Pera.Back.Entities.Rol;
+import Pera.Back.Entities.*;
+import Pera.Back.Functionalities.CortarSuperpuestas.SingletonCortarSuperpuestas;
 import Pera.Back.Repositories.RepositorioConfiguracionRol;
 import Pera.Back.Repositories.RepositorioPermiso;
 import Pera.Back.Repositories.RepositorioRol;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class ExpertoABMConfiguracionRol {
 
     public Collection<DTOABMConfiguracionRol> getConfiguraciones() throws Exception{
 
-        Collection<ConfiguracionRol> configuracionesSistema = repositorioConfiguracionRol.findAll();
+        Collection<ConfiguracionRol> configuracionesSistema = repositorioConfiguracionRol.findAll(Sort.by("rol.nombreRol", "fhaCR"));
 
         if(configuracionesSistema.isEmpty()){
             throw new Exception("Error, no se han encontrado configuraciones");
@@ -95,19 +95,48 @@ public class ExpertoABMConfiguracionRol {
                 .fhbCR(dto.getFechaFin())
                 .build();
 
-        Rol rol = Rol.builder()
-                .nombreRol(dto.getNombreRol())
-                .build();
+        Optional<Rol> optR = repositorioRol.obtenerRolPorNombre((dto.getNombreRol()));
+
+        if(optR.isEmpty()) {
+            throw new Exception("No se encontró el rol");
+        }
+
+        Rol rol = optR.get();
+
 
         configuracionNueva.setRol(rol);
 
-        for(String permiso: dto.getPermisos()){
-            Permiso permisoNuevo = Permiso.builder()
-                    .nombrePermiso(permiso)
-                    .build();
+        for(String p: dto.getPermisos()){
+            Optional<Permiso> optP = repositorioPermiso.findByNombrePermiso(p);
 
-            configuracionNueva.addPermiso(permisoNuevo);
+            if(optP.isEmpty()) {
+                throw new Exception("No se encontró el permiso \"" + p + "\"");
+            }
+
+            Permiso permiso = optP.get();
+
+            configuracionNueva.addPermiso(permiso);
         }
+
+        Optional<ConfiguracionRol> optCrAnterior = repositorioConfiguracionRol.obtenerVigentePorRol(rol);
+
+        if(optCrAnterior.isEmpty()) throw new Exception("No se pudo registrar el nuevo vínculo ya que no se encontró el anterior");
+
+        ConfiguracionRol crAnterior = optCrAnterior.get();
+
+        SingletonCortarSuperpuestas singletonCortarSuperpuestas = SingletonCortarSuperpuestas.getInstancia();
+        singletonCortarSuperpuestas.cortar(repositorioConfiguracionRol, dto.getFechaInicio(), dto.getFechaFin(), rol.getId());
+
+        if(crAnterior.getFhaCR().before(configuracionNueva.getFhaCR()) && (crAnterior.getFhbCR() == null || crAnterior.getFhbCR().after(configuracionNueva.getFhbCR()))) {
+            //Es envolvente
+            ConfiguracionRol crDividida = repositorioConfiguracionRol.obtenerCRDividida(configuracionNueva.getFhbCR(), crAnterior.getFhbCR());
+            for (Permiso permiso : crAnterior.getPermisos()) {
+                crDividida.addPermiso(permiso);
+            }
+            crDividida.setRol(crAnterior.getRol());
+            repositorioConfiguracionRol.save(crDividida);
+        }
+
 
         repositorioConfiguracionRol.save(configuracionNueva);
     }

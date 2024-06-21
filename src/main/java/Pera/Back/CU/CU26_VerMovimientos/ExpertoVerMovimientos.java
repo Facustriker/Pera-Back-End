@@ -157,7 +157,7 @@ public class ExpertoVerMovimientos {
                         tipoT = "Envio";
                         nroCBT = transferencia.getDestino().getId();
                         titularCBT = transferencia.getDestino().getTitular().getNombreUsuario();
-                        if(!(titularCBT.equals(dtoFiltros.filtroNombreUsuario))){
+                        if(!(titularCBT.toUpperCase().contains(dtoFiltros.filtroNombreUsuario.toUpperCase()))){
                             continue;
                         }
                     }else{
@@ -166,13 +166,13 @@ public class ExpertoVerMovimientos {
                             if(cbOrigen==null){
                                 nroCBT = 0L;
                                 titularCBT = "Banco";
-                                if(!(titularCBT.equals(dtoFiltros.filtroNombreUsuario))){
+                                if(!(titularCBT.toUpperCase().contains(dtoFiltros.filtroNombreUsuario.toUpperCase()))){
                                     continue;
                                 }
                             }else{
                                 nroCBT = transferencia.getOrigen().getId();
                                 titularCBT = transferencia.getOrigen().getTitular().getNombreUsuario();
-                                if(!(titularCBT.equals(dtoFiltros.filtroNombreUsuario))){
+                                if(!(titularCBT.toUpperCase().contains(dtoFiltros.filtroNombreUsuario.toUpperCase()))){
                                     continue;
                                 }
                             }
@@ -213,7 +213,7 @@ public class ExpertoVerMovimientos {
                         tipoT = "Envio";
                         nroCBT = transferencia.getDestino().getId();
                         titularCBT = transferencia.getDestino().getTitular().getNombreUsuario();
-                        if(!(titularCBT.equals(dtoFiltros.filtroNombreUsuario)) && (nroCBT==Long.parseLong(dtoFiltros.filtroNroCB))){
+                        if(!(titularCBT.toUpperCase().contains(dtoFiltros.filtroNombreUsuario.toUpperCase())) && (nroCBT==Long.parseLong(dtoFiltros.filtroNroCB))){
                             continue;
                         }
                     }else{
@@ -222,13 +222,13 @@ public class ExpertoVerMovimientos {
                             if(cbOrigen==null){
                                 nroCBT = 0L;
                                 titularCBT = "Banco";
-                                if(!(titularCBT.equals(dtoFiltros.filtroNombreUsuario)) && !(nroCBT==Long.parseLong(dtoFiltros.filtroNroCB))){
+                                if(!(titularCBT.toUpperCase().contains(dtoFiltros.filtroNombreUsuario.toUpperCase())) && !(nroCBT==Long.parseLong(dtoFiltros.filtroNroCB))){
                                     continue;
                                 }
                             }else{
                                 nroCBT = transferencia.getOrigen().getId();
                                 titularCBT = transferencia.getOrigen().getTitular().getNombreUsuario();
-                                if(!(titularCBT.equals(dtoFiltros.filtroNombreUsuario)) && !(nroCBT==Long.parseLong(dtoFiltros.filtroNroCB))){
+                                if(!(titularCBT.toUpperCase().contains(dtoFiltros.filtroNombreUsuario.toUpperCase())) && !(nroCBT==Long.parseLong(dtoFiltros.filtroNroCB))){
                                     continue;
                                 }
                             }

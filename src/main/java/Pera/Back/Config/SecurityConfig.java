@@ -39,7 +39,6 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests( auth -> auth
-                        .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/RegistrarUsuario/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/LoguearUsuario/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/CambiarContrasena/**")).permitAll()
@@ -67,7 +66,10 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/ABMConfiguracionRol/**")).hasAnyAuthority("ADMIN_PARAMETROS")
                         .requestMatchers(new AntPathRequestMatcher("/ABMConfiguracionPrecioPremium/**")).hasAnyAuthority("ADMIN_PARAMETROS")
                         .requestMatchers(new AntPathRequestMatcher("/VerReportes/**")).hasAnyAuthority("VER_REPORTES")
-                        .requestMatchers(PathRequest.toH2Console()).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/ABMCMBNP/**")).hasAnyAuthority("ADMIN_PARAMETROS")
+                        .requestMatchers(new AntPathRequestMatcher("/ABMCMCBP/**")).hasAnyAuthority("ADMIN_PARAMETROS")
+                        .requestMatchers(new AntPathRequestMatcher("/ABMCMCOB/**")).hasAnyAuthority("ADMIN_PARAMETROS")
+                        .requestMatchers(new AntPathRequestMatcher("/ABMMDP/**")).hasAnyAuthority("ADMIN_PARAMETROS")
                         
                 )
                 .cors(withDefaults())

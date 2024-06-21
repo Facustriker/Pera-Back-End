@@ -66,12 +66,8 @@ public class ExpertoRegistrarUsuario {
                 .verificationCode(codigo)
                 .build();
 
-        Optional<Rol> rol;
-        if("admin@gmail.com".equals(usuario.getMail())){
-            rol = repositorioRol.obtenerRolPorNombre("Administrador del Sistema");
-        }else{
-            rol = repositorioRol.obtenerRolPorNombre("No Premium");
-        }
+        Optional<Rol> rol = repositorioRol.obtenerRolPorNombre("No Premium");
+        if (rol.isEmpty()) throw new Exception("No se pudo registrar al usuario, pues el rol por defecto no fue encontrado");
         usuario.setRolActual(rol.get());
 
         repositorioAuthUsuario.save(authUsuario);
