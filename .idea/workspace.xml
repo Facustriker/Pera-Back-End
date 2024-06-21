@@ -5,14 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faac9d82-efbb-4ea2-b94a-c1dae1e3e7c1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/Pera/Back/Integracion/Transferencias.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU24_TransferirDinero/ControladorTransferirDinero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU24_TransferirDinero/ControladorTransferirDinero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU11_AdministrarBancoPropio/ExpertoAdministrarBancoPropio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU11_AdministrarBancoPropio/ExpertoAdministrarBancoPropio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU15_AdministrarDatosDelUsuario/ExpertoAdministrarDatosDelUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU15_AdministrarDatosDelUsuario/ExpertoAdministrarDatosDelUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU21_LoguearUsuario/ExpertoLoguearUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU21_LoguearUsuario/ExpertoLoguearUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU24_TransferirDinero/ExpertoTransferirDinero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU24_TransferirDinero/ExpertoTransferirDinero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU26_VerMovimientos/ExpertoVerMovimientos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU26_VerMovimientos/ExpertoVerMovimientos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco/ExpertoVerMovimientosDeBanco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU27_VerMovimientosDeBanco/ExpertoVerMovimientosDeBanco.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU28_VerReportes/ExpertoVerReportes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU28_VerReportes/ExpertoVerReportes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioBanco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioBanco.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioConfiguracionRol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioConfiguracionRol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioParametroSimboloMoneda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/Repositories/RepositorioParametroSimboloMoneda.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +59,7 @@
     "Gradle.Pera-Back-End [:BackApplication.main()].executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "seba4",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/saoga/OneDrive/Escritorio/Repos/Pera-Back-End/src/main/java/Pera/Back/CU/CU12_AdministrarBancos",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
@@ -77,7 +81,7 @@
       <recent name="Pera.Back.CU.MisCuentasBancarias" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Transferencias.generarTransferencia">
+  <component name="RunManager" selected="Application.BackApplication">
     <configuration name="BackApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Pera.Back.BackApplication" />
       <module name="Back.main" />

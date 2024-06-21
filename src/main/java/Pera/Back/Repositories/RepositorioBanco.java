@@ -2,6 +2,7 @@ package Pera.Back.Repositories;
 
 import Pera.Back.CU.MisBancos.DTOMisBancos;
 import Pera.Back.Entities.Banco;
+import Pera.Back.Entities.Transferencia;
 import Pera.Back.Entities.Usuario;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -85,11 +86,9 @@ public interface RepositorioBanco extends BaseRepository<Banco, Long>{
             "WHERE CAST(fhbBanco as date) >= :desde AND CAST(fhbBanco as date) < :hasta")
     Long getCantidadBancosBajaEntre(@Param("desde") Date desde, @Param("hasta") Date hasta);
 
-    @Query("SELECT SUM(t.montoTransferencia) " +
+    @Query("SELECT t " +
             "FROM Transferencia t " +
-            "LEFT JOIN t.origen o ON o.banco = :banco " +
-            "LEFT JOIN t.destino d ON d.banco = :banco " +
-            "WHERE CAST(fhTransferencia as date) >= :desde AND CAST(fhTransferencia as date) < :hasta " +
+            "WHERE CAST(t.fhTransferencia as date) >= :desde AND CAST(t.fhTransferencia as date) < :hasta " +
             "AND t.anulada = false")
-    Long getMontosTransferidosBanco(@Param("desde") Date desde, @Param("hasta") Date hasta, @Param("banco") Banco banco);
+    Collection<Transferencia> getMontosTransferidos(@Param("desde") Date desde, @Param("hasta") Date hasta);
 }

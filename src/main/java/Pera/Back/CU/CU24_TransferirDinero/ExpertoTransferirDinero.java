@@ -65,28 +65,35 @@ public class ExpertoTransferirDinero {
         if (transferencia == null) {
             throw new Exception("Ingrese la cuenta bancaria de origen de fondos");
         }
-        Optional<CuentaBancaria> cuentaDestino = repositorioCuentaBancaria.obtenerCuentaVigentePorAliasUsuario(alias);
-        if (cuentaDestino.isEmpty()) {
-            throw new Exception("Error: No se encontró la cuenta bancaria con alias: " + alias);
+
+        if (!alias.isEmpty()) {
+            Optional<CuentaBancaria> cuentaDestino = repositorioCuentaBancaria.obtenerCuentaVigentePorAliasUsuario(alias);
+            if (cuentaDestino.isEmpty()) {
+                throw new Exception("Error: No se encontró la cuenta bancaria con alias: " + alias);
+            }
+
+            if (transferencia.getOrigen().getId().longValue() == cuentaDestino.get().getId().longValue()) {
+                throw new Exception("No puede transferir a la misma cuenta");
+            }
+            transferencia.setDestino(cuentaDestino.get());
+        } else {
+            transferencia.setDestino(null);
         }
 
-        if(transferencia.getOrigen().getId().longValue() == cuentaDestino.get().getId().longValue()) {
-            throw new Exception("No puede transferir a la misma cuenta");
-        }
 
-        transferencia.setDestino(cuentaDestino.get());
+
         memoria.setTransferencia(transferencia);
     }
 
     public DTODatosIngresarMonto getDatosIngresarMonto() throws Exception{
 
         Transferencia transferencia = memoria.getTransferencia();
-        if (transferencia == null || transferencia.getDestino() == null) {
-            throw new Exception("Ingrese la cuenta bancaria de origen de fondos y de destino");
+        if (transferencia == null) {
+            throw new Exception("Ingrese la cuenta bancaria de origen de fondos");
         }
         
-        String alias = transferencia.getDestino().getAlias();
-        Long nroCBDestino = transferencia.getDestino().getId();
+        String alias = transferencia.getDestino() != null ? transferencia.getDestino().getAlias() : "Banco " + transferencia.getOrigen().getBanco().getNombreBanco();
+        Long nroCBDestino = transferencia.getDestino() != null ? transferencia.getDestino().getId() : null;
 
         DTODatosIngresarMonto dto = DTODatosIngresarMonto.builder()
                 .aliasCuentaDestino(alias)
@@ -99,13 +106,17 @@ public class ExpertoTransferirDinero {
     public void ingresarMontoYMotivo(DTOMontoMotivo montoMotivo) throws Exception{
 
         Transferencia transferencia = memoria.getTransferencia();
-        if (transferencia == null || transferencia.getDestino() == null) {
+        if (transferencia == null) {
             throw new Exception("Ingrese la cuenta bancaria de origen de fondos y de destino");
         }
         
         Double montoDineroOrigen = transferencia.getOrigen().getMontoDinero();
         Double montoIngresado = montoMotivo.getMonto();
         String motivoIngresado = montoMotivo.getMotivo();
+
+        if(montoIngresado <= 0.0){
+            throw new Exception("Error: El monto no puede ser negativo o 0");
+        }
 
         if(montoIngresado > montoDineroOrigen){
             throw new Exception("Error: No tiene suficiente dinero disponible en la cuenta");
@@ -128,7 +139,7 @@ public class ExpertoTransferirDinero {
         CuentaBancaria cuentaOrigen = transferencia.getOrigen();
         Long nroCBOrigen = cuentaOrigen.getId();
         CuentaBancaria cuentaDestino = transferencia.getDestino();
-        Long nroCBDestino = cuentaDestino.getId();
+        Long nroCBDestino = cuentaDestino != null ? cuentaDestino.getId() : null;
         String motivo = transferencia.getMotivo();
         Double monto = transferencia.getMontoTransferencia();
 
@@ -169,21 +180,23 @@ public class ExpertoTransferirDinero {
 
         transferencia.setOrigen(optC.get());
 
+        if(transferencia.getDestino() != null) {
+            optC = repositorioCuentaBancaria.findById(transferencia.getDestino().getId());
 
-         optC = repositorioCuentaBancaria.findById(transferencia.getDestino().getId());
-
-        if(optC.isEmpty()) {
-            memoria.setTransferencia(null);
-            throw new Exception("La cuenta bancaria de destino no es válida");
+            if (optC.isEmpty()) {
+                memoria.setTransferencia(null);
+                throw new Exception("La cuenta bancaria de destino no es válida");
+            }
+            transferencia.setDestino(optC.get());
         }
 
-        transferencia.setDestino(optC.get());
+
 
         transferencia.getOrigen().setMontoDinero((montoDineroCBOrigen)-(montoTransferencia));
-
-        Double montoDineroCBDestino = transferencia.getDestino().getMontoDinero();
-        transferencia.getDestino().setMontoDinero((montoDineroCBDestino)+(montoTransferencia));
-
+        if(transferencia.getDestino() != null) {
+            Double montoDineroCBDestino = transferencia.getDestino().getMontoDinero();
+            transferencia.getDestino().setMontoDinero((montoDineroCBDestino) + (montoTransferencia));
+        }
         transferencia = repositorioTransferencia.save(transferencia);
 
         memoria.setTransferencia(null);

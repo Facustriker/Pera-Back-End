@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -44,6 +45,13 @@ public class ExpertoRegistrarUsuario {
 
         if(request.getEmail().equals("")){
             throw new Exception("Debe ingresar un email");
+        }
+
+        if(!Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*" +
+                        "@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
+                .matcher(request.getEmail())
+                .matches()) {
+            throw new Exception("Email inválido");
         }
 
         if(request.getPassword().equals("")){

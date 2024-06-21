@@ -66,7 +66,7 @@ public class ExpertoVerMovimientosDeBanco {
         Transferencia transferencia = getTransferencia(nroTransferencia);
 
         //Mientras las transferencias sean entre CBs de un mismo banco, esto está bien
-        Banco banco = transferencia.getDestino().getBanco();
+        Banco banco = transferencia.getDestino() != null ? transferencia.getDestino().getBanco() : transferencia.getOrigen().getBanco();
 
         getCBBanquero(banco);
 

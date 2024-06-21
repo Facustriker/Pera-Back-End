@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +50,13 @@ public class ExpertoAdministrarDatosDelUsuario {
 
         if (dto.getEmail().isEmpty()) {
             throw new Exception("Debe ingresar su mail");
+        }
+
+        if(!Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*" +
+                        "@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
+                .matcher(dto.getEmail())
+                .matches()) {
+            throw new Exception("Email inválido");
         }
 
         Optional<AuthUsuario> prev = repositorioAuthUsuario.findByUsername(dto.getEmail());
