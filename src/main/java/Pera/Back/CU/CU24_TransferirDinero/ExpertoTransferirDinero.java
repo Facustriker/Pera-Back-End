@@ -51,6 +51,14 @@ public class ExpertoTransferirDinero {
             throw new Exception("Error: No se encontró la cuenta bancaria N.° " + nroCB);
         }
 
+        if (!memoria.getTransferencia().getOrigen().isHabilitada()) {
+            throw new Exception("Su cuenta bancaria no se encuentra habilitada");
+        }
+
+        if (!cuentaDestino.get().isHabilitada()) {
+            throw new Exception("La cuenta bancaria ingresada no se encuentra habilitada");
+        }
+
         if(transferencia.getOrigen().getId().longValue() == cuentaDestino.get().getId().longValue()) {
             throw new Exception("No puede transferir a la misma cuenta");
         }

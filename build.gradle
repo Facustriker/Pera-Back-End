@@ -48,6 +48,12 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 
+
+	// https://mvnrepository.com/artifact/org.eclipse.angus/angus-mail
+	implementation 'org.eclipse.angus:angus-mail:2.0.3'
+
+
+
 // https://mvnrepository.com/artifact/org.springframework.session/spring-session-jdbc
 	implementation group: 'org.springframework.session', name: 'spring-session-jdbc', version: '3.1.4'
 // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc

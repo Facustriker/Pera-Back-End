@@ -46,7 +46,7 @@ public class ExpertoVerReportes {
             }
 
             DTOItemHistograma item = DTOItemHistograma.builder()
-                    .label(rangoDesde + "-" + rangoHasta)
+                    .label(intervalo == 1 ? "" + rangoDesde : rangoDesde + "-" + (rangoHasta - 1))
                     .build();
             item.values.add(valor);
             ret.addItem(item);
@@ -62,12 +62,16 @@ public class ExpertoVerReportes {
 
         while (calendar.getTime().before(fechaFin)) {
             Date desde = calendar.getTime();
-            calendar.add(Calendar.DATE, intervalo.intValue());
+            calendar.add(Calendar.DATE, intervalo.intValue() - 1);
             Date hasta = calendar.getTime();
 
             DTOItemHistograma item = DTOItemHistograma.builder()
                     .label(format.format(desde) + "-" + format.format(hasta))
                     .build();
+
+            calendar.add(Calendar.DATE, 1);
+            hasta = calendar.getTime();
+
             item.values.add(repositorioBanco.getCantidadBancosAltaEntre(desde, hasta));
             item.values.add(repositorioBanco.getCantidadBancosBajaEntre(desde, hasta));
             ret.addItem(item);
@@ -90,12 +94,14 @@ public class ExpertoVerReportes {
 
         while (calendar.getTime().before(fechaFin)) {
             Date desde = calendar.getTime();
-            calendar.add(Calendar.DATE, intervalo.intValue());
+            calendar.add(Calendar.DATE, intervalo.intValue() - 1);
             Date hasta = calendar.getTime();
 
             DTOItemHistograma item = DTOItemHistograma.builder()
                     .label(format.format(desde) + "-" + format.format(hasta))
                     .build();
+            calendar.add(Calendar.DATE, 1);
+            hasta = calendar.getTime();
             Double monto = 0.0;
             for (Transferencia transferencia : repositorioBanco.getMontosTransferidos(desde, hasta)) {
                 CuentaBancaria CO = transferencia.getOrigen();
@@ -119,12 +125,14 @@ public class ExpertoVerReportes {
 
         while (calendar.getTime().before(fechaFin)) {
             Date desde = calendar.getTime();
-            calendar.add(Calendar.DATE, intervalo.intValue());
+            calendar.add(Calendar.DATE, intervalo.intValue() - 1);
             Date hasta = calendar.getTime();
 
             DTOItemHistograma item = DTOItemHistograma.builder()
                     .label(format.format(desde) + "-" + format.format(hasta))
                     .build();
+            calendar.add(Calendar.DATE, 1);
+            hasta = calendar.getTime();
             item.values.add(repositorioUsuario.getCantidadUsuariosAltaEntre(desde, hasta));
             ret.addItem(item);
         }
@@ -142,5 +150,23 @@ public class ExpertoVerReportes {
             ret.addItem(item);
         }
         return ret;
+    }
+
+
+
+    public Collection<DTOBancoBuscado> getBancos(String nombreBanco) {
+        Collection<Banco> bancos = repositorioBanco.buscarBancosVigentesYHabilitados(nombreBanco);
+
+        ArrayList<DTOBancoBuscado> dtos = new ArrayList<>();
+
+        for (Banco banco : bancos) {
+            DTOBancoBuscado dto = DTOBancoBuscado.builder()
+                    .id(banco.getId())
+                    .nombre(banco.getNombreBanco())
+                    .build();
+            dtos.add(dto);
+        }
+
+        return dtos;
     }
 }
