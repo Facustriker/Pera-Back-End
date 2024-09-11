@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faac9d82-efbb-4ea2-b94a-c1dae1e3e7c1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU28_VerReportes/DTOBancoBuscado.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU18_CambiarContrasena/ExpertoCambiarContrasena.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU18_CambiarContrasena/ExpertoCambiarContrasena.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU21_LoguearUsuario/ExpertoLoguearUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU21_LoguearUsuario/ExpertoLoguearUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU22_RegistrarUsuario/DTOAuthResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU22_RegistrarUsuario/DTOAuthResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU22_RegistrarUsuario/ExpertoRegistrarUsuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU24_TransferirDinero/ExpertoTransferirDinero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU24_TransferirDinero/ExpertoTransferirDinero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU28_VerReportes/ControladorVerReportes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU28_VerReportes/ControladorVerReportes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU28_VerReportes/ExpertoVerReportes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pera/Back/CU/CU28_VerReportes/ExpertoVerReportes.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

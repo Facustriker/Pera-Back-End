@@ -15,6 +15,7 @@ public class DTOAuthResponse {
 
     String token;
     String error;
+    String nombre;
 
     Collection<String> permisos;
 }

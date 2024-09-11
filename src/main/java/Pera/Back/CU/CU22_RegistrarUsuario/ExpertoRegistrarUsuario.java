@@ -155,6 +155,7 @@ public class ExpertoRegistrarUsuario {
         return DTOAuthResponse.builder()
                 .token(jwtService.getToken(authUsuario))
                 .permisos(permisos)
+                .nombre(authUsuario.getUsuario().getNombreUsuario())
                 .build();
     }
 

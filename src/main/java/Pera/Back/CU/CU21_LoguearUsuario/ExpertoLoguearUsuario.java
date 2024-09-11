@@ -36,7 +36,8 @@ public class ExpertoLoguearUsuario {
         } catch (BadCredentialsException e) {
             throw new Exception("El usuario o lo contraseña son incorrectos");
         }
-        UserDetails user = repositorioAuthUsuario.findByUsername(request.getEmail()).orElseThrow();
+        AuthUsuario authUsuario = repositorioAuthUsuario.findByUsername(request.getEmail()).orElseThrow();
+        UserDetails user = authUsuario;
         String token = jwtService.getToken(user);
 
         Collection<String> permisos = new ArrayList<>();
@@ -52,6 +53,7 @@ public class ExpertoLoguearUsuario {
         return DTOAuthResponse.builder()
                 .token(token)
                 .permisos(permisos)
+                .nombre(authUsuario.getUsuario().getNombreUsuario())
                 .build();
     }
 
