@@ -49,13 +49,13 @@ El sistema sigue una arquitectura **multicapa**:
 ├─────────────────────────────────────┤
 │         Clases Servicio (HTTP)      │  ← Front-End (repo separado)
 ├─────────────────────────────────────┤
-│        Clases Controlador (HTTP)    │  ← Back-End ✅
+│        Clases Controlador (HTTP)    │  ← Back-End
 ├─────────────────────────────────────┤
-│          Clases Experto (Lógica)    │  ← Back-End ✅
+│          Clases Experto (Lógica)    │  ← Back-End
 ├─────────────────────────────────────┤
-│        Clases Repositorio (BD)      │  ← Back-End ✅
+│        Clases Repositorio (BD)      │  ← Back-End
 ├─────────────────────────────────────┤
-│          Base de Datos              │  ← Back-End ✅
+│          Base de Datos              │  ← Back-End
 └─────────────────────────────────────┘
 ```
  
@@ -73,7 +73,7 @@ El sistema sigue una arquitectura **multicapa**:
  
 ```bash
 # 1. Clonar el repositorio
-git clone https://github.com/<usuario>/pera-backend.git
+git clone https://github.com/Facustriker/Pera-Back-End.git
 cd pera-backend
  
 # 2. Configurar las variables de entorno o application.properties
